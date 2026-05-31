@@ -4,27 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>🌙 Nightfall Arcade | Dark & Playful Game Hub</title>
-  <!-- Google Fonts: still friendly but modern for dark mode -->
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    /* DARK THEME — deep cosmic / midnight playground */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: linear-gradient(145deg, #0b0f1c 0%, #1a1f2e 100%);
       font-family: 'Quicksand', sans-serif;
       min-height: 100vh;
       padding: 2rem 1.5rem;
-      position: relative;
     }
-
-    /* Subtle starry overlay (playful dark) */
     body::before {
       content: "✨ 🌙 ⭐ 🎮 🌟 🧸";
       font-size: 70px;
@@ -33,24 +22,10 @@
       right: 10px;
       opacity: 0.08;
       pointer-events: none;
-      white-space: pre;
       z-index: 0;
-      font-weight: normal;
     }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* header area — neon glow effect */
-    .hero {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
+    .container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
+    .hero { text-align: center; margin-bottom: 2rem; }
     .hero h1 {
       font-size: 3rem;
       font-weight: 800;
@@ -59,21 +34,13 @@
       background-clip: text;
       color: transparent;
       text-shadow: 0 0 12px rgba(96, 165, 250, 0.3);
-      letter-spacing: -0.5px;
       display: inline-flex;
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
     }
-
-    .hero h1 i {
-      background: none;
-      color: #a855f7;
-      text-shadow: 0 0 6px #a855f7;
-      font-size: 2.8rem;
-    }
-
+    .hero h1 i { background: none; color: #a855f7; text-shadow: 0 0 6px #a855f7; font-size: 2.8rem; }
     .tagline {
       font-size: 1.2rem;
       font-weight: 600;
@@ -83,27 +50,10 @@
       padding: 0.5rem 1.5rem;
       border-radius: 60px;
       margin-top: 0.8rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05);
-      backdrop-filter: blur(4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
-
-    /* search bar — dark glam */
-    .search-wrapper {
-      max-width: 550px;
-      margin: 1.5rem auto 2rem auto;
-      position: relative;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.4rem;
-      color: #818cf8;
-      pointer-events: none;
-    }
-
+    .search-wrapper { max-width: 550px; margin: 1.5rem auto 2rem auto; position: relative; }
+    .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: #818cf8; }
     #searchInput {
       width: 100%;
       padding: 1rem 1rem 1rem 3.5rem;
@@ -113,317 +63,137 @@
       border: none;
       border-radius: 60px;
       background: #0f1222;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 #2d3250;
-      transition: all 0.2s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
       outline: none;
       color: #f1f5f9;
     }
-
-    #searchInput:focus {
-      box-shadow: 0 0 0 3px #6366f1, 0 8px 20px rgba(0,0,0,0.6);
-      transform: scale(1.01);
-      background: #181e2f;
-    }
-
-    #searchInput::placeholder {
-      color: #64748b;
-      font-weight: 500;
-    }
-
-    /* info bar */
-    .info-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-      margin-bottom: 1.8rem;
-      gap: 12px;
-    }
-
-    .game-counter {
-      background: #1e293b;
-      border-radius: 40px;
-      padding: 0.4rem 1.2rem;
-      font-weight: 700;
-      font-size: 1rem;
-      color: #a5b4fc;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid #334155;
-    }
-
-    .clear-search {
-      background: #4c1d95;
-      border: none;
-      font-family: 'Quicksand', sans-serif;
-      font-weight: 700;
-      padding: 0.4rem 1.3rem;
-      border-radius: 50px;
-      color: #e2e8f0;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 3px 0 #2e1065;
-    }
-
-    .clear-search:active {
-      transform: translateY(2px);
-      box-shadow: 0 1px 0 #2e1065;
-    }
-
-    /* GRID — dark cards with neon pop */
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 1.8rem;
-      margin-top: 0.5rem;
-    }
-
-    /* game card — deep slate with vibrant glow */
+    #searchInput:focus { box-shadow: 0 0 0 3px #6366f1; background: #181e2f; }
+    #searchInput::placeholder { color: #64748b; }
+    .info-bar { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 1.8rem; gap: 12px; }
+    .game-counter { background: #1e293b; border-radius: 40px; padding: 0.4rem 1.2rem; font-weight: 700; color: #a5b4fc; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #334155; }
+    .clear-search { background: #4c1d95; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; padding: 0.4rem 1.3rem; border-radius: 50px; color: #e2e8f0; cursor: pointer; box-shadow: 0 3px 0 #2e1065; transition: all 0.1s; }
+    .clear-search:active { transform: translateY(2px); box-shadow: 0 1px 0 #2e1065; }
+    .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.8rem; margin-top: 0.5rem; }
     .game-card {
-      background: #111827;
-      border-radius: 42px 28px 42px 28px;
-      overflow: hidden;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 28px;
       cursor: pointer;
-      transition: all 0.25s ease-in-out;
-      box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.5);
-      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 12px 20px -8px rgba(0,0,0,0.5);
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 1.8rem 1rem 1.5rem;
+      padding: 1.2rem;
       border: 1px solid #2d3a5e;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      overflow: hidden;
     }
-
-    .game-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 22px 28px -12px #00000080, 0 0 0 2px #818cf8;
-      border-color: #818cf8;
+    .game-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 22px 28px -12px #00000080, 0 0 0 2px #818cf8; border-color: #818cf8; }
+    .game-icon { width: 90px; height: 90px; object-fit: cover; border-radius: 20px; background: #0b0e17; padding: 0.5rem; box-shadow: 0 4px 0 #2d3a5e; margin-bottom: 0.8rem; }
+    .embed-preview {
+      width: 100%;
+      margin-bottom: 0.8rem;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #0f1222;
+      pointer-events: auto;
     }
-
-    /* icon area */
-    .game-icon {
-      width: 110px;
-      height: 110px;
-      object-fit: cover;
-      border-radius: 35px;
-      background: #0b0e17;
-      padding: 0.6rem;
-      box-shadow: 0 6px 0 #2d3a5e;
-      transition: transform 0.2s;
+    .embed-preview iframe, .embed-preview video, .embed-preview object {
+      width: 100%;
+      border: none;
+      display: block;
     }
-
-    .game-card:hover .game-icon {
-      transform: scale(1.02);
-    }
-
-    .game-icon.fallback {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(145deg, #3b2e5e, #261c42);
-      font-size: 3rem;
-      color: #c084fc;
-    }
-
-    .game-name {
-      font-size: 1.35rem;
-      font-weight: 800;
-      margin: 1rem 0 0.3rem;
-      color: #facc15;
-      background: #1e293b;
-      display: inline-block;
-      padding: 0.2rem 0.9rem;
-      border-radius: 50px;
-      width: auto;
-      word-break: break-word;
-      box-shadow: inset 0 1px 1px rgba(0,0,0,0.2);
-    }
-
-    .play-badge {
-      margin-top: 0.6rem;
-      font-size: 0.85rem;
-      font-weight: 700;
-      background: #22c55e;
-      padding: 0.3rem 1rem;
-      border-radius: 30px;
-      color: #022c1a;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 2px 8px rgba(34,197,94,0.3);
-    }
-
-    /* empty state dark */
-    .empty-state {
-      text-align: center;
-      grid-column: 1 / -1;
-      padding: 4rem 1rem;
-      background: #0f172a;
-      border-radius: 70px;
-      margin-top: 20px;
-      border: 1px solid #334155;
-    }
-
-    .empty-state i {
-      font-size: 4rem;
-      color: #facc15;
-      margin-bottom: 1rem;
-    }
-
-    .empty-state p {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #cbd5e1;
-    }
-
-    /* loader dark */
-    .loader {
-      text-align: center;
-      padding: 4rem;
-      font-size: 2rem;
-      color: #a78bfa;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 3.5rem;
-      color: #94a3b8;
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-
-    /* mobile friendly */
+    .game-name { font-size: 1.2rem; font-weight: 800; margin: 0.5rem 0 0.3rem; color: #facc15; background: #1e293b; display: inline-block; padding: 0.2rem 1rem; border-radius: 50px; }
+    .play-badge { margin-top: 0.5rem; font-size: 0.8rem; font-weight: 700; background: #22c55e; padding: 0.25rem 1rem; border-radius: 30px; color: #022c1a; display: inline-flex; align-items: center; gap: 6px; }
+    .empty-state { text-align: center; grid-column: 1 / -1; padding: 4rem 1rem; background: #0f172a; border-radius: 70px; border: 1px solid #334155; }
+    .empty-state i { font-size: 4rem; color: #facc15; }
+    .empty-state p { font-size: 1.5rem; font-weight: 700; color: #cbd5e1; }
+    .loader { text-align: center; padding: 4rem; font-size: 2rem; color: #a78bfa; }
+    .footer { text-align: center; margin-top: 3rem; color: #94a3b8; font-weight: 600; }
     @media (max-width: 640px) {
-      body {
-        padding: 1rem;
-      }
-      .hero h1 {
-        font-size: 2rem;
-      }
-      .games-grid {
-        gap: 1rem;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      }
-      .game-card {
-        padding: 1rem 0.8rem;
-      }
-      .game-icon {
-        width: 85px;
-        height: 85px;
-      }
-      .game-name {
-        font-size: 1rem;
-      }
-    }
-
-    @media (max-width: 450px) {
-      .games-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      }
-      .game-name {
-        font-size: 0.85rem;
-      }
+      body { padding: 1rem; }
+      .hero h1 { font-size: 2rem; }
+      .games-grid { gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+      .game-icon { width: 70px; height: 70px; }
     }
   </style>
 </head>
 <body>
-
 <div class="container">
   <div class="hero">
-    <h1>
-      <i class="fas fa-moon"></i> 
-      Nightfall Arcade
-      <i class="fas fa-ghost"></i>
-    </h1>
-    <div class="tagline">
-      <i class="fas fa-star"></i> Glow up & play — dark mode magic <i class="fas fa-crown"></i>
-    </div>
+    <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fas fa-code"></i></h1>
+    <div class="tagline"><i class="fas fa-star"></i> Games + Embed Support — dark mode magic</div>
   </div>
-
   <div class="search-wrapper">
     <i class="fas fa-search search-icon"></i>
-    <input type="text" id="searchInput" placeholder="🔎 Search games... e.g., 'puzzle', 'adventure'" autocomplete="off">
+    <input type="text" id="searchInput" placeholder="🔎 Search games by name..." autocomplete="off">
   </div>
-
   <div class="info-bar">
-    <div class="game-counter" id="gameCounter">
-      <i class="fas fa-dice-d6"></i> <span id="countValue">0</span> glowing games
-    </div>
+    <div class="game-counter"><i class="fas fa-dice-d6"></i> <span id="countValue">0</span> glowing games</div>
     <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear search</button>
   </div>
-
-  <div id="gamesGridContainer" class="games-grid">
-    <div class="loader">
-      <i class="fas fa-spinner fa-pulse"></i> Loading cosmic games...
-    </div>
-  </div>
-  <div class="footer">
-    🌙 Dark theme for late-night fun | All games child-friendly 💫  <i class="fas fa-gamepad"></i>
-  </div>
+  <div id="gamesGridContainer" class="games-grid"><div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading cosmic games...</div></div>
+  <div class="footer">🌙 Dark theme | Embed codes from Google Sheet work automatically 💫 <i class="fas fa-gamepad"></i></div>
 </div>
-
 <script>
-  // ---------- CONFIGURATION ----------
+  // ========= CONFIG =========
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
   
-  // Robust CSV parser
+  // Robust CSV parser (handles quotes, commas, newlines inside fields)
   function parseCSV(csvText) {
-    const lines = csvText.split(/\r?\n/);
-    if (lines.length === 0) return [];
-    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-    const data = [];
-    for (let i = 1; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (line === "") continue;
-      const row = [];
-      let current = '';
-      let inQuotes = false;
-      for (let j = 0; j < line.length; j++) {
-        const ch = line[j];
-        if (ch === '"') {
-          inQuotes = !inQuotes;
-        } else if (ch === ',' && !inQuotes) {
-          row.push(current.trim());
-          current = '';
+    const rows = [];
+    const regex = /(?:,|^)(?:"([^"]*(?:""[^"]*)*)"|([^",]*))/g;
+    let match = null;
+    let row = [];
+    let i = 0;
+    let inQuoted = false;
+    let buffer = '';
+    for (let idx = 0; idx < csvText.length; idx++) {
+      let ch = csvText[idx];
+      if (ch === '"') {
+        if (inQuoted && csvText[idx+1] === '"') {
+          buffer += '"';
+          idx++;
         } else {
-          current += ch;
+          inQuoted = !inQuoted;
         }
+      } else if (ch === ',' && !inQuoted) {
+        row.push(buffer.trim());
+        buffer = '';
+      } else if (ch === '\n' && !inQuoted) {
+        row.push(buffer.trim());
+        if (row.length > 0) rows.push(row);
+        row = [];
+        buffer = '';
+      } else {
+        buffer += ch;
       }
-      row.push(current.trim());
-      const cleanedRow = row.map(field => field.replace(/^"|"$/g, '').trim());
-      if (cleanedRow.length >= 3) {
-        const gameObj = {};
-        headers.forEach((header, idx) => {
-          if (idx < cleanedRow.length) gameObj[header] = cleanedRow[idx];
-          else gameObj[header] = "";
-        });
-        const nameKey = headers.find(h => h.toLowerCase() === 'name') || 'Name';
-        const iconKey = headers.find(h => h.toLowerCase() === 'icon') || 'Icon';
-        const linkKey = headers.find(h => h.toLowerCase() === 'link') || 'Link';
-        data.push({
-          name: gameObj[nameKey] || "Unnamed Game",
-          icon: gameObj[iconKey] || "",
-          link: gameObj[linkKey] || "#"
-        });
+    }
+    row.push(buffer.trim());
+    if (row.length > 0 && row[0] !== '') rows.push(row);
+    
+    if (rows.length === 0) return [];
+    let headers = rows[0].map(h => h.replace(/^"|"$/g, '').toLowerCase());
+    const data = [];
+    for (let i = 1; i < rows.length; i++) {
+      let obj = {};
+      for (let j = 0; j < headers.length; j++) {
+        let val = rows[i][j] || '';
+        val = val.replace(/^"|"$/g, '').replace(/""/g, '"');
+        obj[headers[j]] = val;
       }
+      data.push(obj);
     }
     return data;
   }
-
-  let allGames = [];
-  let filteredGames = [];
-  let currentSearchTerm = "";
-
-  const gridContainer = document.getElementById('gamesGridContainer');
+  
+  let allGames = [], filteredGames = [], currentSearchTerm = "";
+  const grid = document.getElementById('gamesGridContainer');
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearchBtn');
   const countSpan = document.getElementById('countValue');
-
-  function escapeHtml(str) {
+  
+  function escapeHtml(str) { 
     if (!str) return '';
     return str.replace(/[&<>]/g, function(m) {
       if (m === '&') return '&amp;';
@@ -432,52 +202,73 @@
       return m;
     });
   }
-
+  
+  // Safely render HTML embed code
+  function renderEmbed(embedCode, gameName) {
+    if (!embedCode || embedCode.trim() === '') return null;
+    // Create a temporary container to sanitize and render the embed
+    const wrapper = document.createElement('div');
+    wrapper.className = 'embed-preview';
+    // Simple sanitization: remove script tags but allow iframes, divs, etc.
+    let safeCode = embedCode;
+    // Remove <script> tags for security
+    safeCode = safeCode.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+    wrapper.innerHTML = safeCode;
+    // Make sure iframes have sandbox for safety
+    const iframes = wrapper.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
+      if (!iframe.hasAttribute('sandbox')) {
+        iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms allow-scripts');
+      }
+    });
+    return wrapper.outerHTML;
+  }
+  
   function renderGrid() {
-    if (!gridContainer) return;
     countSpan.innerText = filteredGames.length;
-    
-    if (filteredGames.length === 0) {
-      gridContainer.innerHTML = `
-        <div class="empty-state">
-          <i class="fas fa-skull-cowboy"></i>
-          <p>No games found in the void 🌑</p>
-          <div style="margin-top: 15px; font-size:1rem;">Try another magical word ✨</div>
-        </div>
-      `;
-      return;
+    if (filteredGames.length === 0) { 
+      grid.innerHTML = `<div class="empty-state"><i class="fas fa-skull-cowboy"></i><p>No games found in the void 🌑</p><div style="margin-top:15px;">Try another magical word ✨</div></div>`; 
+      return; 
     }
     
     let html = '';
-    for (let i = 0; i < filteredGames.length; i++) {
-      const game = filteredGames[i];
-      const safeName = escapeHtml(game.name);
-      const iconUrl = game.icon && game.icon.trim() !== "" ? game.icon : null;
-      const gameLink = game.link && game.link.trim() !== "" ? game.link : "#";
+    for (let game of filteredGames) {
+      const hasEmbed = game.embed && game.embed.trim() !== '';
+      const embedHtml = hasEmbed ? renderEmbed(game.embed, game.name) : '';
+      const iconHtml = (!hasEmbed && game.icon) ? `<img class="game-icon" src="${escapeHtml(game.icon)}" alt="${escapeHtml(game.name)}" onerror="this.onerror=null; this.src=''; this.outerHTML='<div class=\\'game-icon fallback\\'><i class=\\'fas fa-meteor\\' style=\\'font-size:2.5rem;\\'></i></div>';">` : (!hasEmbed ? `<div class="game-icon fallback"><i class="fas fa-gamepad" style="font-size:2.5rem;"></i></div>` : '');
       
       html += `
-        <div class="game-card" data-game-link="${escapeHtml(gameLink)}" role="button" tabindex="0" aria-label="Play ${safeName}">
-          <div class="icon-wrapper">
-            <img class="game-icon" src="${escapeHtml(iconUrl || '')}" alt="${safeName} icon" 
-                 onerror="this.onerror=null; this.classList.add('fallback'); this.src=''; this.outerHTML='<div class=\\'game-icon fallback\\'><i class=\\'fas fa-meteor\\' style=\\'font-size:2.8rem;\\'></i></div>';"
-            >
-          </div>
-          <div class="game-name">${safeName}</div>
-          <div class="play-badge"><i class="fas fa-play-circle"></i> Play now!</div>
+        <div class="game-card" data-game-link="${escapeHtml(game.link)}" data-game-embed="${escapeHtml(game.embed || '')}" role="button" tabindex="0">
+          ${embedHtml ? embedHtml : iconHtml}
+          <div class="game-name">${escapeHtml(game.name)}</div>
+          <div class="play-badge"><i class="fas fa-play-circle"></i> ${hasEmbed ? 'Launch Game' : 'Play Now!'}</div>
         </div>
       `;
     }
-    gridContainer.innerHTML = html;
+    grid.innerHTML = html;
     
-    const cards = document.querySelectorAll('.game-card');
-    cards.forEach(card => {
+    // Attach click handlers
+    document.querySelectorAll('.game-card').forEach(card => {
       card.addEventListener('click', (e) => {
-        e.stopPropagation();
+        // If click is inside an iframe or interactive embed, don't redirect
+        if (e.target.closest('iframe, video, object, .embed-preview a')) {
+          return;
+        }
         const link = card.getAttribute('data-game-link');
-        if (link && link !== "#") {
-          window.open(link, '_blank', 'noopener noreferrer');
+        const embed = card.getAttribute('data-game-embed');
+        if (embed && embed.trim() !== '') {
+          // For embeds, maybe scroll or just show modal? But we'll just open link if exists
+          if (link && link !== "#" && link !== '') {
+            window.open(link, '_blank');
+          } else {
+            alert(`🎮 ${card.querySelector('.game-name')?.innerText || 'Game'} is ready! Click the play button inside the embed.`);
+          }
         } else {
-          alert("🌙 Oops! Link is sleeping. Try another game!");
+          if (link && link !== "#" && link !== '') {
+            window.open(link, '_blank');
+          } else {
+            alert("🌙 Oops! No link provided for this game.");
+          }
         }
       });
       card.addEventListener('keypress', (e) => {
@@ -489,74 +280,45 @@
     });
   }
   
-  function applyFilter() {
-    const term = currentSearchTerm.trim().toLowerCase();
-    if (term === "") {
-      filteredGames = [...allGames];
-    } else {
-      filteredGames = allGames.filter(game => 
-        game.name && game.name.toLowerCase().includes(term)
-      );
-    }
-    renderGrid();
-  }
-  
-  function onSearchInput(e) {
-    currentSearchTerm = e.target.value;
-    applyFilter();
-  }
-  
-  function clearSearch() {
-    searchInput.value = "";
-    currentSearchTerm = "";
-    applyFilter();
-    searchInput.focus();
+  function applyFilter() { 
+    let term = currentSearchTerm.trim().toLowerCase(); 
+    filteredGames = term === "" ? [...allGames] : allGames.filter(g => g.name && g.name.toLowerCase().includes(term)); 
+    renderGrid(); 
   }
   
   async function loadGames() {
     try {
-      gridContainer.innerHTML = `<div class="loader"><i class="fas fa-spinner fa-pulse"></i> Fetching games from the nebula... 🎮</div>`;
-      const response = await fetch(CSV_URL);
-      if (!response.ok) throw new Error(`HTTP ${response.status}: CSV fetch error`);
-      const csvText = await response.text();
-      const gamesData = parseCSV(csvText);
+      grid.innerHTML = `<div class="loader"><i class="fas fa-spinner fa-pulse"></i> Fetching games with embed support...</div>`;
+      const resp = await fetch(CSV_URL);
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const csv = await resp.text();
+      let gamesData = parseCSV(csv);
       
-      if (!gamesData || gamesData.length === 0) {
-        gridContainer.innerHTML = `<div class="empty-state"><i class="fas fa-dizzy"></i><p>No games found! Check CSV format.</p><div>Columns needed: Name, Icon, Link</div></div>`;
-        allGames = [];
-        filteredGames = [];
-        countSpan.innerText = "0";
-        return;
-      }
+      // Map columns: name, icon, link, embed (case-insensitive)
+      allGames = gamesData.map(row => ({
+        name: row.name || row.title || "✨ Mystery Game",
+        icon: row.icon || row.image || "",
+        link: row.link || row.url || "#",
+        embed: row.embed || row.embedded || row.iframe || ""  // NEW: embed column
+      })).filter(g => g.name && g.name !== "✨ Mystery Game" || true);
       
-      const validGames = gamesData.filter(g => g.name && g.name.trim() !== "");
-      if (validGames.length === 0 && gamesData.length > 0) {
-        allGames = gamesData.map(g => ({
-          name: g.name && g.name.trim() !== "" ? g.name : "✨ Star Game",
-          icon: g.icon || "",
-          link: g.link || "#"
-        }));
-      } else {
-        allGames = validGames.map(g => ({
-          name: g.name.trim(),
-          icon: g.icon || "",
-          link: g.link && g.link.trim() !== "" ? g.link : "#"
-        }));
+      if (allGames.length === 0) {
+        allGames = [{ name: "Demo Game (add CSV)", icon: "", link: "#", embed: "<div style='padding:20px; background:#4c1d95; border-radius:12px; color:white;'>✨ Add 'Embed' column to your sheet!</div>" }];
       }
       filteredGames = [...allGames];
       renderGrid();
-    } catch (error) {
-      console.error("CSV load error:", error);
-      gridContainer.innerHTML = `<div class="empty-state"><i class="fas fa-cloud-moon"></i><p>⚠️ Couldn't load game list! ⚠️</p><div>Make sure the CSV is public and URL is correct.</div><div style="font-size:0.9rem; margin-top:12px;">${error.message}</div></div>`;
-      allGames = [];
-      filteredGames = [];
-      countSpan.innerText = "0";
+    } catch(e) { 
+      console.error(e);
+      grid.innerHTML = `<div class="empty-state"><i class="fas fa-cloud-moon"></i><p>⚠️ Couldn't load games!</p><div>Check CSV URL: must be public</div><div style="font-size:0.8rem; margin-top:10px;">${e.message}</div></div>`; 
+      allGames = []; 
+      filteredGames = []; 
+      countSpan.innerText = "0"; 
     }
   }
   
   loadGames();
-  if (searchInput) searchInput.addEventListener('input', onSearchInput);
-  if (clearBtn) clearBtn.addEventListener('click', clearSearch);
+  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; applyFilter(); });
+  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; applyFilter(); searchInput.focus(); });
 </script>
 </body>
 </html>
