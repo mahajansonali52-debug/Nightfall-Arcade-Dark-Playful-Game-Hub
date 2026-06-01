@@ -78,6 +78,23 @@
     .clear-search { background: #4c1d95; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; padding: 0.4rem 1.3rem; border-radius: 50px; color: #e2e8f0; cursor: pointer; box-shadow: 0 3px 0 #2e1065; transition: all 0.1s; }
     .clear-search:active { transform: translateY(2px); box-shadow: 0 1px 0 #2e1065; }
     
+    /* Ad Container Styling */
+    .ad-container {
+      text-align: center;
+      margin: 1.5rem 0;
+      padding: 0.5rem;
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 20px;
+      border: 1px solid #334155;
+    }
+    .ad-label {
+      font-size: 0.7rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+    
     /* Game Grid */
     .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.8rem; margin-top: 0.5rem; }
     .game-card {
@@ -99,7 +116,7 @@
     .game-name { font-size: 1.2rem; font-weight: 800; margin: 0.5rem 0 0.3rem; color: #facc15; background: #1e293b; display: inline-block; padding: 0.2rem 1rem; border-radius: 50px; }
     .play-badge { margin-top: 0.5rem; font-size: 0.8rem; font-weight: 700; background: #22c55e; padding: 0.25rem 1rem; border-radius: 30px; color: #022c1a; display: inline-flex; align-items: center; gap: 6px; }
     
-    /* Game Player (full screen embed view) */
+    /* Game Player Overlay */
     .game-player-overlay {
       position: fixed;
       top: 0;
@@ -185,28 +202,39 @@
     <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fas fa-play-circle"></i></h1>
     <div class="tagline"><i class="fas fa-star"></i> Click any game — plays right here! ✨</div>
   </div>
+  
   <div class="search-wrapper">
     <i class="fas fa-search search-icon"></i>
     <input type="text" id="searchInput" placeholder="🔎 Search games by name..." autocomplete="off">
   </div>
+  
+  <!-- ===== AD CODE PLACED HERE (Below Search Bar) ===== -->
+  <div class="ad-container">
+    <div class="ad-label"><i class="fas fa-ad"></i> Advertisement</div>
+    <div id="container-bc2a8143d092c7dfebeb7982d9dcfed3"></div>
+  </div>
+  <!-- ============================================== -->
+  
   <div class="info-bar">
     <div class="game-counter"><i class="fas fa-dice-d6"></i> <span id="countValue">0</span> glowing games</div>
     <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear search</button>
   </div>
+  
   <div id="gamesGridContainer" class="games-grid"><div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading cosmic games...</div></div>
   <div class="footer">🌙 Games with embed codes play inside | Others open in new tab 💫</div>
 </div>
 
-<!-- Game Player Overlay (plays inside same page) -->
+<!-- Game Player Overlay -->
 <div id="gamePlayer" class="game-player-overlay">
   <div class="game-player-header">
     <span class="game-player-title" id="gamePlayerTitle">Loading...</span>
     <button class="close-game-btn" id="closeGameBtn"><i class="fas fa-times"></i> Close Game</button>
   </div>
-  <div id="gameIframeContainer" class="game-iframe-container">
-    <!-- iframe or embed content goes here -->
-  </div>
+  <div id="gameIframeContainer" class="game-iframe-container"></div>
 </div>
+
+<!-- ===== AD SCRIPT (Place at bottom for better performance) ===== -->
+<script async="async" data-cfasync="false" src="https://pl29610580.effectivecpmnetwork.com/bc2a8143d092c7dfebeb7982d9dcfed3/invoke.js"></script>
 
 <script>
   // ========= CONFIG =========
@@ -276,21 +304,17 @@
     });
   }
   
-  // Show game inside the page (no new tab)
   function playGameInside(game) {
     gamePlayerTitle.innerText = game.name;
     gameIframeContainer.innerHTML = '';
     
     if (game.embed && game.embed.trim() !== '') {
-      // Sanitize embed: remove scripts
       let safeEmbed = game.embed.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-      // Create a div to hold the embed content
       const embedDiv = document.createElement('div');
       embedDiv.style.width = '100%';
       embedDiv.style.height = '100%';
       embedDiv.innerHTML = safeEmbed;
       
-      // Make iframes responsive
       const iframes = embedDiv.querySelectorAll('iframe');
       iframes.forEach(iframe => {
         iframe.style.width = '100%';
@@ -303,7 +327,6 @@
       
       gameIframeContainer.appendChild(embedDiv);
     } else if (game.link && game.link !== "#" && game.link !== '') {
-      // No embed, but has link — show in iframe (play inside)
       const iframe = document.createElement('iframe');
       iframe.src = game.link;
       iframe.style.width = '100%';
@@ -321,7 +344,7 @@
   
   function closeGamePlayer() {
     gamePlayer.style.display = 'none';
-    gameIframeContainer.innerHTML = ''; // stop video/game
+    gameIframeContainer.innerHTML = '';
   }
   
   function renderGrid() {
@@ -345,7 +368,6 @@
     }
     grid.innerHTML = html;
     
-    // Attach click handlers - ALL games play INSIDE now (no new tab!)
     document.querySelectorAll('.game-card').forEach(card => {
       const gameName = card.getAttribute('data-game-name');
       const gameLink = card.getAttribute('data-game-link');
@@ -405,10 +427,8 @@
     }
   }
   
-  // Close button event
   closeGameBtn.addEventListener('click', closeGamePlayer);
   
-  // Press ESC to close game
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && gamePlayer.style.display === 'flex') {
       closeGamePlayer();
