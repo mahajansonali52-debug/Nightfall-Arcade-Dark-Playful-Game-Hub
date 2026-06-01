@@ -78,14 +78,15 @@
     .clear-search { background: #4c1d95; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; padding: 0.4rem 1.3rem; border-radius: 50px; color: #e2e8f0; cursor: pointer; box-shadow: 0 3px 0 #2e1065; transition: all 0.1s; }
     .clear-search:active { transform: translateY(2px); box-shadow: 0 1px 0 #2e1065; }
     
-    /* Ad Container Styling */
+    /* Ad Containers Styling */
     .ad-container {
       text-align: center;
       margin: 1.5rem 0;
-      padding: 0.5rem;
-      background: rgba(15, 23, 42, 0.5);
+      padding: 0.8rem;
+      background: rgba(15, 23, 42, 0.6);
       border-radius: 20px;
       border: 1px solid #334155;
+      backdrop-filter: blur(4px);
     }
     .ad-label {
       font-size: 0.7rem;
@@ -93,6 +94,20 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 0.5rem;
+    }
+    .ad-label i { margin-right: 4px; }
+    
+    /* First Ad (Top Banner) - Smaller, above games */
+    .top-banner-ad {
+      max-width: 728px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Second Ad (Side/Responsive) - Will appear between games dynamically */
+    .inline-ad {
+      margin: 0.5rem 0;
+      background: rgba(15, 23, 42, 0.7);
     }
     
     /* Game Grid */
@@ -188,6 +203,23 @@
     .loader { text-align: center; padding: 4rem; font-size: 2rem; color: #a78bfa; }
     .footer { text-align: center; margin-top: 3rem; color: #94a3b8; font-weight: 600; }
     
+    /* Sidebar layout for larger screens (optional ad placement) */
+    @media (min-width: 1200px) {
+      .two-column-layout {
+        display: flex;
+        gap: 2rem;
+      }
+      .main-content {
+        flex: 3;
+      }
+      .sidebar-ad {
+        flex: 1;
+        position: sticky;
+        top: 2rem;
+        height: fit-content;
+      }
+    }
+    
     @media (max-width: 640px) {
       body { padding: 1rem; }
       .hero h1 { font-size: 2rem; }
@@ -208,19 +240,28 @@
     <input type="text" id="searchInput" placeholder="🔎 Search games by name..." autocomplete="off">
   </div>
   
-  <!-- ===== AD CODE PLACED HERE (Below Search Bar) ===== -->
-  <div class="ad-container">
-    <div class="ad-label"><i class="fas fa-ad"></i> Advertisement</div>
+  <!-- ===== AD CODE 1: Top Banner (First Ad) ===== -->
+  <div class="ad-container top-banner-ad">
+    <div class="ad-label"><i class="fas fa-ad"></i> Sponsored</div>
     <div id="container-bc2a8143d092c7dfebeb7982d9dcfed3"></div>
   </div>
-  <!-- ============================================== -->
+  <!-- ========================================== -->
   
   <div class="info-bar">
     <div class="game-counter"><i class="fas fa-dice-d6"></i> <span id="countValue">0</span> glowing games</div>
     <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear search</button>
   </div>
   
+  <!-- Games Grid Container -->
   <div id="gamesGridContainer" class="games-grid"><div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading cosmic games...</div></div>
+  
+  <!-- ===== AD CODE 2: Footer Ad (Bottom of page) ===== -->
+  <div class="ad-container" style="margin-top: 2rem;">
+    <div class="ad-label"><i class="fas fa-ad"></i> Advertisement</div>
+    <div id="highperformance-ad-container"></div>
+  </div>
+  <!-- ============================================== -->
+  
   <div class="footer">🌙 Games with embed codes play inside | Others open in new tab 💫</div>
 </div>
 
@@ -233,11 +274,24 @@
   <div id="gameIframeContainer" class="game-iframe-container"></div>
 </div>
 
-<!-- ===== AD SCRIPT (Place at bottom for better performance) ===== -->
+<!-- ===== AD SCRIPTS ===== -->
+<!-- Ad Script 1: Effective CPM Network -->
 <script async="async" data-cfasync="false" src="https://pl29610580.effectivecpmnetwork.com/bc2a8143d092c7dfebeb7982d9dcfed3/invoke.js"></script>
 
+<!-- Ad Script 2: High Performance Format (Iframe Ad) -->
 <script>
-  // ========= CONFIG =========
+  atOptions = {
+    'key' : '52352aafdb8e582a93ea264d64273a99',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/52352aafdb8e582a93ea264d64273a99/invoke.js"></script>
+
+<script>
+  // ========= MAIN APPLICATION CODE =========
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
   
   // Robust CSV parser
@@ -304,6 +358,7 @@
     });
   }
   
+  // Show game inside the page (no new tab)
   function playGameInside(game) {
     gamePlayerTitle.innerText = game.name;
     gameIframeContainer.innerHTML = '';
@@ -368,6 +423,7 @@
     }
     grid.innerHTML = html;
     
+    // Attach click handlers
     document.querySelectorAll('.game-card').forEach(card => {
       const gameName = card.getAttribute('data-game-name');
       const gameLink = card.getAttribute('data-game-link');
@@ -427,6 +483,7 @@
     }
   }
   
+  // Event Listeners
   closeGameBtn.addEventListener('click', closeGamePlayer);
   
   document.addEventListener('keydown', (e) => {
@@ -438,6 +495,21 @@
   loadGames();
   searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; applyFilter(); });
   clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; applyFilter(); searchInput.focus(); });
+  
+  // Optional: Reload ads dynamically when search filters change (to refresh ad containers)
+  function refreshAdContainers() {
+    // Some ad networks need this to re-initialize after DOM changes
+    if (typeof window.adsbygoogle !== 'undefined') {
+      try { window.adsbygoogle.push({}); } catch(e) {}
+    }
+  }
+  
+  // Call refresh after filtering
+  const originalApplyFilter = applyFilter;
+  window.applyFilter = function() {
+    originalApplyFilter();
+    setTimeout(refreshAdContainers, 100);
+  };
 </script>
 </body>
 </html>
