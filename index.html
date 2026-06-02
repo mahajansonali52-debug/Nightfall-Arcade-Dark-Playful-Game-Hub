@@ -121,10 +121,11 @@
       outline: none;
       color: #f1f5f9;
     }
+    #searchInput:focus { box-shadow: 0 0 0 2px #818cf8; }
     
     .info-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
     .game-counter { background: #1e293b; border-radius: 40px; padding: 0.3rem 1rem; font-weight: 700; color: #facc15; }
-    .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; }
+    .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; font-family: 'Quicksand'; font-weight: 600; }
     
     .games-grid {
       display: grid;
@@ -177,12 +178,10 @@
       justify-content: center;
       cursor: pointer;
       z-index: 5;
-      backdrop-filter: blur(4px);
     }
     .favorite-star.favorited { color: #facc15; }
     .favorite-star:not(.favorited) { color: #ffffff; }
     
-    /* REAL GAME IMAGES */
     .game-image {
       width: 100%;
       height: 140px;
@@ -279,6 +278,8 @@
       padding: 0.4rem 1rem;
       border-radius: 30px;
       cursor: pointer;
+      font-family: 'Quicksand';
+      font-weight: 600;
     }
     .fullscreen-btn { background: #0284c7; }
     .close-game-btn { background: #dc2626; }
@@ -305,9 +306,27 @@
     <h3><i class="fab fa-amazon"></i> Amazon Game Store</h3>
     <div class="sidebar-section">
       <h4><i class="fas fa-gamepad"></i> 🎮 Sponsored Products</h4>
-      <div id="dynamicAmazonLinks">
-        <div class="loader">Loading affiliate products...</div>
-      </div>
+      <a href="https://www.amazon.com/dp/B08N5WRWNW?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
+        <img src="https://m.media-amazon.com/images/I/41xYpGUFdKL._AC_SL1500_.jpg" class="amazon-product-img" onerror="this.src='https://placehold.co/55x55/4c1d95/white?text=🎧'">
+        <div class="amazon-link-info">
+          <div class="product-name">🎧 Kids Gaming Headset</div>
+          <div class="price">$24.99</div>
+        </div>
+      </a>
+      <a href="https://www.amazon.com/dp/B07V9Q8X9Z?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
+        <img src="https://m.media-amazon.com/images/I/61P3XxQ-LsL._AC_SL1500_.jpg" class="amazon-product-img" onerror="this.src='https://placehold.co/55x55/4c1d95/white?text=🎮'">
+        <div class="amazon-link-info">
+          <div class="product-name">🎮 Wireless Controller</div>
+          <div class="price">$39.99</div>
+        </div>
+      </a>
+      <a href="https://www.amazon.com/dp/B08F3T9X4R?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
+        <img src="https://m.media-amazon.com/images/I/51Hk5JqKvTL._AC_SL1500_.jpg" class="amazon-product-img" onerror="this.src='https://placehold.co/55x55/4c1d95/white?text=🪑'">
+        <div class="amazon-link-info">
+          <div class="product-name">🪑 Kids Gaming Chair</div>
+          <div class="price">$89.99</div>
+        </div>
+      </a>
       <div style="font-size:0.65rem; color:#64748b; margin-top:10px; text-align:center;">
         🔗 As an Amazon Associate I earn from qualifying purchases
       </div>
@@ -317,7 +336,6 @@
       <h4><i class="fas fa-filter"></i> Categories</h4>
       <button class="category-btn active" data-category="all"><i class="fas fa-globe"></i> All Games</button>
       <button class="category-btn" data-category="favorites"><i class="fas fa-star"></i> My Favorites ⭐</button>
-      <button class="category-btn" data-category="affiliate"><i class="fab fa-amazon"></i> Games with Affiliate Links</button>
     </div>
     
     <div class="sidebar-section">
@@ -330,10 +348,9 @@
       <div id="statsDisplay" style="font-size:0.75rem;">Loading...</div>
     </div>
     
-    <div class="sidebar-section" style="text-align: center; background: linear-gradient(135deg, #1e293b, #0f172a);">
+    <div class="sidebar-section" style="text-align: center;">
       <h4><i class="fas fa-heart" style="color: #ff6b6b;"></i> Support Free Games</h4>
-      <p style="font-size: 0.7rem; color: #cbd5e6; margin-bottom: 0.5rem;">☕ Your donation keeps the arcade running!</p>
-      <a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #FFDD00; color: #1a1f2e; padding: 0.6rem 1rem; border-radius: 40px; text-decoration: none; font-weight: 700; font-size: 0.85rem;">
+      <a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #FFDD00; color: #1a1f2e; padding: 0.6rem 1rem; border-radius: 40px; text-decoration: none; font-weight: 700; font-size: 0.85rem; width: 100%;">
         <i class="fas fa-coffee"></i> Buy Me a Coffee ☕
       </a>
     </div>
@@ -342,12 +359,12 @@
   <div class="main-content">
     <div class="hero">
       <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fab fa-amazon"></i></h1>
-      <div class="tagline"><i class="fas fa-star"></i> Free Games - Click to Play! 🎮</div>
+      <div class="tagline"><i class="fas fa-star"></i> Click Any Game - Plays Instantly! 🎮</div>
     </div>
     
     <div class="search-wrapper">
       <i class="fas fa-search search-icon"></i>
-      <input type="text" id="searchInput" placeholder="🔎 Search games...">
+      <input type="text" id="searchInput" placeholder="🔎 Search games by name...">
     </div>
     
     <div class="info-bar">
@@ -355,8 +372,8 @@
       <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear</button>
     </div>
     
-    <div id="gamesGridContainer" class="games-grid"><div class="loader">Loading games...</div></div>
-    <div class="footer">⭐ Click star to favorite | 🖱️ Click game to play | 🛍️ Orange badge = Amazon shop</div>
+    <div id="gamesGridContainer" class="games-grid"><div class="loader">🎮 Loading games...</div></div>
+    <div class="footer">⭐ Click star to favorite | 🖱️ Click game to play inside | 🛍️ Amazon links for game gear</div>
   </div>
 </div>
 
@@ -373,12 +390,28 @@
 
 <script>
   const AMAZON_TAG = 'bestgadge0b72-21';
-  const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
+  
+  // WORKING GAMES WITH REAL IMAGES AND WORKING LINKS
+  const games = [
+    { id: 'g1', name: 'Parking Jam 3D', displayName: '🚗 Parking Jam 3D', image: 'https://www.crazygames.com/assets/images/games/parking-jam-3d/cover-1723644618268.png', link: 'https://www.crazygames.com/game/parking-jam-3d', embed: 'https://www.crazygames.com/embed/parking-jam-3d', affiliateLink: '' },
+    { id: 'g2', name: 'Thief Puzzle', displayName: '🕵️ Thief Puzzle', image: 'https://www.crazygames.com/assets/images/games/thief-puzzle/cover-1723644622559.png', link: 'https://www.crazygames.com/game/thief-puzzle', embed: 'https://www.crazygames.com/embed/thief-puzzle', affiliateLink: '' },
+    { id: 'g3', name: 'Table Tennis World Tour', displayName: '🏓 Table Tennis World Tour', image: 'https://www.crazygames.com/assets/images/games/table-tennis-world-tour/cover-1723644624265.png', link: 'https://www.crazygames.com/game/table-tennis-world-tour', embed: 'https://www.crazygames.com/embed/table-tennis-world-tour', affiliateLink: '' },
+    { id: 'g4', name: 'Endless Truck', displayName: '🚛 Endless Truck', image: 'https://www.crazygames.com/assets/images/games/endless-truck/cover-1723644621725.png', link: 'https://www.crazygames.com/game/endless-truck', embed: 'https://www.crazygames.com/embed/endless-truck', affiliateLink: '' },
+    { id: 'g5', name: 'Bus Driver Simulator', displayName: '🚌 Bus Driver Simulator', image: 'https://www.crazygames.com/assets/images/games/bus-driver-simulator-3d/cover-1723644622785.png', link: 'https://www.crazygames.com/game/bus-driver-simulator-3d', embed: 'https://www.crazygames.com/embed/bus-driver-simulator-3d', affiliateLink: '' },
+    { id: 'g6', name: 'Real Motor Race Master', displayName: '🏎️ Real Motor Race Master', image: 'https://www.crazygames.com/assets/images/games/real-motor-race-master/cover-1723644623812.png', link: 'https://www.crazygames.com/game/real-motor-race-master', embed: 'https://www.crazygames.com/embed/real-motor-race-master', affiliateLink: '' },
+    { id: 'g7', name: 'War of Knights', displayName: '⚔️ War of Knights', image: 'https://www.crazygames.com/assets/images/games/war-of-knights/cover-1723644623289.png', link: 'https://www.crazygames.com/game/war-of-knights', embed: 'https://www.crazygames.com/embed/war-of-knights', affiliateLink: '' },
+    { id: 'g8', name: 'Penalty Kick Wiz', displayName: '⚽ Penalty Kick Wiz', image: 'https://www.crazygames.com/assets/images/games/penalty-kick-wiz/cover-1723644623545.png', link: 'https://www.crazygames.com/game/penalty-kick-wiz', embed: 'https://www.crazygames.com/embed/penalty-kick-wiz', affiliateLink: '' },
+    { id: 'g9', name: 'Stickman Warriors', displayName: '🥋 Stickman Warriors', image: 'https://www.crazygames.com/assets/images/games/stickman-warriors/cover-1723644622036.png', link: 'https://www.crazygames.com/game/stickman-warriors', embed: 'https://www.crazygames.com/embed/stickman-warriors', affiliateLink: '' },
+    { id: 'g10', name: 'Stickman Street Fighting', displayName: '🥊 Stickman Street Fighting', image: 'https://www.crazygames.com/assets/images/games/stickman-street-fighting/cover-1723644622857.png', link: 'https://www.crazygames.com/game/stickman-street-fighting', embed: 'https://www.crazygames.com/embed/stickman-street-fighting', affiliateLink: '' },
+    { id: 'g11', name: 'Moto X3M', displayName: '🏍️ Moto X3M', image: 'https://www.crazygames.com/assets/images/games/moto-x3m/cover-1723644623324.png', link: 'https://www.crazygames.com/game/moto-x3m', embed: 'https://www.crazygames.com/embed/moto-x3m', affiliateLink: '' },
+    { id: 'g12', name: 'Shell Shockers', displayName: '🥚 Shell Shockers', image: 'https://www.crazygames.com/assets/images/games/shell-shockers/cover-1723644623954.png', link: 'https://www.crazygames.com/game/shell-shockers', embed: 'https://www.crazygames.com/embed/shell-shockers', affiliateLink: '' },
+    { id: 'g13', name: 'Tunnel Rush', displayName: '🌀 Tunnel Rush', image: 'https://www.crazygames.com/assets/images/games/tunnel-rush/cover-1723644624436.png', link: 'https://www.crazygames.com/game/tunnel-rush', embed: 'https://www.crazygames.com/embed/tunnel-rush', affiliateLink: '' },
+    { id: 'g14', name: 'Slope', displayName: '⛰️ Slope', image: 'https://www.crazygames.com/assets/images/games/slope/cover-1723644624124.png', link: 'https://www.crazygames.com/game/slope', embed: 'https://www.crazygames.com/embed/slope', affiliateLink: '' },
+    { id: 'g15', name: 'Basketball Stars', displayName: '🏀 Basketball Stars', image: 'https://www.crazygames.com/assets/images/games/basketball-stars/cover-1723644621540.png', link: 'https://www.crazygames.com/game/basketball-stars', embed: 'https://www.crazygames.com/embed/basketball-stars', affiliateLink: '' }
+  ];
   
   let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
-  let allGames = [];
-  let affiliateProducts = [];
-  let filteredGames = [];
+  let filteredGames = [...games];
   let currentSearchTerm = "";
   let currentCategory = "all";
   
@@ -391,146 +424,6 @@
   const gameIframeContainer = document.getElementById('gameIframeContainer');
   const closeGameBtn = document.getElementById('closeGameBtn');
   const fullscreenBtn = document.getElementById('fullscreenBtn');
-  const dynamicAmazonLinks = document.getElementById('dynamicAmazonLinks');
-  
-  // GAME DATABASE WITH REAL IMAGES AND WORKING LINKS
-  const gamesDatabase = [
-    { 
-      id: 'g0', 
-      name: 'Parking Jam', 
-      displayName: '🚗 Parking Jam 3D',
-      image: 'https://images.crazygames.com/games/parking-jam-3d/cover-1723644618268.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/4c1d95/white?text=🚗+Parking+Jam',
-      link: 'https://www.crazygames.com/game/parking-jam-3d',
-      embed: 'https://www.crazygames.com/embed/parking-jam-3d'
-    },
-    { 
-      id: 'g1', 
-      name: 'Thief Puzzle', 
-      displayName: '🕵️ Thief Puzzle',
-      image: 'https://images.crazygames.com/games/thief-puzzle/cover-1723644622559.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/2c3e50/white?text=🕵️+Thief+Puzzle',
-      link: 'https://www.crazygames.com/game/thief-puzzle',
-      embed: 'https://www.crazygames.com/embed/thief-puzzle'
-    },
-    { 
-      id: 'g2', 
-      name: 'Table Tennis World Tour', 
-      displayName: '🏓 Table Tennis World Tour',
-      image: 'https://images.crazygames.com/games/table-tennis-world-tour/cover-1723644624265.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/27ae60/white?text=🏓+Table+Tennis',
-      link: 'https://www.crazygames.com/game/table-tennis-world-tour',
-      embed: 'https://www.crazygames.com/embed/table-tennis-world-tour'
-    },
-    { 
-      id: 'g3', 
-      name: 'Endless Truck', 
-      displayName: '🚛 Endless Truck',
-      image: 'https://images.crazygames.com/games/endless-truck/cover-1723644621725.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/f39c12/white?text=🚛+Endless+Truck',
-      link: 'https://www.crazygames.com/game/endless-truck',
-      embed: 'https://www.crazygames.com/embed/endless-truck'
-    },
-    { 
-      id: 'g4', 
-      name: 'Bus Driver Simulator', 
-      displayName: '🚌 Bus Driver Simulator',
-      image: 'https://images.crazygames.com/games/bus-driver-simulator-3d/cover-1723644622785.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/3498db/white?text=🚌+Bus+Driver',
-      link: 'https://www.crazygames.com/game/bus-driver-simulator-3d',
-      embed: 'https://www.crazygames.com/embed/bus-driver-simulator-3d'
-    },
-    { 
-      id: 'g5', 
-      name: 'Real Motor Race', 
-      displayName: '🏎️ Real Motor Race Master',
-      image: 'https://images.crazygames.com/games/real-motor-race-master/cover-1723644623812.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/e74c3c/white?text=🏎️+Motor+Race',
-      link: 'https://www.crazygames.com/game/real-motor-race-master',
-      embed: 'https://www.crazygames.com/embed/real-motor-race-master'
-    },
-    { 
-      id: 'g6', 
-      name: 'War of Knights', 
-      displayName: '⚔️ War of the Knights',
-      image: 'https://images.crazygames.com/games/war-of-knights/cover-1723644623289.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/8e44ad/white?text=⚔️+War+Knights',
-      link: 'https://www.crazygames.com/game/war-of-knights',
-      embed: 'https://www.crazygames.com/embed/war-of-knights'
-    },
-    { 
-      id: 'g7', 
-      name: 'Penalty Kick', 
-      displayName: '⚽ Penalty Kick Wiz',
-      image: 'https://images.crazygames.com/games/penalty-kick-wiz/cover-1723644623545.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/1abc9c/white?text=⚽+Penalty+Kick',
-      link: 'https://www.crazygames.com/game/penalty-kick-wiz',
-      embed: 'https://www.crazygames.com/embed/penalty-kick-wiz'
-    },
-    { 
-      id: 'g8', 
-      name: 'Stickman Warriors', 
-      displayName: '🥋 Stickman Warriors',
-      image: 'https://images.crazygames.com/games/stickman-warriors/cover-1723644622036.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/e67e22/white?text=🥋+Stickman',
-      link: 'https://www.crazygames.com/game/stickman-warriors',
-      embed: 'https://www.crazygames.com/embed/stickman-warriors'
-    },
-    { 
-      id: 'g9', 
-      name: 'Stickman Street Fight', 
-      displayName: '🥊 Stickman Street Fighting',
-      image: 'https://images.crazygames.com/games/stickman-street-fighting/cover-1723644622857.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/d35400/white?text=🥊+Street+Fight',
-      link: 'https://www.crazygames.com/game/stickman-street-fighting',
-      embed: 'https://www.crazygames.com/embed/stickman-street-fighting'
-    },
-    { 
-      id: 'g10', 
-      name: 'Bike Racing', 
-      displayName: '🏍️ Bike Racing Pro',
-      image: 'https://images.crazygames.com/games/bike-racing/cover-1723644621598.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/e74c3c/white?text=🏍️+Bike+Racing',
-      link: 'https://www.crazygames.com/game/bike-racing',
-      embed: 'https://www.crazygames.com/embed/bike-racing'
-    },
-    { 
-      id: 'g11', 
-      name: 'Soccer Skills', 
-      displayName: '⚽ Soccer Skills World Cup',
-      image: 'https://images.crazygames.com/games/soccer-skills/cover-1723644624076.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/27ae60/white?text=⚽+Soccer+Skills',
-      link: 'https://www.crazygames.com/game/soccer-skills',
-      embed: 'https://www.crazygames.com/embed/soccer-skills'
-    },
-    { 
-      id: 'g12', 
-      name: 'Moto X3M', 
-      displayName: '🏍️ Moto X3M',
-      image: 'https://images.crazygames.com/games/moto-x3m/cover-1723644623324.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/f39c12/white?text=🏍️+Moto+X3M',
-      link: 'https://www.crazygames.com/game/moto-x3m',
-      embed: 'https://www.crazygames.com/embed/moto-x3m'
-    },
-    { 
-      id: 'g13', 
-      name: 'Shell Shockers', 
-      displayName: '🥚 Shell Shockers',
-      image: 'https://images.crazygames.com/games/shell-shockers/cover-1723644623954.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/e67e22/white?text=🥚+Shell+Shockers',
-      link: 'https://www.crazygames.com/game/shell-shockers',
-      embed: 'https://www.crazygames.com/embed/shell-shockers'
-    },
-    { 
-      id: 'g14', 
-      name: 'Poppy Playtime', 
-      displayName: '🧸 Poppy Playtime',
-      image: 'https://images.crazygames.com/games/poppy-playtime/cover-1723644623704.png?auto=format,compress&q=75&cs=strip&ch=DPR&w=200&h=200&fit=crop',
-      imageFallback: 'https://placehold.co/300x200/8e44ad/white?text=🧸+Poppy',
-      link: 'https://www.crazygames.com/game/poppy-playtime',
-      embed: 'https://www.crazygames.com/embed/poppy-playtime'
-    }
-  ];
   
   function escapeHtml(str) { 
     if (!str) return ''; 
@@ -553,7 +446,6 @@
     gamePlayerTitle.innerText = game.displayName || game.name;
     gameIframeContainer.innerHTML = '';
     
-    // Use embed link if available, otherwise use regular link
     let gameUrl = game.embed || game.link;
     
     if (gameUrl && gameUrl !== "#") {
@@ -566,12 +458,15 @@
       iframe.setAttribute('allow', 'autoplay; fullscreen');
       gameIframeContainer.appendChild(iframe);
     } else {
-      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center; color:white;">🎮 Game coming soon!</div>';
+      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center; color:white;">🎮 Game loading... If not working, try again!</div>';
     }
     gamePlayer.style.display = 'flex';
   }
   
-  function closeGamePlayer() { gamePlayer.style.display = 'none'; gameIframeContainer.innerHTML = ''; }
+  function closeGamePlayer() { 
+    gamePlayer.style.display = 'none'; 
+    gameIframeContainer.innerHTML = ''; 
+  }
   
   function saveFavorites() {
     localStorage.setItem('nightfall_favorites', JSON.stringify(favorites));
@@ -591,8 +486,8 @@
   
   function updateFavoritesList() {
     const favList = document.getElementById('favoritesList');
-    const favGames = allGames.filter(g => isFavorite(g.id));
-    if (!favGames.length) { favList.innerHTML = '<div style="color:#64748b; text-align:center;">⭐ Click star on games</div>'; return; }
+    const favGames = games.filter(g => isFavorite(g.id));
+    if (!favGames.length) { favList.innerHTML = '<div style="color:#64748b; text-align:center;">⭐ Click the star on any game to save it here</div>'; return; }
     favList.innerHTML = favGames.map(g => `
       <div class="favorite-item">
         <span>${escapeHtml(g.displayName || g.name)}</span>
@@ -602,64 +497,86 @@
   }
   
   function updateStats() {
-    const affiliateCount = allGames.filter(g => g.affiliateLink && g.affiliateLink.trim()).length;
     document.getElementById('statsDisplay').innerHTML = `
-      <div><i class="fas fa-database"></i> Total Games: ${allGames.length}</div>
+      <div><i class="fas fa-database"></i> Total Games: ${games.length}</div>
       <div><i class="fas fa-star"></i> Favorites: ${favorites.length}</div>
-      <div><i class="fab fa-amazon"></i> Affiliate Links: ${affiliateCount}</div>
+      <div><i class="fas fa-play-circle"></i> Click any game to play!</div>
     `;
   }
   
-  function addAmazonTag(url) {
-    if (!url) return null;
-    if (url.includes('amazon.com') || url.includes('amazon.')) {
-      if (url.includes('tag=')) return url.replace(/tag=[^&]+/, `tag=${AMAZON_TAG}`);
-      const separator = url.includes('?') ? '&' : '?';
-      return `${url}${separator}tag=${AMAZON_TAG}`;
-    }
-    return url;
-  }
-  
-  function renderSidebarAffiliates() {
-    const productsWithImages = affiliateProducts.filter(p => p.affiliateLink && p.affiliateImage);
-    if (productsWithImages.length === 0) {
-      dynamicAmazonLinks.innerHTML = '<div style="color:#64748b; text-align:center;">✨ Add "affiliate_link" and "affiliate_image" to your sheet!</div>';
-      return;
-    }
-    let html = '';
-    for (let product of productsWithImages.slice(0, 10)) {
-      const productName = product.displayName || product.name || 'Product';
-      const affiliateUrl = addAmazonTag(product.affiliateLink);
-      const productImage = product.affiliateImage || 'https://placehold.co/55x55/4c1d95/white?text=🛍️';
-      html += `
-        <a href="${escapeHtml(affiliateUrl)}" target="_blank" class="amazon-link" rel="sponsored nofollow">
-          <img src="${escapeHtml(productImage)}" class="amazon-product-img" onerror="this.src='https://placehold.co/55x55/4c1d95/white?text=🛍️'">
-          <div class="amazon-link-info">
-            <div class="product-name">${escapeHtml(productName)}</div>
-            <div class="price">Shop Now →</div>
-          </div>
-        </a>
-      `;
-    }
-    dynamicAmazonLinks.innerHTML = html;
-  }
-  
   function renderGrid() {
-    let display = [...allGames];
-    if (currentCategory === 'favorites') display = display.filter(g => isFavorite(g.id));
-    if (currentCategory === 'affiliate') display = display.filter(g => g.affiliateLink && g.affiliateLink.trim());
-    if (currentSearchTerm.trim()) display = display.filter(g => (g.displayName || g.name).toLowerCase().includes(currentSearchTerm.toLowerCase()));
+    let display = [...games];
+    if (currentCategory === 'favorites') {
+      display = display.filter(g => isFavorite(g.id));
+    }
+    if (currentSearchTerm.trim()) {
+      display = display.filter(g => (g.displayName || g.name).toLowerCase().includes(currentSearchTerm.toLowerCase()));
+    }
     filteredGames = display;
     countSpan.innerText = filteredGames.length;
     
     if (!filteredGames.length) {
-      grid.innerHTML = '<div class="empty-state">🎮 No games found. Try another search!</div>';
+      grid.innerHTML = '<div class="empty-state">🎮 No games found. Try a different search!</div>';
       return;
     }
     
     let html = '';
     for (let game of filteredGames) {
       const favorited = isFavorite(game.id);
-      const hasAffiliate = game.affiliateLink && game.affiliateLink.trim();
-      const affiliateUrl = hasAffiliate ? addAmazonTag(game.affiliateLink) : null;
-      const displayName = game.displayName ||
+      const displayName = game.displayName || game.name;
+      const gameImage = game.image || 'https://placehold.co/300x200/4c1d95/white?text=🎮';
+      
+      html += `
+        <div class="game-card" data-name="${escapeHtml(displayName)}" data-link="${escapeHtml(game.link)}" data-embed="${escapeHtml(game.embed || '')}">
+          <div class="favorite-star ${favorited ? 'favorited' : ''}" data-id="${escapeHtml(game.id)}"><i class="fas fa-star"></i></div>
+          <img class="game-image" src="${escapeHtml(gameImage)}" loading="lazy" onerror="this.src='https://placehold.co/300x200/4c1d95/white?text=${escapeHtml(displayName.charAt(0))}'">
+          <div class="game-info">
+            <div class="game-name">${escapeHtml(displayName)}</div>
+            <div class="play-badge"><i class="fas fa-play-circle"></i> Play Now!</div>
+          </div>
+        </div>
+      `;
+    }
+    grid.innerHTML = html;
+    
+    document.querySelectorAll('.game-card').forEach(card => {
+      const name = card.getAttribute('data-name');
+      const link = card.getAttribute('data-link');
+      const embed = card.getAttribute('data-embed');
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.favorite-star')) return;
+        playGameInside({ displayName: name, name: name, link: link, embed: embed });
+      });
+    });
+    
+    document.querySelectorAll('.favorite-star').forEach(star => {
+      star.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        toggleFavorite(star.getAttribute('data-id')); 
+      });
+    });
+  }
+  
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.getAttribute('data-category');
+      renderGrid();
+    });
+  });
+  
+  closeGameBtn.addEventListener('click', closeGamePlayer);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gamePlayer.style.display === 'flex') closeGamePlayer(); });
+  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; renderGrid(); });
+  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; renderGrid(); });
+  
+  window.toggleFavorite = toggleFavorite;
+  
+  // Initialize
+  updateFavoritesList();
+  updateStats();
+  renderGrid();
+</script>
+</body>
+</html>
