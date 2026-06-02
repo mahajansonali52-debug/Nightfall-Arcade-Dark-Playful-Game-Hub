@@ -19,7 +19,6 @@
       padding: 1.5rem;
     }
     
-    /* Desktop Layout */
     .app-layout {
       display: flex;
       gap: 2rem;
@@ -29,9 +28,9 @@
       z-index: 2;
     }
     
-    /* Sidebar - Fixed width for desktop */
+    /* Sidebar */
     .sidebar {
-      width: 320px;
+      width: 340px;
       background: linear-gradient(145deg, #1a1f2e 0%, #0f172a 100%);
       border-radius: 28px;
       padding: 1.5rem;
@@ -75,7 +74,7 @@
       gap: 8px;
     }
     
-    /* Amazon Affiliate Links */
+    /* Amazon Affiliate Links with Images */
     .amazon-link {
       display: flex;
       align-items: center;
@@ -96,27 +95,31 @@
       border-color: #facc15;
     }
     
-    .amazon-link i {
-      font-size: 1.3rem;
-      color: #facc15;
+    .amazon-product-img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 12px;
+      background: #0f1222;
     }
     
-    .amazon-link span {
+    .amazon-link-info {
       flex: 1;
-      font-weight: 600;
     }
     
-    .amazon-link .price {
-      font-size: 0.8rem;
+    .amazon-link-info .product-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    
+    .amazon-link-info .price {
+      font-size: 0.7rem;
       color: #22c55e;
       font-weight: bold;
     }
     
-    /* Desktop Game Grid - 4 to 5 columns */
-    .main-content {
-      flex: 1;
-      min-width: 0;
-    }
+    /* Desktop Game Grid */
+    .main-content { flex: 1; min-width: 0; }
     
     .hero { text-align: center; margin-bottom: 1.5rem; }
     .hero h1 {
@@ -156,7 +159,7 @@
     .game-counter { background: #1e293b; border-radius: 40px; padding: 0.3rem 1rem; font-weight: 700; color: #facc15; }
     .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; font-family: 'Quicksand'; font-weight: 600; }
     
-    /* DESKTOP GAME GRID - 5 columns on large screens */
+    /* Game Grid - 5 columns desktop */
     .games-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -164,7 +167,6 @@
       margin-top: 0.5rem;
     }
     
-    /* Game Card - Desktop optimized */
     .game-card {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
       border-radius: 20px;
@@ -217,7 +219,6 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.2s;
     }
     
     .favorite-star:hover { transform: scale(1.1); }
@@ -241,10 +242,6 @@
       margin: 0.5rem 0;
       font-size: 0.9rem;
       line-height: 1.3;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
     
     .play-badge {
@@ -259,7 +256,6 @@
       font-weight: bold;
     }
     
-    /* Category buttons */
     .category-btn {
       display: flex;
       align-items: center;
@@ -274,7 +270,6 @@
       font-family: 'Quicksand', sans-serif;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
     }
     
     .category-btn:hover, .category-btn.active { background: #4c1d95; border-color: #facc15; }
@@ -291,9 +286,8 @@
       border-left: 2px solid #facc15;
     }
     .favorite-item span { color: #facc15; font-weight: 600; flex: 1; font-size: 0.8rem; }
-    .favorite-item button { background: #dc2626; border: none; color: white; padding: 2px 8px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; }
+    .favorite-item button { background: #dc2626; border: none; color: white; padding: 2px 8px; border-radius: 20px; cursor: pointer; }
     
-    /* Game Player Overlay */
     .game-player-overlay {
       position: fixed;
       top: 0;
@@ -325,8 +319,6 @@
       padding: 0.4rem 1rem;
       border-radius: 30px;
       cursor: pointer;
-      font-family: 'Quicksand';
-      font-weight: 600;
     }
     .fullscreen-btn { background: #0284c7; }
     .close-game-btn { background: #dc2626; }
@@ -336,31 +328,19 @@
     .empty-state, .loader { text-align: center; padding: 3rem; color: #94a3b8; grid-column: 1/-1; }
     .footer { text-align: center; margin-top: 2rem; color: #94a3b8; font-size: 0.7rem; }
     
-    /* Responsive: Tablet (3 columns) */
-    @media (max-width: 1200px) {
-      .games-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-    
-    @media (max-width: 992px) {
-      .games-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    
+    @media (max-width: 1200px) { .games-grid { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 992px) { .games-grid { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 768px) {
       body { padding: 1rem; }
       .app-layout { flex-direction: column; }
       .sidebar { width: 100%; position: static; }
-      .games-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-      .game-icon { width: 70px; height: 70px; }
-    }
-    
-    @media (max-width: 480px) {
       .games-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
 <div class="app-layout">
-  <!-- SIDEBAR WITH AMAZON AFFILIATE LINKS -->
+  <!-- SIDEBAR WITH AMAZON AFFILIATE LINKS & IMAGES -->
   <div class="sidebar">
     <h3><i class="fab fa-amazon"></i> Amazon Game Store</h3>
     
@@ -368,33 +348,43 @@
       <h4><i class="fas fa-gamepad"></i> 🎮 Best Sellers for Gamers</h4>
       
       <a href="https://www.amazon.com/dp/B08N5WRWNW?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
-        <i class="fas fa-headphones"></i>
-        <span>Kids Gaming Headset</span>
-        <span class="price">$24.99</span>
+        <img src="https://m.media-amazon.com/images/I/41xYpGUFdKL._AC_SL1500_.jpg" class="amazon-product-img" onerror="this.src='https://placehold.co/50x50/4c1d95/white?text=🎧'">
+        <div class="amazon-link-info">
+          <div class="product-name">Kids Gaming Headset</div>
+          <div class="price">$24.99</div>
+        </div>
       </a>
       
       <a href="https://www.amazon.com/dp/B07V9Q8X9Z?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
-        <i class="fas fa-gamepad"></i>
-        <span>Wireless Controller</span>
-        <span class="price">$39.99</span>
+        <img src="https://m.media-amazon.com/images/I/61P3XxQ-LsL._AC_SL1500_.jpg" class="amazon-product-img" onerror="this.src='https://placehold.co/50x50/4c1d95/white?text=🎮'">
+        <div class="amazon-link-info">
+          <div class="product-name">Wireless Controller</div>
+          <div class="price">$39.99</div>
+        </div>
       </a>
       
       <a href="https://www.amazon.com/dp/B08F3T9X4R?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
-        <i class="fas fa-chair"></i>
-        <span>Kids Gaming Chair</span>
-        <span class="price">$89.99</span>
+        <img src="https://m.media-amazon.com/images/I/51Hk5JqKvTL._AC_SL1500_.jpg" class="amazon-product-img" onerror="this.src='https://placehold.co/50x50/4c1d95/white?text=🪑'">
+        <div class="amazon-link-info">
+          <div class="product-name">Kids Gaming Chair</div>
+          <div class="price">$89.99</div>
+        </div>
       </a>
       
       <a href="https://www.amazon.com/dp/B09G5Z7X4L?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
-        <i class="fas fa-cube"></i>
-        <span>Minecraft Toy Set</span>
-        <span class="price">$29.99</span>
+        <img src="https://m.media-amazon.com/images/I/71j2kR8uXHL._AC_SL1500_.jpg" class="amazon-product-img" onerror="this.src='https://placehold.co/50x50/4c1d95/white?text=🧱'">
+        <div class="amazon-link-info">
+          <div class="product-name">Minecraft Toy Set</div>
+          <div class="price">$29.99</div>
+        </div>
       </a>
       
       <a href="https://www.amazon.com/dp/B08XY8W7YJ?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
-        <i class="fas fa-gift-card"></i>
-        <span>Roblox Gift Card</span>
-        <span class="price">$25.00</span>
+        <img src="https://m.media-amazon.com/images/I/71+5uRQE2yL._AC_SL1500_.jpg" class="amazon-product-img" onerror="this.src='https://placehold.co/50x50/4c1d95/white?text=🎁'">
+        <div class="amazon-link-info">
+          <div class="product-name">Roblox Gift Card</div>
+          <div class="price">$25.00</div>
+        </div>
       </a>
       
       <div style="font-size:0.65rem; color:#64748b; margin-top:10px; text-align:center;">
@@ -439,7 +429,7 @@
     
     <div id="gamesGridContainer" class="games-grid"><div class="loader">Loading games...</div></div>
     <div class="footer">
-      ⭐ Click star to favorite | 🖱️ Click game to play | 🛍️ Click orange badge to shop on Amazon
+      ⭐ Click star to favorite | 🖱️ Click game to play | 🛍️ Games with 🛍️ badge have Amazon affiliate links
     </div>
   </div>
 </div>
@@ -460,22 +450,8 @@
   // ========= YOUR AMAZON AFFILIATE TAG =========
   const AMAZON_TAG = 'bestgadge0b72-21';
   
-  // Google Sheets CSV URL
+  // Google Sheets CSV URL - Your sheet with columns: Name, icon, link, Embed Code, Amazon Affiliate Link
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
-  
-  // Fallback games (in case CSV fails to load)
-  const FALLBACK_GAMES = [
-    { id: 'game_0', name: 'Thief Puzzle Game', icon: 'https://placehold.co/90x90/4c1d95/white?text=🎮', link: 'https://example.com/thief', embed: '', affiliateLink: '' },
-    { id: 'game_1', name: 'Table Tennis World Tour', icon: 'https://placehold.co/90x90/4c1d95/white?text=🏓', link: 'https://example.com/tennis', embed: '', affiliateLink: '' },
-    { id: 'game_2', name: 'Endless Truck', icon: 'https://placehold.co/90x90/4c1d95/white?text=🚛', link: 'https://example.com/truck', embed: '', affiliateLink: '' },
-    { id: 'game_3', name: 'Bus Driver Simulator 3D', icon: 'https://placehold.co/90x90/4c1d95/white?text=🚌', link: 'https://example.com/bus', embed: '', affiliateLink: '' },
-    { id: 'game_4', name: 'Real Motor Race Master', icon: 'https://placehold.co/90x90/4c1d95/white?text=🏎️', link: 'https://example.com/race', embed: '', affiliateLink: '' },
-    { id: 'game_5', name: 'Geometry Dash', icon: 'https://placehold.co/90x90/4c1d95/white?text=⚡', link: 'https://geometrydash.io', embed: '<iframe src="https://geometrydash.io" width="100%" height="100%"></iframe>', affiliateLink: 'https://www.amazon.com/dp/B08N5WRWNW' },
-    { id: 'game_6', name: 'Subway Surfers', icon: 'https://placehold.co/90x90/4c1d95/white?text=🚇', link: 'https://subwaysurfers.com', embed: '', affiliateLink: 'https://www.amazon.com/dp/B07V9Q8X9Z' },
-    { id: 'game_7', name: 'Temple Run 2', icon: 'https://placehold.co/90x90/4c1d95/white?text=🏃', link: 'https://templerun.com', embed: '', affiliateLink: '' },
-    { id: 'game_8', name: 'Candy Crush Saga', icon: 'https://placehold.co/90x90/4c1d95/white?text=🍬', link: 'https://candycrush.com', embed: '', affiliateLink: '' },
-    { id: 'game_9', name: 'Among Us', icon: 'https://placehold.co/90x90/4c1d95/white?text=👾', link: 'https://amongus.io', embed: '', affiliateLink: 'https://www.amazon.com/dp/B08F3T9X4R' }
-  ];
   
   let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
   let allGames = [];
@@ -610,7 +586,12 @@
       const hasAffiliate = game.affiliateLink && game.affiliateLink.trim();
       const affiliateUrl = hasAffiliate ? addAmazonTag(game.affiliateLink) : null;
       
-      const iconHtml = game.icon ? `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/90x90/4c1d95/white?text=🎮'">` : `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem;"></i></div>`;
+      let iconHtml = '';
+      if (game.icon && game.icon.trim() && game.icon !== 'https://img.cdn.f' && game.icon !== 'https://img.game') {
+        iconHtml = `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/90x90/4c1d95/white?text=🎮'">`;
+      } else {
+        iconHtml = `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem;"></i></div>`;
+      }
       
       html += `
         <div class="game-card" data-name="${escapeHtml(game.name)}" data-link="${escapeHtml(game.link)}" data-embed="${escapeHtml(game.embed || '')}" data-affiliate="${escapeHtml(affiliateUrl || '')}">
@@ -689,7 +670,7 @@
     try {
       grid.innerHTML = '<div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading games...</div>';
       const resp = await fetch(CSV_URL);
-      if (!resp.ok) throw new Error();
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const csv = await resp.text();
       let gamesData = parseCSV(csv);
       
@@ -697,23 +678,40 @@
         allGames = gamesData.map((row, idx) => ({
           id: `game_${idx}`,
           name: row.name || row.title || "Game",
-          icon: row.icon || row.image || "",
+          icon: (row.icon && row.icon !== 'https://img.cdn.f' && row.icon !== 'https://img.game') ? row.icon : "",
           link: row.link || row.url || "#",
-          embed: row.embed || row.embedded || "",
-          affiliateLink: row.affiliate_link || row.affiliate || row.amazon || ""
+          embed: row['embed code'] || row.embed || row.embedded || "",
+          affiliateLink: row['amazon affiliate link'] || row.affiliate_link || row.affiliate || row.amazon || ""
         }));
-      } else {
-        allGames = FALLBACK_GAMES;
       }
       
-      if (!allGames.length) allGames = FALLBACK_GAMES;
+      // Filter out rows with invalid names
+      allGames = allGames.filter(g => g.name && g.name !== "Table Tennis Wo" && g.name.length > 2);
+      
+      if (!allGames.length) {
+        allGames = [
+          { id: 'game_0', name: 'Parking Jam', icon: '', link: '#', embed: '', affiliateLink: 'https://amzn.to/4' },
+          { id: 'game_1', name: 'Thief Puzzle Game', icon: '', link: '#', embed: '', affiliateLink: '' },
+          { id: 'game_2', name: 'Table Tennis World Tour', icon: '', link: '#', embed: '', affiliateLink: '' },
+          { id: 'game_3', name: 'Endless Truck', icon: '', link: 'https://play.famobi.com/endless-truck', embed: '', affiliateLink: '' },
+          { id: 'game_4', name: 'Bus Driver Simulator 3D', icon: '', link: 'https://play.gamepix.com/bus-driver-simulator-3d', embed: '', affiliateLink: '' },
+          { id: 'game_5', name: 'Real Motor Race Master', icon: '', link: '#', embed: '', affiliateLink: '' }
+        ];
+      }
       
       updateFavoritesList();
       updateStats();
       renderGrid();
     } catch(e) {
-      console.warn('Using fallback games due to CSV error');
-      allGames = FALLBACK_GAMES;
+      console.warn('Error loading CSV, using fallback:', e);
+      allGames = [
+        { id: 'game_0', name: 'Parking Jam', icon: '', link: '#', embed: '', affiliateLink: 'https://amzn.to/4' },
+        { id: 'game_1', name: 'Thief Puzzle Game', icon: '', link: '#', embed: '', affiliateLink: '' },
+        { id: 'game_2', name: 'Table Tennis World Tour', icon: '', link: '#', embed: '', affiliateLink: '' },
+        { id: 'game_3', name: 'Endless Truck', icon: '', link: 'https://play.famobi.com/endless-truck', embed: '', affiliateLink: '' },
+        { id: 'game_4', name: 'Bus Driver Simulator 3D', icon: '', link: 'https://play.gamepix.com/bus-driver-simulator-3d', embed: '', affiliateLink: '' },
+        { id: 'game_5', name: 'Real Motor Race Master', icon: '', link: '#', embed: '', affiliateLink: '' }
+      ];
       updateFavoritesList();
       updateStats();
       renderGrid();
