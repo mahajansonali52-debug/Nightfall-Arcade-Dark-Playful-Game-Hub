@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="google-site-verification" content="QDw0cSLBlmhFX-jvbY6gZsG-_Jq8x8T8MOgbwWvwHYo" />
   <title>🌙 Nightfall Arcade | Play Inside - No New Tabs</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -25,6 +26,134 @@
       z-index: 0;
     }
     .container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
+    
+    /* NEW: Two Column Layout */
+    .main-layout { display: flex; gap: 2rem; }
+    
+    /* Sidebar Styles */
+    .sidebar {
+      width: 320px;
+      background: linear-gradient(145deg, #1a1f2e 0%, #0f172a 100%);
+      border-radius: 28px;
+      padding: 1.5rem;
+      border: 1px solid #4c1d95;
+      height: fit-content;
+      position: sticky;
+      top: 1rem;
+    }
+    .sidebar h3 {
+      color: #facc15;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #4c1d95;
+      padding-bottom: 0.7rem;
+    }
+    .sidebar-section {
+      margin-bottom: 1.5rem;
+      background: #0f1222;
+      border-radius: 20px;
+      padding: 1rem;
+    }
+    .sidebar-section h4 {
+      color: #c084fc;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* Amazon Affiliate Links */
+    .amazon-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0.6rem;
+      margin: 0.4rem 0;
+      background: #1e293b;
+      border-radius: 16px;
+      text-decoration: none;
+      color: #e2e8f0;
+      transition: all 0.2s;
+      border: 1px solid #334155;
+    }
+    .amazon-link:hover {
+      background: #4c1d95;
+      transform: translateX(5px);
+      border-color: #facc15;
+    }
+    .amazon-product-img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .amazon-link-info { flex: 1; }
+    .amazon-link-info .product-name { font-weight: 700; font-size: 0.8rem; }
+    .amazon-link-info .price { font-size: 0.65rem; color: #22c55e; }
+    
+    /* Category Buttons */
+    .category-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 0.5rem 1rem;
+      margin: 0.3rem 0;
+      background: #0f1222;
+      border: 1px solid #2d3a5e;
+      border-radius: 16px;
+      color: #e2e8f0;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .category-btn:hover, .category-btn.active { background: #4c1d95; border-color: #facc15; }
+    
+    /* Favorites List */
+    .favorite-list { max-height: 200px; overflow-y: auto; }
+    .favorite-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      margin: 0.3rem 0;
+      background: #1e293b;
+      border-radius: 12px;
+      border-left: 2px solid #facc15;
+    }
+    .favorite-item span { color: #facc15; font-weight: 600; flex: 1; font-size: 0.8rem; }
+    .favorite-item button { background: #dc2626; border: none; color: white; padding: 2px 8px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; }
+    
+    /* Stats Display */
+    #statsDisplay { font-size: 0.75rem; line-height: 1.6; color: #cbd5e6; }
+    #statsDisplay i { width: 24px; color: #facc15; }
+    
+    /* Buy Me a Coffee Button */
+    .bmc-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #FFDD00;
+      color: #1a1f2e;
+      padding: 0.6rem 1rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.85rem;
+      width: 100%;
+      transition: all 0.2s;
+    }
+    .bmc-btn:hover { transform: scale(1.02); background: #FFE44D; }
+    
+    /* Main Content */
+    .main-content { flex: 1; min-width: 0; }
+    
     .hero { text-align: center; margin-bottom: 2rem; }
     .hero h1 {
       font-size: 3rem;
@@ -52,6 +181,7 @@
       margin-top: 0.8rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
+    
     .search-wrapper { max-width: 550px; margin: 1.5rem auto 2rem auto; position: relative; }
     .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: #818cf8; }
     #searchInput {
@@ -68,7 +198,7 @@
       color: #f1f5f9;
     }
     #searchInput:focus { box-shadow: 0 0 0 3px #6366f1; background: #181e2f; }
-    #searchInput::placeholder { color: #64748b; }
+    
     .info-bar { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 1.8rem; gap: 12px; }
     .game-counter { background: #1e293b; border-radius: 40px; padding: 0.4rem 1.2rem; font-weight: 700; color: #a5b4fc; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #334155; }
     .clear-search { background: #4c1d95; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; padding: 0.4rem 1.3rem; border-radius: 50px; color: #e2e8f0; cursor: pointer; box-shadow: 0 3px 0 #2e1065; transition: all 0.1s; }
@@ -89,13 +219,49 @@
       padding: 1.2rem;
       border: 1px solid #2d3a5e;
       overflow: hidden;
+      position: relative;
     }
     .game-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 22px 28px -12px #00000080, 0 0 0 2px #818cf8; border-color: #818cf8; }
-    .game-icon { width: 90px; height: 90px; object-fit: cover; border-radius: 20px; background: #0b0e17; padding: 0.5rem; box-shadow: 0 4px 0 #2d3a5e; margin-bottom: 0.8rem; }
+    
+    /* Affiliate Badge on Game Card */
+    .affiliate-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #facc15;
+      color: #1a1f2e;
+      font-size: 0.6rem;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 20px;
+      z-index: 5;
+      cursor: pointer;
+    }
+    
+    /* Favorite Star */
+    .favorite-star {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.2rem;
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+    }
+    .favorite-star.favorited { color: #facc15; }
+    .favorite-star:not(.favorited) { color: #64748b; }
+    
+    .game-icon { width: 90px; height: 90px; object-fit: cover; border-radius: 20px; background: linear-gradient(135deg, #4c1d95, #7c3aed); padding: 0.5rem; margin-bottom: 0.8rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
     .game-name { font-size: 1.2rem; font-weight: 800; margin: 0.5rem 0 0.3rem; color: #facc15; background: #1e293b; display: inline-block; padding: 0.2rem 1rem; border-radius: 50px; }
     .play-badge { margin-top: 0.5rem; font-size: 0.8rem; font-weight: 700; background: #22c55e; padding: 0.25rem 1rem; border-radius: 30px; color: #022c1a; display: inline-flex; align-items: center; gap: 6px; }
     
-    /* Game Player (full screen embed view) */
+    /* Game Player */
     .game-player-overlay {
       position: fixed;
       top: 0;
@@ -117,13 +283,10 @@
       border-radius: 20px;
       margin-bottom: 1rem;
     }
-    .game-player-title {
-      color: #facc15;
-      font-weight: 800;
-      font-size: 1.3rem;
-    }
-    .close-game-btn {
-      background: #dc2626;
+    .game-player-title { color: #facc15; font-weight: 800; font-size: 1.3rem; }
+    .player-controls { display: flex; gap: 10px; }
+    .fullscreen-btn, .close-game-btn {
+      background: #4c1d95;
       border: none;
       color: white;
       font-family: 'Quicksand', sans-serif;
@@ -131,128 +294,111 @@
       padding: 0.5rem 1.2rem;
       border-radius: 40px;
       cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.2s;
     }
-    .close-game-btn:hover { background: #b91c1c; transform: scale(1.02); }
-    .game-iframe-container {
-      flex: 1;
-      width: 100%;
-      background: #000000;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-    .game-iframe-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    .no-embed-message {
-      text-align: center;
-      padding: 3rem;
-      color: white;
-    }
-    .back-to-games {
-      background: #4c1d95;
-      border: none;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 40px;
-      cursor: pointer;
-      margin-top: 1rem;
-    }
-    .empty-state { text-align: center; grid-column: 1 / -1; padding: 4rem 1rem; background: #0f172a; border-radius: 70px; border: 1px solid #334155; }
-    .empty-state i { font-size: 4rem; color: #facc15; }
-    .empty-state p { font-size: 1.5rem; font-weight: 700; color: #cbd5e1; }
-    .loader { text-align: center; padding: 4rem; font-size: 2rem; color: #a78bfa; }
+    .fullscreen-btn { background: #0284c7; }
+    .close-game-btn { background: #dc2626; }
+    .game-iframe-container { flex: 1; background: #000; border-radius: 20px; overflow: hidden; }
+    .game-iframe-container iframe { width: 100%; height: 100%; border: none; }
+    
+    .empty-state, .loader { text-align: center; padding: 4rem; color: #94a3b8; grid-column: 1/-1; }
     .footer { text-align: center; margin-top: 3rem; color: #94a3b8; font-weight: 600; }
     
+    @media (max-width: 1000px) { .main-layout { flex-direction: column; } .sidebar { width: 100%; position: static; } }
     @media (max-width: 640px) {
       body { padding: 1rem; }
       .hero h1 { font-size: 2rem; }
       .games-grid { gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
-      .game-icon { width: 70px; height: 70px; }
+      .game-icon { width: 70px; height: 70px; font-size: 2rem; }
     }
   </style>
 </head>
 <body>
 <div class="container">
-  <div class="hero">
-    <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fas fa-play-circle"></i></h1>
-    <div class="tagline"><i class="fas fa-star"></i> Click any game — plays right here! ✨</div>
+  <div class="main-layout">
+    <!-- SIDEBAR with Amazon Affiliates, Categories, Favorites -->
+    <div class="sidebar">
+      <h3><i class="fab fa-amazon"></i> Amazon Store</h3>
+      
+      <div class="sidebar-section">
+        <h4><i class="fas fa-gamepad"></i> 🎮 Sponsored Products</h4>
+        <div id="amazonSidebarLinks">
+          <div style="color:#64748b; text-align:center;">Loading affiliate products...</div>
+        </div>
+        <div style="font-size:0.6rem; color:#64748b; text-align:center; margin-top:8px;">As an Amazon Associate I earn from qualifying purchases</div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h4><i class="fas fa-filter"></i> Categories</h4>
+        <button class="category-btn active" data-category="all"><i class="fas fa-globe"></i> All Games</button>
+        <button class="category-btn" data-category="favorites"><i class="fas fa-star"></i> My Favorites ⭐</button>
+        <button class="category-btn" data-category="affiliate"><i class="fab fa-amazon"></i> Games with Affiliate Links</button>
+      </div>
+      
+      <div class="sidebar-section">
+        <h4><i class="fas fa-heart"></i> Saved Favorites</h4>
+        <div id="favoritesList" class="favorite-list">⭐ Click star on games</div>
+      </div>
+      
+      <div class="sidebar-section">
+        <h4><i class="fas fa-chart-line"></i> Stats</h4>
+        <div id="statsDisplay">Loading...</div>
+      </div>
+      
+      <div class="sidebar-section" style="text-align:center;">
+        <a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" class="bmc-btn">
+          <i class="fas fa-coffee"></i> Buy Me a Coffee ☕
+        </a>
+      </div>
+    </div>
+    
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <div class="hero">
+        <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fas fa-play-circle"></i></h1>
+        <div class="tagline"><i class="fas fa-star"></i> Click any game — plays right here! ✨</div>
+      </div>
+      
+      <div class="search-wrapper">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="searchInput" placeholder="🔎 Search games by name..." autocomplete="off">
+      </div>
+      
+      <div class="info-bar">
+        <div class="game-counter"><i class="fas fa-dice-d6"></i> <span id="countValue">0</span> games</div>
+        <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear search</button>
+      </div>
+      
+      <div id="gamesGridContainer" class="games-grid"><div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading games...</div></div>
+      <div class="footer">⭐ Click star to favorite | 🖱️ Click game to play | 🛍️ Games with 🛍️ badge have Amazon links</div>
+    </div>
   </div>
-  <div class="search-wrapper">
-    <i class="fas fa-search search-icon"></i>
-    <input type="text" id="searchInput" placeholder="🔎 Search games by name..." autocomplete="off">
-  </div>
-  <div class="info-bar">
-    <div class="game-counter"><i class="fas fa-dice-d6"></i> <span id="countValue">0</span> glowing games</div>
-    <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear search</button>
-  </div>
-  <div id="gamesGridContainer" class="games-grid"><div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading cosmic games...</div></div>
-  <div class="footer">🌙 Games with embed codes play inside | Others open in new tab 💫</div>
 </div>
 
-<!-- Game Player Overlay (plays inside same page) -->
+<!-- Game Player Overlay -->
 <div id="gamePlayer" class="game-player-overlay">
   <div class="game-player-header">
     <span class="game-player-title" id="gamePlayerTitle">Loading...</span>
-    <button class="close-game-btn" id="closeGameBtn"><i class="fas fa-times"></i> Close Game</button>
+    <div class="player-controls">
+      <button class="fullscreen-btn" id="fullscreenBtn"><i class="fas fa-expand"></i> Fullscreen</button>
+      <button class="close-game-btn" id="closeGameBtn"><i class="fas fa-times"></i> Close</button>
+    </div>
   </div>
-  <div id="gameIframeContainer" class="game-iframe-container">
-    <!-- iframe or embed content goes here -->
-  </div>
+  <div id="gameIframeContainer" class="game-iframe-container"></div>
 </div>
 
 <script>
-  // ========= CONFIG =========
+  // ========= CONFIGURATION =========
+  const AMAZON_TAG = 'bestgadge0b72-21';
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
   
-  // Robust CSV parser
-  function parseCSV(csvText) {
-    const rows = [];
-    let row = [];
-    let buffer = '';
-    let inQuotes = false;
-    for (let i = 0; i < csvText.length; i++) {
-      let ch = csvText[i];
-      if (ch === '"') {
-        if (inQuotes && csvText[i+1] === '"') {
-          buffer += '"';
-          i++;
-        } else {
-          inQuotes = !inQuotes;
-        }
-      } else if (ch === ',' && !inQuotes) {
-        row.push(buffer.trim());
-        buffer = '';
-      } else if (ch === '\n' && !inQuotes) {
-        row.push(buffer.trim());
-        if (row.length > 0) rows.push(row);
-        row = [];
-        buffer = '';
-      } else {
-        buffer += ch;
-      }
-    }
-    row.push(buffer.trim());
-    if (row.length > 0 && row[0] !== '') rows.push(row);
-    if (rows.length === 0) return [];
-    let headers = rows[0].map(h => h.replace(/^"|"$/g, '').toLowerCase());
-    const data = [];
-    for (let i = 1; i < rows.length; i++) {
-      let obj = {};
-      for (let j = 0; j < headers.length; j++) {
-        let val = rows[i][j] || '';
-        val = val.replace(/^"|"$/g, '').replace(/""/g, '"');
-        obj[headers[j]] = val;
-      }
-      data.push(obj);
-    }
-    return data;
-  }
+  let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
+  let allGames = [];
+  let affiliateProducts = [];
+  let filteredGames = [];
+  let currentSearchTerm = "";
+  let currentCategory = "all";
   
-  let allGames = [], filteredGames = [], currentSearchTerm = "";
+  // DOM Elements
   const grid = document.getElementById('gamesGridContainer');
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearchBtn');
@@ -261,79 +407,147 @@
   const gamePlayerTitle = document.getElementById('gamePlayerTitle');
   const gameIframeContainer = document.getElementById('gameIframeContainer');
   const closeGameBtn = document.getElementById('closeGameBtn');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
+  const amazonSidebar = document.getElementById('amazonSidebarLinks');
   
-  function escapeHtml(str) { 
-    if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
-      return m;
-    });
+  function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
+  
+  function getEmoji(name) {
+    let n = name.toLowerCase();
+    if (n.includes('parking')) return '🚗';
+    if (n.includes('thief')) return '🕵️';
+    if (n.includes('tennis')) return '🏓';
+    if (n.includes('truck')) return '🚛';
+    if (n.includes('bus')) return '🚌';
+    if (n.includes('race') || n.includes('motor')) return '🏎️';
+    if (n.includes('war') || n.includes('knight')) return '⚔️';
+    if (n.includes('penalty') || n.includes('kick')) return '⚽';
+    if (n.includes('stickman')) return '🥋';
+    return '🎮';
   }
   
-  // Show game inside the page (no new tab)
+  function toggleFullscreen() {
+    const container = document.getElementById('gameIframeContainer');
+    if (!document.fullscreenElement) container.requestFullscreen();
+    else document.exitFullscreen();
+  }
+  fullscreenBtn.addEventListener('click', toggleFullscreen);
+  
   function playGameInside(game) {
     gamePlayerTitle.innerText = game.name;
     gameIframeContainer.innerHTML = '';
     
-    if (game.embed && game.embed.trim() !== '') {
-      // Sanitize embed: remove scripts
-      let safeEmbed = game.embed.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
-      // Create a div to hold the embed content
-      const embedDiv = document.createElement('div');
-      embedDiv.style.width = '100%';
-      embedDiv.style.height = '100%';
-      embedDiv.innerHTML = safeEmbed;
-      
-      // Make iframes responsive
-      const iframes = embedDiv.querySelectorAll('iframe');
-      iframes.forEach(iframe => {
-        iframe.style.width = '100%';
-        iframe.style.height = '100%';
-        iframe.style.minHeight = '400px';
-        if (!iframe.hasAttribute('sandbox')) {
-          iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms allow-modals');
-        }
-      });
-      
-      gameIframeContainer.appendChild(embedDiv);
-    } else if (game.link && game.link !== "#" && game.link !== '') {
-      // No embed, but has link — show in iframe (play inside)
+    let gameUrl = game.embed || game.link;
+    
+    if (gameUrl && gameUrl !== "#" && gameUrl !== "") {
       const iframe = document.createElement('iframe');
-      iframe.src = game.link;
+      iframe.src = gameUrl;
       iframe.style.width = '100%';
       iframe.style.height = '100%';
       iframe.style.border = 'none';
       iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('allow', 'autoplay; fullscreen');
       iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-top-navigation');
       gameIframeContainer.appendChild(iframe);
     } else {
-      gameIframeContainer.innerHTML = `<div class="no-embed-message"><i class="fas fa-link" style="font-size:3rem;"></i><p>No game link or embed available.</p><button class="back-to-games" onclick="document.getElementById('gamePlayer').style.display='none'">Back to Arcade</button></div>`;
+      gameIframeContainer.innerHTML = '<div style="padding:2rem; text-align:center; color:white;">🎮 Game link not available</div>';
     }
-    
     gamePlayer.style.display = 'flex';
   }
   
-  function closeGamePlayer() {
-    gamePlayer.style.display = 'none';
-    gameIframeContainer.innerHTML = ''; // stop video/game
+  function closeGamePlayer() { gamePlayer.style.display = 'none'; gameIframeContainer.innerHTML = ''; }
+  closeGameBtn.addEventListener('click', closeGamePlayer);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gamePlayer.style.display === 'flex') closeGamePlayer(); });
+  
+  function saveFavorites() {
+    localStorage.setItem('nightfall_favorites', JSON.stringify(favorites));
+    updateFavoritesList();
+    updateStats();
+    renderGrid();
+  }
+  
+  function toggleFavorite(gameId) {
+    let idx = favorites.indexOf(gameId);
+    if (idx === -1) favorites.push(gameId);
+    else favorites.splice(idx, 1);
+    saveFavorites();
+  }
+  
+  function isFavorite(gameId) { return favorites.includes(gameId); }
+  
+  function updateFavoritesList() {
+    let favDiv = document.getElementById('favoritesList');
+    let favGames = allGames.filter(g => isFavorite(g.id));
+    if (!favGames.length) { favDiv.innerHTML = '⭐ Click star on games'; return; }
+    favDiv.innerHTML = favGames.map(g => `
+      <div class="favorite-item">
+        <span>${escapeHtml(g.name)}</span>
+        <button onclick="toggleFavorite('${g.id}')"><i class="fas fa-trash"></i></button>
+      </div>
+    `).join('');
+  }
+  
+  function updateStats() {
+    let affiliateCount = allGames.filter(g => g.affiliateLink && g.affiliateLink.trim()).length;
+    document.getElementById('statsDisplay').innerHTML = `
+      <div><i class="fas fa-database"></i> Total Games: ${allGames.length}</div>
+      <div><i class="fas fa-star"></i> Favorites: ${favorites.length}</div>
+      <div><i class="fab fa-amazon"></i> Affiliate Links: ${affiliateCount}</div>
+    `;
+  }
+  
+  function addAmazonTag(url) {
+    if (!url) return null;
+    if (url.includes('amazon.com') || url.includes('amazon.')) {
+      if (url.includes('tag=')) return url.replace(/tag=[^&]+/, `tag=${AMAZON_TAG}`);
+      let sep = url.includes('?') ? '&' : '?';
+      return `${url}${sep}tag=${AMAZON_TAG}`;
+    }
+    return url;
+  }
+  
+  function renderSidebarAffiliates() {
+    let products = affiliateProducts.filter(p => p.affiliateLink && p.affiliateImage);
+    if (!products.length) {
+      amazonSidebar.innerHTML = '<div style="color:#64748b; text-align:center;">✨ Add affiliate_link & affiliate_image to your sheet</div>';
+      return;
+    }
+    amazonSidebar.innerHTML = products.slice(0, 5).map(p => `
+      <a href="${addAmazonTag(p.affiliateLink)}" target="_blank" class="amazon-link">
+        <img src="${escapeHtml(p.affiliateImage)}" class="amazon-product-img" onerror="this.src='https://placehold.co/50x50/4c1d95/white?text=🛍️'">
+        <div class="amazon-link-info">
+          <div class="product-name">${escapeHtml(p.name)}</div>
+          <div class="price">Shop Now →</div>
+        </div>
+      </a>
+    `).join('');
   }
   
   function renderGrid() {
+    let display = [...allGames];
+    if (currentCategory === 'favorites') display = display.filter(g => isFavorite(g.id));
+    if (currentCategory === 'affiliate') display = display.filter(g => g.affiliateLink && g.affiliateLink.trim());
+    if (currentSearchTerm.trim()) display = display.filter(g => g.name.toLowerCase().includes(currentSearchTerm.toLowerCase()));
+    filteredGames = display;
     countSpan.innerText = filteredGames.length;
-    if (filteredGames.length === 0) { 
-      grid.innerHTML = `<div class="empty-state"><i class="fas fa-skull-cowboy"></i><p>No games found 🌑</p><div>Try another search ✨</div></div>`; 
-      return; 
+    
+    if (!filteredGames.length) {
+      grid.innerHTML = '<div class="empty-state">🎮 No games found</div>';
+      return;
     }
     
     let html = '';
     for (let game of filteredGames) {
-      const iconHtml = game.icon ? `<img class="game-icon" src="${escapeHtml(game.icon)}" alt="${escapeHtml(game.name)}" onerror="this.onerror=null; this.src=''; this.outerHTML='<div class=\\'game-icon fallback\\'><i class=\\'fas fa-meteor\\' style=\\'font-size:2.5rem;\\'></i></div>';">` : `<div class="game-icon fallback"><i class="fas fa-gamepad" style="font-size:2.5rem;"></i></div>`;
+      let favorited = isFavorite(game.id);
+      let hasAffiliate = game.affiliateLink && game.affiliateLink.trim();
+      let affiliateUrl = hasAffiliate ? addAmazonTag(game.affiliateLink) : null;
+      let emoji = getEmoji(game.name);
       
       html += `
-        <div class="game-card" data-game-name="${escapeHtml(game.name)}" data-game-link="${escapeHtml(game.link)}" data-game-embed="${escapeHtml(game.embed || '')}" data-game-icon="${escapeHtml(game.icon || '')}" role="button" tabindex="0">
-          ${iconHtml}
+        <div class="game-card" data-name="${escapeHtml(game.name)}" data-link="${escapeHtml(game.link)}" data-embed="${escapeHtml(game.embed || '')}" data-affiliate="${escapeHtml(affiliateUrl || '')}">
+          ${hasAffiliate ? `<div class="affiliate-badge"><i class="fab fa-amazon"></i> 🛍️ Shop</div>` : ''}
+          <div class="favorite-star ${favorited ? 'favorited' : ''}" data-id="${game.id}"><i class="fas fa-star"></i></div>
+          <div class="game-icon">${emoji}</div>
           <div class="game-name">${escapeHtml(game.name)}</div>
           <div class="play-badge"><i class="fas fa-play-circle"></i> Play Inside!</div>
         </div>
@@ -341,79 +555,135 @@
     }
     grid.innerHTML = html;
     
-    // Attach click handlers - ALL games play INSIDE now (no new tab!)
     document.querySelectorAll('.game-card').forEach(card => {
-      const gameName = card.getAttribute('data-game-name');
-      const gameLink = card.getAttribute('data-game-link');
-      const gameEmbed = card.getAttribute('data-game-embed');
-      const gameIcon = card.getAttribute('data-game-icon');
-      
+      let name = card.getAttribute('data-name');
+      let link = card.getAttribute('data-link');
+      let embed = card.getAttribute('data-embed');
       card.addEventListener('click', (e) => {
-        e.stopPropagation();
-        playGameInside({
-          name: gameName,
-          link: gameLink,
-          embed: gameEmbed,
-          icon: gameIcon
-        });
-      });
-      card.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
+        if (e.target.closest('.affiliate-badge')) {
+          let url = card.getAttribute('data-affiliate');
+          if (url) window.open(url, '_blank');
+          return;
         }
+        if (e.target.closest('.favorite-star')) return;
+        playGameInside({ name, link, embed });
+      });
+    });
+    
+    document.querySelectorAll('.favorite-star').forEach(star => {
+      star.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleFavorite(star.getAttribute('data-id'));
       });
     });
   }
   
-  function applyFilter() { 
-    let term = currentSearchTerm.trim().toLowerCase(); 
-    filteredGames = term === "" ? [...allGames] : allGames.filter(g => g.name && g.name.toLowerCase().includes(term)); 
-    renderGrid(); 
+  function parseCSV(csvText) {
+    const rows = [];
+    let row = [], buffer = '', inQuotes = false;
+    for (let i = 0; i < csvText.length; i++) {
+      let ch = csvText[i];
+      if (ch === '"') {
+        if (inQuotes && csvText[i+1] === '"') { buffer += '"'; i++; }
+        else { inQuotes = !inQuotes; }
+      } else if (ch === ',' && !inQuotes) {
+        row.push(buffer.trim());
+        buffer = '';
+      } else if (ch === '\n' && !inQuotes) {
+        row.push(buffer.trim());
+        if (row.length) rows.push(row);
+        row = [];
+        buffer = '';
+      } else {
+        buffer += ch;
+      }
+    }
+    row.push(buffer.trim());
+    if (row.length && row[0] !== '') rows.push(row);
+    if (!rows.length) return [];
+    let headers = rows[0].map(h => h.replace(/^"|"$/g, '').toLowerCase());
+    return rows.slice(1).map(row => {
+      let obj = {};
+      headers.forEach((h, i) => {
+        let val = (row[i] || '').replace(/^"|"$/g, '').replace(/""/g, '"');
+        obj[h] = val;
+      });
+      return obj;
+    });
   }
   
   async function loadGames() {
     try {
-      grid.innerHTML = `<div class="loader"><i class="fas fa-spinner fa-pulse"></i> Fetching games...</div>`;
+      grid.innerHTML = '<div class="loader"><i class="fas fa-spinner fa-pulse"></i> Fetching games...</div>';
       const resp = await fetch(CSV_URL);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const csv = await resp.text();
       let gamesData = parseCSV(csv);
       
-      allGames = gamesData.map(row => ({
-        name: row.name || row.title || "✨ Mystery Game",
-        icon: row.icon || row.image || "",
-        link: row.link || row.url || "#",
-        embed: row.embed || row.embedded || row.iframe || ""
-      })).filter(g => g.name);
-      
-      if (allGames.length === 0) {
-        allGames = [{ name: "Demo Game", icon: "", link: "https://example.com", embed: "<div style='padding:40px; background:#4c1d95; border-radius:20px; color:white; text-align:center;'><h2>✨ Add games to your CSV!</h2><p>Column 'Embed' can contain iframe or HTML</p></div>" }];
+      if (gamesData.length > 0) {
+        allGames = [];
+        affiliateProducts = [];
+        for (let i = 0; i < gamesData.length; i++) {
+          let row = gamesData[i];
+          let gameObj = {
+            id: `game_${i}`,
+            name: row.name || row.title || "Game",
+            icon: row.icon || "",
+            link: row.link || row.url || "#",
+            embed: row['embed code'] || row.embed || "",
+            affiliateLink: row['amazon affiliate link'] || row.affiliate_link || row.affiliate || "",
+            affiliateImage: row.affiliate_image || row['affiliate image'] || ""
+          };
+          if (gameObj.name && gameObj.name.length > 2) {
+            allGames.push(gameObj);
+            if (gameObj.affiliateLink && gameObj.affiliateImage) {
+              affiliateProducts.push(gameObj);
+            }
+          }
+        }
       }
-      filteredGames = [...allGames];
+      
+      if (!allGames.length) {
+        allGames = [
+          { id: 'g0', name: 'Parking Jam', icon: '', link: 'https://www.crazygames.com/game/parking-jam-3d', embed: 'https://www.crazygames.com/embed/parking-jam-3d', affiliateLink: '', affiliateImage: '' },
+          { id: 'g1', name: 'Thief Puzzle', icon: '', link: 'https://www.crazygames.com/game/thief-puzzle', embed: 'https://www.crazygames.com/embed/thief-puzzle', affiliateLink: '', affiliateImage: '' },
+          { id: 'g2', name: 'Table Tennis World Tour', icon: '', link: 'https://www.crazygames.com/game/table-tennis-world-tour', embed: 'https://www.crazygames.com/embed/table-tennis-world-tour', affiliateLink: '', affiliateImage: '' },
+          { id: 'g3', name: 'Endless Truck', icon: '', link: 'https://www.crazygames.com/game/endless-truck', embed: 'https://www.crazygames.com/embed/endless-truck', affiliateLink: '', affiliateImage: '' },
+          { id: 'g4', name: 'Bus Driver Simulator', icon: '', link: 'https://www.crazygames.com/game/bus-driver-simulator-3d', embed: 'https://www.crazygames.com/embed/bus-driver-simulator-3d', affiliateLink: '', affiliateImage: '' },
+          { id: 'g5', name: 'Real Motor Race Master', icon: '', link: 'https://www.crazygames.com/game/real-motor-race-master', embed: 'https://www.crazygames.com/embed/real-motor-race-master', affiliateLink: '', affiliateImage: '' }
+        ];
+      }
+      
+      renderSidebarAffiliates();
+      updateFavoritesList();
+      updateStats();
       renderGrid();
-    } catch(e) { 
+    } catch(e) {
       console.error(e);
-      grid.innerHTML = `<div class="empty-state"><i class="fas fa-cloud-moon"></i><p>⚠️ Couldn't load games!</p><div>Make sure CSV is public</div></div>`; 
-      allGames = []; 
-      filteredGames = []; 
-      countSpan.innerText = "0"; 
+      allGames = [
+        { id: 'g0', name: 'Parking Jam', icon: '', link: 'https://www.crazygames.com/game/parking-jam-3d', embed: 'https://www.crazygames.com/embed/parking-jam-3d', affiliateLink: '', affiliateImage: '' },
+        { id: 'g1', name: 'Thief Puzzle', icon: '', link: 'https://www.crazygames.com/game/thief-puzzle', embed: 'https://www.crazygames.com/embed/thief-puzzle', affiliateLink: '', affiliateImage: '' },
+        { id: 'g2', name: 'Endless Truck', icon: '', link: 'https://www.crazygames.com/game/endless-truck', embed: 'https://www.crazygames.com/embed/endless-truck', affiliateLink: '', affiliateImage: '' }
+      ];
+      renderSidebarAffiliates();
+      updateFavoritesList();
+      updateStats();
+      renderGrid();
     }
   }
   
-  // Close button event
-  closeGameBtn.addEventListener('click', closeGamePlayer);
-  
-  // Press ESC to close game
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && gamePlayer.style.display === 'flex') {
-      closeGamePlayer();
-    }
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.getAttribute('data-category');
+      renderGrid();
+    });
   });
   
+  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; renderGrid(); });
+  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; renderGrid(); });
+  
+  window.toggleFavorite = toggleFavorite;
   loadGames();
-  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; applyFilter(); });
-  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; applyFilter(); searchInput.focus(); });
-</script>
-</body>
-</html>
+</
