@@ -7,7 +7,7 @@
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="QDw0cSLBlmhFX-jvbY6gZsG-_Jq8x8T8MOgbwWvwHYo" />
   
-  <title>🌙 Nightfall Arcade | Play Inside - Fullscreen + Favorites</title>
+  <title>🌙 Nightfall Arcade | Play Free Games - Support the Arcade</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -29,9 +29,9 @@
       z-index: 2;
     }
     
-    /* Sidebar Styles - IMPROVED CONTRAST & READABILITY */
+    /* Sidebar Styles - Revenue Focused */
     .sidebar {
-      width: 300px;
+      width: 320px;
       background: linear-gradient(145deg, #1a1f2e 0%, #0f172a 100%);
       border-radius: 28px;
       padding: 1.5rem;
@@ -55,6 +55,15 @@
     
     .sidebar-section {
       margin-bottom: 1.8rem;
+      background: #0f1222;
+      border-radius: 20px;
+      padding: 1rem;
+      transition: all 0.2s;
+    }
+    
+    .sidebar-section:hover {
+      background: #1a1f2e;
+      border-left: 3px solid #facc15;
     }
     
     .sidebar-section h4 {
@@ -64,17 +73,165 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      border-left: 3px solid #facc15;
-      padding-left: 10px;
     }
     
+    /* Amazon & ClickBank Affiliate Links */
+    .affiliate-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0.7rem;
+      margin: 0.5rem 0;
+      background: #1e293b;
+      border-radius: 16px;
+      text-decoration: none;
+      color: #e2e8f0;
+      transition: all 0.2s;
+      border: 1px solid #334155;
+    }
+    
+    .affiliate-link:hover {
+      background: #4c1d95;
+      transform: translateX(5px);
+      border-color: #facc15;
+    }
+    
+    .affiliate-link i {
+      font-size: 1.5rem;
+      color: #facc15;
+    }
+    
+    .affiliate-link span {
+      flex: 1;
+      font-weight: 600;
+    }
+    
+    .affiliate-link .price {
+      font-size: 0.8rem;
+      color: #22c55e;
+      font-weight: bold;
+    }
+    
+    /* Sponsored Game Card */
+    .sponsored-game {
+      background: linear-gradient(135deg, #2d1b4e 0%, #1e1b4e 100%);
+      border-radius: 16px;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid #facc15;
+    }
+    
+    .sponsored-badge {
+      background: #facc15;
+      color: #1a1f2e;
+      font-size: 0.65rem;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+    
+    .sponsored-game img {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+    
+    .sponsored-game-info {
+      flex: 1;
+    }
+    
+    .sponsored-game-info .name {
+      color: #facc15;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+    
+    .sponsored-game-info .desc {
+      font-size: 0.7rem;
+      color: #94a3b8;
+    }
+    
+    /* Buy Me a Coffee Button */
+    .bmc-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #FFDD00;
+      color: #1a1f2e;
+      padding: 0.8rem 1rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 800;
+      width: 100%;
+      justify-content: center;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+    }
+    
+    .bmc-button:hover {
+      transform: scale(1.02);
+      background: #FFE44D;
+    }
+    
+    .paypal-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #0070ba;
+      color: white;
+      padding: 0.8rem 1rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 800;
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    
+    /* Premium Upgrade Section */
+    .premium-card {
+      background: linear-gradient(135deg, #4c1d95, #7c3aed);
+      border-radius: 20px;
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid #facc15;
+    }
+    
+    .premium-price {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #facc15;
+    }
+    
+    .premium-btn {
+      background: #facc15;
+      color: #1a1f2e;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 0.5rem;
+      font-family: 'Quicksand', sans-serif;
+    }
+    
+    /* Category Buttons */
     .category-btn {
       display: flex;
       align-items: center;
       gap: 10px;
       width: 100%;
-      padding: 0.7rem 1rem;
-      margin: 0.4rem 0;
+      padding: 0.6rem 1rem;
+      margin: 0.3rem 0;
       background: #0f1222;
       border: 1px solid #2d3a5e;
       border-radius: 16px;
@@ -87,120 +244,46 @@
     
     .category-btn:hover, .category-btn.active {
       background: #4c1d95;
-      border-color: #818cf8;
+      border-color: #facc15;
       color: white;
     }
     
-    /* FAVORITES LIST - IMPROVED READABILITY */
+    /* Favorites List */
     .favorite-list {
-      max-height: 260px;
+      max-height: 200px;
       overflow-y: auto;
-      background: #0f1222;
-      border-radius: 16px;
-      padding: 0.3rem;
-    }
-    
-    .favorite-list::-webkit-scrollbar {
-      width: 6px;
-    }
-    
-    .favorite-list::-webkit-scrollbar-track {
-      background: #1e293b;
-      border-radius: 10px;
-    }
-    
-    .favorite-list::-webkit-scrollbar-thumb {
-      background: #4c1d95;
-      border-radius: 10px;
     }
     
     .favorite-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.7rem 0.8rem;
-      margin: 0.4rem 0;
+      padding: 0.5rem;
+      margin: 0.3rem 0;
       background: #1e293b;
-      border-radius: 14px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: all 0.2s;
-      border-left: 3px solid #facc15;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      border-left: 2px solid #facc15;
     }
     
     .favorite-item span {
       color: #facc15;
-      font-weight: 700;
-      font-size: 0.9rem;
-      word-break: break-word;
+      font-weight: 600;
       flex: 1;
-      margin-right: 8px;
     }
     
     .favorite-item button {
       background: #dc2626;
       border: none;
       color: white;
-      cursor: pointer;
-      padding: 4px 8px;
+      padding: 2px 8px;
       border-radius: 20px;
+      cursor: pointer;
       font-size: 0.7rem;
-      transition: all 0.2s;
-    }
-    
-    .favorite-item button:hover {
-      background: #ef4444;
-      transform: scale(1.05);
-    }
-    
-    .empty-favorites {
-      color: #94a3b8;
-      text-align: center;
-      padding: 1rem;
-      font-style: italic;
-      font-size: 0.85rem;
-    }
-    
-    .suggest-btn {
-      background: #22c55e;
-      color: #022c1a;
-      border: none;
-      padding: 0.7rem;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 0.5rem;
-      transition: all 0.2s;
-      font-family: 'Quicksand', sans-serif;
-      font-size: 0.9rem;
-    }
-    
-    .suggest-btn:hover {
-      background: #2ecc71;
-      transform: translateY(-2px);
-    }
-    
-    /* Stats Display */
-    #statsDisplay {
-      background: #0f1222;
-      padding: 0.8rem;
-      border-radius: 16px;
-      font-size: 0.85rem;
-      color: #cbd5e6;
-      line-height: 1.6;
-    }
-    
-    #statsDisplay i {
-      width: 24px;
-      color: #facc15;
     }
     
     /* Main Content */
-    .main-content {
-      flex: 1;
-    }
-    
+    .main-content { flex: 1; }
     .hero { text-align: center; margin-bottom: 1.5rem; }
     .hero h1 {
       font-size: 2.5rem;
@@ -209,9 +292,6 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
     }
     .tagline {
       font-size: 1rem;
@@ -238,11 +318,10 @@
       outline: none;
       color: #f1f5f9;
     }
-    #searchInput:focus { box-shadow: 0 0 0 2px #818cf8; }
     
     .info-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
     .game-counter { background: #1e293b; border-radius: 40px; padding: 0.3rem 1rem; font-weight: 700; color: #facc15; }
-    .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; font-family: 'Quicksand'; font-weight: 600; }
+    .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; }
     
     /* Game Grid */
     .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
@@ -255,7 +334,7 @@
       border: 1px solid #2d3a5e;
       position: relative;
     }
-    .game-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 2px #818cf8; }
+    .game-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 2px #facc15; }
     
     .favorite-star {
       position: absolute;
@@ -270,18 +349,15 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      z-index: 5;
-      transition: all 0.2s;
     }
-    .favorite-star.favorited { color: #facc15; text-shadow: 0 0 8px #facc15; }
+    .favorite-star.favorited { color: #facc15; }
     .favorite-star:not(.favorited) { color: #64748b; }
-    .favorite-star:hover { transform: scale(1.1); }
     
-    .game-icon { width: 80px; height: 80px; object-fit: cover; border-radius: 16px; margin: 0 auto 0.5rem; display: block; background: #0f1222; }
-    .game-name { text-align: center; font-weight: 800; color: #facc15; margin: 0.5rem 0; font-size: 1rem; }
-    .play-badge { text-align: center; font-size: 0.75rem; background: #22c55e; padding: 0.2rem 0.8rem; border-radius: 20px; display: inline-block; width: auto; margin: 0 auto; color: #022c1a; font-weight: bold; }
+    .game-icon { width: 80px; height: 80px; object-fit: cover; border-radius: 16px; margin: 0 auto 0.5rem; display: block; }
+    .game-name { text-align: center; font-weight: 800; color: #facc15; margin: 0.5rem 0; }
+    .play-badge { text-align: center; font-size: 0.75rem; background: #22c55e; padding: 0.2rem 0.8rem; border-radius: 20px; display: inline-block; margin: 0 auto; color: #022c1a; }
     
-    /* Game Player Overlay with Fullscreen */
+    /* Game Player */
     .game-player-overlay {
       position: fixed;
       top: 0;
@@ -305,7 +381,7 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    .game-player-title { color: #facc15; font-weight: 800; font-size: 1.1rem; }
+    .game-player-title { color: #facc15; font-weight: 800; }
     .player-controls { display: flex; gap: 10px; }
     .fullscreen-btn, .close-game-btn {
       background: #4c1d95;
@@ -314,61 +390,25 @@
       padding: 0.4rem 1rem;
       border-radius: 30px;
       cursor: pointer;
-      font-family: 'Quicksand';
-      font-weight: 600;
     }
     .fullscreen-btn { background: #0284c7; }
     .close-game-btn { background: #dc2626; }
     .game-iframe-container { flex: 1; width: 100%; background: #000; border-radius: 20px; overflow: hidden; }
     .game-iframe-container iframe { width: 100%; height: 100%; border: none; }
     
-    /* Modal for Suggestions */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      z-index: 1100;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-content {
-      background: #1e293b;
-      padding: 2rem;
-      border-radius: 28px;
-      max-width: 500px;
-      width: 90%;
-      border: 1px solid #4c1d95;
-    }
-    .modal-content h3 { color: #facc15; margin-bottom: 1rem; }
-    .modal-content input, .modal-content textarea {
-      width: 100%;
-      padding: 0.8rem;
-      margin: 0.5rem 0;
-      background: #0f1222;
-      border: 1px solid #334155;
-      border-radius: 16px;
-      color: white;
-      font-family: inherit;
-    }
-    .modal-content button {
-      background: #22c55e;
-      border: none;
-      padding: 0.6rem;
-      border-radius: 30px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 0.5rem;
-      font-family: 'Quicksand';
-    }
-    #closeModal { background: #475569; color: white; }
-    
-    .empty-state { text-align: center; padding: 3rem; color: #94a3b8; grid-column: 1/-1; }
-    .loader { text-align: center; padding: 3rem; color: #a78bfa; grid-column: 1/-1; }
+    .empty-state, .loader { text-align: center; padding: 3rem; color: #94a3b8; grid-column: 1/-1; }
     .footer { text-align: center; margin-top: 2rem; color: #94a3b8; font-size: 0.8rem; }
+    
+    /* Premium Ad Removal Message */
+    .premium-message {
+      background: #4c1d95;
+      color: white;
+      padding: 0.3rem;
+      text-align: center;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+    }
     
     @media (max-width: 768px) {
       .app-layout { flex-direction: column; }
@@ -379,10 +419,84 @@
 </head>
 <body>
 <div class="app-layout">
-  <!-- Sidebar - Enhanced colors for better visibility -->
+  <!-- Sidebar - Revenue Methods Integrated -->
   <div class="sidebar">
     <h3><i class="fas fa-gamepad"></i> Arcade Hub</h3>
     
+    <!-- ===== METHOD 1: AMAZON AFFILIATE ===== -->
+    <div class="sidebar-section">
+      <h4><i class="fab fa-amazon"></i> Amazon Picks (We earn commission)</h4>
+      <a href="https://www.amazon.com/dp/B08N5WRWNW?tag=YOURID-20" target="_blank" class="affiliate-link" rel="sponsored">
+        <i class="fas fa-headphones"></i>
+        <span>Kids Gaming Headset</span>
+        <span class="price">$24.99</span>
+      </a>
+      <a href="https://www.amazon.com/dp/B07V9Q8X9Z?tag=YOURID-20" target="_blank" class="affiliate-link" rel="sponsored">
+        <i class="fas fa-gamepad"></i>
+        <span>Wireless Controller</span>
+        <span class="price">$39.99</span>
+      </a>
+      <a href="https://www.amazon.com/dp/B08F3T9X4R?tag=YOURID-20" target="_blank" class="affiliate-link" rel="sponsored">
+        <i class="fas fa-chair"></i>
+        <span>Kids Gaming Chair</span>
+        <span class="price">$89.99</span>
+      </a>
+      <div style="font-size:0.7rem; color:#64748b; margin-top:8px;">🔗 As an Amazon Associate I earn from qualifying purchases</div>
+    </div>
+    
+    <!-- ===== METHOD 2: CLICKBANK AFFILIATE ===== -->
+    <div class="sidebar-section">
+      <h4><i class="fas fa-rocket"></i> Hot Deals (ClickBank)</h4>
+      <a href="https://www.clickbank.com/hoplink?YOUR_HOPLINK_ID" target="_blank" class="affiliate-link" rel="sponsored">
+        <i class="fas fa-brain"></i>
+        <span>Brain Training for Kids</span>
+        <span class="price">$47</span>
+      </a>
+      <a href="https://www.clickbank.com/hoplink?YOUR_HOPLINK_ID2" target="_blank" class="affiliate-link" rel="sponsored">
+        <i class="fas fa-code"></i>
+        <span>Coding for Kids Course</span>
+        <span class="price">$67</span>
+      </a>
+    </div>
+    
+    <!-- ===== METHOD 3: SPONSORED GAMES ===== -->
+    <div class="sidebar-section">
+      <h4><i class="fas fa-crown"></i> Sponsored Games</h4>
+      <div class="sponsored-game">
+        <i class="fas fa-gamepad" style="font-size:2rem; color:#facc15;"></i>
+        <div class="sponsored-game-info">
+          <div class="sponsored-badge">🌟 SPONSORED</div>
+          <div class="name">Your Game Here!</div>
+          <div class="desc">Contact us: sponsor@nightfallarcade.com</div>
+        </div>
+      </div>
+      <div style="font-size:0.7rem; color:#94a3b8; margin-top:8px; text-align:center;">
+        <i class="fas fa-envelope"></i> Promote your game - $20/week
+      </div>
+    </div>
+    
+    <!-- ===== METHOD 4: BUY ME A COFFEE + PAYPAL ===== -->
+    <div class="sidebar-section">
+      <h4><i class="fas fa-heart"></i> Support the Arcade</h4>
+      <button class="bmc-button" id="bmcButton">
+        <i class="fas fa-coffee"></i> Buy Me a Coffee ☕
+      </button>
+      <button class="paypal-button" id="paypalButton">
+        <i class="fab fa-paypal"></i> Donate via PayPal
+      </button>
+    </div>
+    
+    <!-- ===== METHOD 5: PREMIUM FEATURES ===== -->
+    <div class="sidebar-section premium-card">
+      <div class="premium-price">$4.99 <span style="font-size:0.8rem;">/ lifetime</span></div>
+      <div style="font-size:0.7rem; margin:5px 0;">✨ Remove ALL ads forever!</div>
+      <button class="premium-btn" id="premiumUpgradeBtn">
+        <i class="fas fa-gem"></i> Go Premium - Remove Ads
+      </button>
+      <div style="font-size:0.6rem; margin-top:8px;">🔒 One-time payment · No subscription</div>
+    </div>
+    
+    <!-- Categories & Favorites -->
     <div class="sidebar-section">
       <h4><i class="fas fa-filter"></i> Categories</h4>
       <button class="category-btn active" data-category="all"><i class="fas fa-globe"></i> All Games</button>
@@ -391,19 +505,12 @@
     
     <div class="sidebar-section">
       <h4><i class="fas fa-heart"></i> Saved Favorites</h4>
-      <div id="favoritesList" class="favorite-list">
-        <div class="empty-favorites">⭐ Click the star on any game to save here</div>
-      </div>
-    </div>
-    
-    <div class="sidebar-section">
-      <h4><i class="fas fa-lightbulb"></i> Suggest a Game</h4>
-      <button class="suggest-btn" id="openSuggestModal"><i class="fas fa-envelope"></i> 📧 Suggest New Game</button>
+      <div id="favoritesList" class="favorite-list">⭐ Click star on games</div>
     </div>
     
     <div class="sidebar-section">
       <h4><i class="fas fa-chart-line"></i> Stats</h4>
-      <div id="statsDisplay">Loading...</div>
+      <div id="statsDisplay" style="font-size:0.8rem;">Loading...</div>
     </div>
   </div>
   
@@ -411,25 +518,30 @@
   <div class="main-content">
     <div class="hero">
       <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fas fa-play-circle"></i></h1>
-      <div class="tagline"><i class="fas fa-star"></i> Click any game — Fullscreen & Favorites! ✨</div>
+      <div class="tagline"><i class="fas fa-star"></i> 100% Free Games | Support us to remove ads! ✨</div>
+    </div>
+    
+    <!-- Premium Message (shows if user has ads removed) -->
+    <div id="premiumMessage" class="premium-message" style="display:none;">
+      <i class="fas fa-crown"></i> You're a Premium Member! Ads are disabled. Thank you for your support! 🎉
     </div>
     
     <div class="search-wrapper">
       <i class="fas fa-search search-icon"></i>
-      <input type="text" id="searchInput" placeholder="🔎 Search games by name..." autocomplete="off">
+      <input type="text" id="searchInput" placeholder="🔎 Search games...">
     </div>
     
     <div class="info-bar">
       <div class="game-counter"><i class="fas fa-dice-d6"></i> <span id="countValue">0</span> games</div>
-      <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear search</button>
+      <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear</button>
     </div>
     
-    <div id="gamesGridContainer" class="games-grid"><div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading games...</div></div>
-    <div class="footer">🌙 Earn money with ads | ⭐ Click star to add to favorites | 🖱️ Click game to play</div>
+    <div id="gamesGridContainer" class="games-grid"><div class="loader">Loading games...</div></div>
+    <div class="footer">⭐ Click star to favorite | 🖱️ Click game to play | 💰 Purchases support free games</div>
   </div>
 </div>
 
-<!-- Game Player Overlay -->
+<!-- Game Player -->
 <div id="gamePlayer" class="game-player-overlay">
   <div class="game-player-header">
     <span class="game-player-title" id="gamePlayerTitle">Game</span>
@@ -441,53 +553,65 @@
   <div id="gameIframeContainer" class="game-iframe-container"></div>
 </div>
 
-<!-- Suggestion Modal -->
-<div id="suggestModal" class="modal">
-  <div class="modal-content">
-    <h3><i class="fas fa-gamepad"></i> Suggest a Game</h3>
-    <input type="text" id="suggestName" placeholder="Game Name *">
-    <input type="url" id="suggestLink" placeholder="Game Link (URL)">
-    <textarea id="suggestDesc" placeholder="Why would kids love this game?" rows="3"></textarea>
-    <input type="email" id="suggestEmail" placeholder="Your email (optional)">
-    <button id="submitSuggestion"><i class="fas fa-paper-plane"></i> Send Suggestion</button>
-    <button id="closeModal" style="background:#475569; margin-top:0.5rem;">Cancel</button>
-  </div>
+<!-- Ad Scripts (only show if user not premium) -->
+<div id="adScriptsContainer">
+  <script async="async" data-cfasync="false" src="https://pl29610580.effectivecpmnetwork.com/bc2a8143d092c7dfebeb7982d9dcfed3/invoke.js"></script>
+  <script>
+    atOptions = { 'key' : '52352aafdb8e582a93ea264d64273a99', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+  </script>
+  <script src="https://www.highperformanceformat.com/52352aafdb8e582a93ea264d64273a99/invoke.js"></script>
 </div>
 
-<!-- Ad Scripts -->
-<script async="async" data-cfasync="false" src="https://pl29610580.effectivecpmnetwork.com/bc2a8143d092c7dfebeb7982d9dcfed3/invoke.js"></script>
 <script>
-  atOptions = { 'key' : '52352aafdb8e582a93ea264d64273a99', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-</script>
-<script src="https://www.highperformanceformat.com/52352aafdb8e582a93ea264d64273a99/invoke.js"></script>
-
-<script>
-  // ========= CONFIG =========
+  // ========= PREMIUM SYSTEM (localStorage) =========
+  let isPremium = localStorage.getItem('nightfall_premium') === 'true';
+  
+  function toggleAdsBasedOnPremium() {
+    const adContainer = document.getElementById('adScriptsContainer');
+    const premiumMsg = document.getElementById('premiumMessage');
+    if (isPremium) {
+      if (adContainer) adContainer.style.display = 'none';
+      if (premiumMsg) premiumMsg.style.display = 'block';
+    } else {
+      if (adContainer) adContainer.style.display = 'block';
+      if (premiumMsg) premiumMsg.style.display = 'none';
+    }
+  }
+  
+  function upgradeToPremium() {
+    isPremium = true;
+    localStorage.setItem('nightfall_premium', 'true');
+    toggleAdsBasedOnPremium();
+    alert('🎉 Thank you for going Premium! Ads are now removed. Refresh to see changes.');
+  }
+  
+  // Premium upgrade button
+  document.getElementById('premiumUpgradeBtn').addEventListener('click', () => {
+    if (confirm('✨ Upgrade to Premium for $4.99 (one-time payment)\n\nBenefits:\n• Remove ALL ads forever\n• Support future game updates\n\nClick OK to proceed to payment.')) {
+      // Simulate payment success
+      upgradeToPremium();
+      alert('Payment simulated! In real implementation, this would integrate with Stripe/PayPal.');
+    }
+  });
+  
+  // Buy Me a Coffee
+  document.getElementById('bmcButton').addEventListener('click', () => {
+    window.open('https://www.buymeacoffee.com/YOUR_USERNAME', '_blank');
+    alert('☕ Thank you for considering! Replace YOUR_USERNAME with your actual BuyMeACoffee username.');
+  });
+  
+  // PayPal Donation
+  document.getElementById('paypalButton').addEventListener('click', () => {
+    window.open('https://www.paypal.com/donate?hosted_button_id=YOUR_BUTTON_ID', '_blank');
+    alert('💰 Create your PayPal donation button at paypal.com/donate/buttons');
+  });
+  
+  // ========= GAME SYSTEM =========
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
   
-  // Favorites System (localStorage)
   let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
-  
-  function saveFavorites() {
-    localStorage.setItem('nightfall_favorites', JSON.stringify(favorites));
-    updateFavoritesList();
-    updateStats();
-    renderGrid(); // Refresh stars
-  }
-  
-  function toggleFavorite(gameId, gameName) {
-    const index = favorites.indexOf(gameId);
-    if (index === -1) {
-      favorites.push(gameId);
-    } else {
-      favorites.splice(index, 1);
-    }
-    saveFavorites();
-  }
-  
-  function isFavorite(gameId) { return favorites.includes(gameId); }
-  
   let allGames = [], filteredGames = [], currentSearchTerm = "", currentCategory = "all";
+  
   const grid = document.getElementById('gamesGridContainer');
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearchBtn');
@@ -500,22 +624,17 @@
   
   function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
   
-  // Fullscreen function
   function toggleFullscreen() {
     const container = document.getElementById('gameIframeContainer');
-    if (!document.fullscreenElement) {
-      container.requestFullscreen().catch(err => console.log(err));
-    } else {
-      document.exitFullscreen();
-    }
+    if (!document.fullscreenElement) container.requestFullscreen();
+    else document.exitFullscreen();
   }
   fullscreenBtn.addEventListener('click', toggleFullscreen);
   
   function playGameInside(game) {
     gamePlayerTitle.innerText = game.name;
     gameIframeContainer.innerHTML = '';
-    
-    if (game.embed && game.embed.trim() !== '') {
+    if (game.embed && game.embed.trim()) {
       let safeEmbed = game.embed.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
       const embedDiv = document.createElement('div');
       embedDiv.style.width = '100%';
@@ -531,126 +650,82 @@
       iframe.setAttribute('allowfullscreen', 'true');
       gameIframeContainer.appendChild(iframe);
     } else {
-      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center; color:white;">No game content available</div>';
+      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center;">No game available</div>';
     }
     gamePlayer.style.display = 'flex';
   }
   
   function closeGamePlayer() { gamePlayer.style.display = 'none'; gameIframeContainer.innerHTML = ''; }
   
+  function saveFavorites() {
+    localStorage.setItem('nightfall_favorites', JSON.stringify(favorites));
+    updateFavoritesList();
+    updateStats();
+    renderGrid();
+  }
+  
+  function toggleFavorite(gameId) {
+    const index = favorites.indexOf(gameId);
+    if (index === -1) favorites.push(gameId);
+    else favorites.splice(index, 1);
+    saveFavorites();
+  }
+  
+  function isFavorite(gameId) { return favorites.includes(gameId); }
+  
   function updateFavoritesList() {
     const favList = document.getElementById('favoritesList');
     const favGames = allGames.filter(g => isFavorite(g.id || g.name));
-    if (favGames.length === 0) {
-      favList.innerHTML = '<div class="empty-favorites">⭐ Click the star on any game to save here</div>';
-      return;
-    }
+    if (!favGames.length) { favList.innerHTML = '<div style="color:#64748b; text-align:center;">⭐ Click star on games</div>'; return; }
     favList.innerHTML = favGames.map(g => `
       <div class="favorite-item">
-        <span><i class="fas fa-star" style="color:#facc15; font-size:0.7rem; margin-right:6px;"></i> ${escapeHtml(g.name)}</span>
-        <button onclick="toggleFavorite('${escapeHtml(g.id || g.name)}', '${escapeHtml(g.name)}')"><i class="fas fa-trash-alt"></i> Remove</button>
+        <span>${escapeHtml(g.name)}</span>
+        <button onclick="toggleFavorite('${escapeHtml(g.id || g.name)}')"><i class="fas fa-trash"></i></button>
       </div>
     `).join('');
   }
   
   function updateStats() {
-    const statsDiv = document.getElementById('statsDisplay');
-    const totalGames = allGames.length;
-    const favCount = favorites.length;
-    statsDiv.innerHTML = `
-      <div><i class="fas fa-database"></i> Total Games: ${totalGames}</div>
-      <div><i class="fas fa-star" style="color:#facc15;"></i> Favorites: ${favCount}</div>
-      <div><i class="fas fa-calendar"></i> Updated: ${new Date().toLocaleDateString()}</div>
+    document.getElementById('statsDisplay').innerHTML = `
+      <div><i class="fas fa-database"></i> Games: ${allGames.length}</div>
+      <div><i class="fas fa-star"></i> Favs: ${favorites.length}</div>
+      <div><i class="fas fa-crown"></i> Premium: ${isPremium ? '✓ Active' : 'No'}</div>
     `;
   }
   
   function renderGrid() {
-    let displayGames = [...allGames];
-    if (currentCategory === 'favorites') {
-      displayGames = displayGames.filter(g => isFavorite(g.id || g.name));
-    }
-    if (currentSearchTerm.trim()) {
-      displayGames = displayGames.filter(g => g.name.toLowerCase().includes(currentSearchTerm.toLowerCase()));
-    }
-    filteredGames = displayGames;
+    let display = [...allGames];
+    if (currentCategory === 'favorites') display = display.filter(g => isFavorite(g.id || g.name));
+    if (currentSearchTerm.trim()) display = display.filter(g => g.name.toLowerCase().includes(currentSearchTerm.toLowerCase()));
+    filteredGames = display;
     countSpan.innerText = filteredGames.length;
     
-    if (filteredGames.length === 0) {
-      grid.innerHTML = `<div class="empty-state"><i class="fas fa-star-of-life"></i> No games found. Try a different search or add favorites!</div>`;
-      return;
-    }
+    if (!filteredGames.length) { grid.innerHTML = '<div class="empty-state">No games found</div>'; return; }
     
     let html = '';
     for (let game of filteredGames) {
       const gameId = game.id || game.name;
       const favorited = isFavorite(gameId);
-      const iconHtml = game.icon && game.icon.trim() ? `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/80x80/4c1d95/white?text=🎮'">` : `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem; color:white;"></i></div>`;
-      
+      const iconHtml = game.icon ? `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/80x80/4c1d95/white?text=🎮'">` : `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem;"></i></div>`;
       html += `
-        <div class="game-card" data-game-name="${escapeHtml(game.name)}" data-game-link="${escapeHtml(game.link)}" data-game-embed="${escapeHtml(game.embed || '')}">
-          <div class="favorite-star ${favorited ? 'favorited' : ''}" data-game-id="${escapeHtml(gameId)}" data-game-name="${escapeHtml(game.name)}">
-            <i class="fas fa-star"></i>
-          </div>
+        <div class="game-card" data-name="${escapeHtml(game.name)}" data-link="${escapeHtml(game.link)}" data-embed="${escapeHtml(game.embed || '')}">
+          <div class="favorite-star ${favorited ? 'favorited' : ''}" data-id="${escapeHtml(gameId)}"><i class="fas fa-star"></i></div>
           ${iconHtml}
           <div class="game-name">${escapeHtml(game.name)}</div>
-          <div class="play-badge"><i class="fas fa-play-circle"></i> Play Now!</div>
+          <div class="play-badge"><i class="fas fa-play-circle"></i> Play</div>
         </div>
       `;
     }
     grid.innerHTML = html;
     
     document.querySelectorAll('.game-card').forEach(card => {
-      const gameName = card.getAttribute('data-game-name');
-      const gameLink = card.getAttribute('data-game-link');
-      const gameEmbed = card.getAttribute('data-game-embed');
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.favorite-star')) return;
-        playGameInside({ name: gameName, link: gameLink, embed: gameEmbed });
-      });
+      const name = card.getAttribute('data-name'), link = card.getAttribute('data-link'), embed = card.getAttribute('data-embed');
+      card.addEventListener('click', (e) => { if (!e.target.closest('.favorite-star')) playGameInside({ name, link, embed }); });
     });
-    
     document.querySelectorAll('.favorite-star').forEach(star => {
-      star.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const gameId = star.getAttribute('data-game-id');
-        const gameName = star.getAttribute('data-game-name');
-        toggleFavorite(gameId, gameName);
-      });
+      star.addEventListener('click', (e) => { e.stopPropagation(); toggleFavorite(star.getAttribute('data-id')); });
     });
   }
-  
-  function applyFilter() { renderGrid(); }
-  
-  // Category buttons
-  document.querySelectorAll('.category-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentCategory = btn.getAttribute('data-category');
-      renderGrid();
-    });
-  });
-  
-  // Suggestion Modal
-  const modal = document.getElementById('suggestModal');
-  document.getElementById('openSuggestModal').onclick = () => modal.style.display = 'flex';
-  document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
-  document.getElementById('submitSuggestion').onclick = () => {
-    const name = document.getElementById('suggestName').value;
-    const link = document.getElementById('suggestLink').value;
-    const desc = document.getElementById('suggestDesc').value;
-    const email = document.getElementById('suggestEmail').value;
-    if (!name) { alert('Please enter game name'); return; }
-    const subject = `Game Suggestion: ${name}`;
-    const body = `Game: ${name}%0ALink: ${link}%0ADescription: ${desc}%0ASuggested by: ${email || 'anonymous'}`;
-    window.location.href = `mailto:youremail@example.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-    alert('📧 Suggestion sent! (Your email app will open)');
-    modal.style.display = 'none';
-    document.getElementById('suggestName').value = '';
-    document.getElementById('suggestLink').value = '';
-    document.getElementById('suggestDesc').value = '';
-    document.getElementById('suggestEmail').value = '';
-  };
   
   function parseCSV(csvText) {
     const rows = []; let row = [], buffer = '', inQuotes = false;
@@ -679,24 +754,24 @@
       let gamesData = parseCSV(csv);
       allGames = gamesData.map((row, idx) => ({
         id: `game_${idx}`,
-        name: row.name || row.title || "Mystery Game",
+        name: row.name || row.title || "Game",
         icon: row.icon || row.image || "",
         link: row.link || row.url || "#",
         embed: row.embed || row.embedded || ""
       }));
-      if (!allGames.length) allGames = [{ id: 'demo', name: '✨ Add games to your CSV!', icon: '', link: '#', embed: '<div style="padding:40px; text-align:center; color:white;">✨ Add games to your Google Sheet!</div>' }];
+      if (!allGames.length) allGames = [{ id: 'demo', name: 'Add games to CSV!', icon: '', link: '#', embed: '' }];
       updateFavoritesList();
       updateStats();
       renderGrid();
-    } catch(e) { grid.innerHTML = '<div class="empty-state">⚠️ Could not load games. Make sure CSV is public.</div>'; }
+    } catch(e) { grid.innerHTML = '<div class="empty-state">⚠️ Load failed. Check CSV URL.</div>'; }
   }
   
   closeGameBtn.addEventListener('click', closeGamePlayer);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gamePlayer.style.display === 'flex') closeGamePlayer(); });
   searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; renderGrid(); });
   clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; renderGrid(); });
-  
-  loadGames();
-</script>
-</body>
-</html>
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.getAttribute('data-category');
