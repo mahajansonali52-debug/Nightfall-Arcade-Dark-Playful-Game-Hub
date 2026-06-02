@@ -775,3 +775,15 @@
       document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentCategory = btn.getAttribute('data-category');
+      renderGrid();
+    });
+  });
+  
+  loadGames();
+  toggleAdsBasedOnPremium();
+  
+  // Make toggleFavorite global for inline onclick
+  window.toggleFavorite = toggleFavorite;
+</script>
+</body>
+</html>
