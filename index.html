@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>ArcadeHub | Next-Gen Gaming Platform</title>
   <meta name="description" content="Play free online games, compete on leaderboards, earn achievements, and join tournaments. The ultimate gaming hub.">
-  <meta name="keywords" content="free games, online games, play games, arcade, tournaments, leaderboard">
-  <meta name="author" content="ArcadeHub">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* Modern CSS Reset & Variables */
     * {
       margin: 0;
       padding: 0;
@@ -46,7 +43,6 @@
       font-family: 'Inter', sans-serif;
       transition: var(--transition);
     }
-    /* Layout */
     .app {
       min-height: 100vh;
       display: flex;
@@ -58,7 +54,6 @@
       padding: 1rem;
       width: 100%;
     }
-    /* Header */
     .header {
       background: var(--bg-sidebar);
       border-bottom: 1px solid var(--border);
@@ -74,6 +69,8 @@
       padding: 0.8rem 1rem;
       max-width: 1400px;
       margin: 0 auto;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
     .logo {
       font-size: 1.5rem;
@@ -85,21 +82,11 @@
     }
     .nav-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 1rem;
       align-items: center;
+      flex-wrap: wrap;
     }
-    .nav-btn {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-weight: 500;
-      transition: var(--transition);
-    }
-    .nav-btn:hover, .nav-btn.active {
-      color: var(--primary);
-    }
-    .theme-toggle, .auth-btn {
+    .nav-btn, .theme-toggle, .auth-btn {
       background: var(--bg-card);
       border: 1px solid var(--border);
       padding: 0.4rem 0.8rem;
@@ -107,15 +94,22 @@
       cursor: pointer;
       color: var(--text);
       font-weight: 500;
+      font-family: inherit;
     }
-    /* Dashboard Grid */
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: var(--primary);
+    }
     .dashboard {
       display: grid;
       grid-template-columns: 280px 1fr;
       gap: 1.5rem;
       margin-top: 1rem;
     }
-    /* Sidebar */
     .sidebar {
       background: var(--bg-sidebar);
       border-radius: 1.5rem;
@@ -160,7 +154,6 @@
       background: var(--primary);
       color: white;
     }
-    /* Games Grid */
     .games-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -201,7 +194,6 @@
       font-size: 0.75rem;
       color: var(--text-muted);
     }
-    /* Modal */
     .modal {
       display: none;
       position: fixed;
@@ -222,19 +214,6 @@
       padding: 1.5rem;
       border: 1px solid var(--border);
     }
-    /* Responsive */
-    @media (max-width: 768px) {
-      .dashboard {
-        grid-template-columns: 1fr;
-      }
-      .sidebar {
-        position: static;
-      }
-      .games-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      }
-    }
-    /* Utility */
     .flex-between {
       display: flex;
       justify-content: space-between;
@@ -246,395 +225,511 @@
       border-radius: 40px;
       font-size: 0.7rem;
     }
+    @media (max-width: 768px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+      }
+      .games-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      .header-content {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+    input, select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem;
+      border-radius: 40px;
+    }
+    button {
+      transition: var(--transition);
+    }
   </style>
 </head>
 <body>
-<div id="root"></div>
+<div id="app"></div>
 
-<!-- Firebase SDKs -->
-<script type="importmap">
-  {
-    "imports": {
-      "react": "https://esm.sh/react@18.2.0",
-      "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-      "firebase/app": "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js",
-      "firebase/auth": "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js",
-      "firebase/firestore": "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"
-    }
-  }
-</script>
-<script type="module">
-  import React, { useState, useEffect, createContext, useContext } from 'react';
-  import ReactDOM from 'react-dom/client';
-  import { initializeApp } from 'firebase/app';
-  import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from 'firebase/auth';
-  import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove, collection, query, orderBy, limit, getDocs, increment, addDoc, serverTimestamp } from 'firebase/firestore';
-
-  // Firebase Configuration (Replace with your own)
-  const firebaseConfig = {
-    apiKey: "AIzaSyDummyKeyReplaceWithYourOwn",
-    authDomain: "arcadehub-12345.firebaseapp.com",
-    projectId: "arcadehub-12345",
-    storageBucket: "arcadehub-12345.appspot.com",
-    messagingSenderId: "123456789012",
-    appId: "1:123456789012:web:abcdef123456"
-  };
-  // For demo, these are placeholders – in production you must replace with actual Firebase project credentials.
-  // The code will still work with simulated data if Firebase fails.
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const provider = new GoogleAuthProvider();
-
-  // Sample Games Data (30+ games)
-  const GAMES_CATALOG = [
-    { id: "game1", title: "Speed Racer X", category: "racing", rating: 4.5, plays: 12500, image: "🏎️", trending: 95, embed: "https://example.com/embed/racer" },
-    { id: "game2", title: "Pixel Quest", category: "adventure", rating: 4.8, plays: 9800, image: "🗡️", trending: 92, embed: "https://example.com/embed/quest" },
-    { id: "game3", title: "Zombie Shooter", category: "shooter", rating: 4.3, plays: 15200, image: "🧟", trending: 88, embed: "https://example.com/embed/zombie" },
-    { id: "game4", title: "Bubble Pop", category: "puzzle", rating: 4.2, plays: 8000, image: "🫧", trending: 75, embed: "https://example.com/embed/bubble" },
-    { id: "game5", title: "Soccer Stars", category: "sports", rating: 4.6, plays: 11000, image: "⚽", trending: 89, embed: "https://example.com/embed/soccer" },
-    { id: "game6", title: "Space Invaders", category: "arcade", rating: 4.4, plays: 9400, image: "👾", trending: 82, embed: "https://example.com/embed/space" },
-    { id: "game7", title: "Dragon's Lair", category: "adventure", rating: 4.9, plays: 6700, image: "🐉", trending: 96, embed: "https://example.com/embed/dragon" },
-    { id: "game8", title: "Parking Master", category: "simulation", rating: 4.1, plays: 5300, image: "🚗", trending: 70, embed: "https://example.com/embed/parking" },
-    { id: "game9", title: "Candy Match", category: "puzzle", rating: 4.7, plays: 14200, image: "🍬", trending: 91, embed: "https://example.com/embed/candy" },
-    { id: "game10", title: "Ninja Run", category: "action", rating: 4.5, plays: 8800, image: "🥷", trending: 86, embed: "https://example.com/embed/ninja" }
+<script>
+  // ==================== GAME DATABASE ====================
+  const GAMES = [
+    { id: "game1", title: "Speed Racer X", category: "racing", rating: 4.5, plays: 12500, image: "🏎️", trending: 95, embed: "https://www.crazygames.com/embed/speed-racer-x" },
+    { id: "game2", title: "Pixel Quest", category: "adventure", rating: 4.8, plays: 9800, image: "🗡️", trending: 92, embed: "https://www.crazygames.com/embed/pixel-quest" },
+    { id: "game3", title: "Zombie Shooter", category: "shooter", rating: 4.3, plays: 15200, image: "🧟", trending: 88, embed: "https://www.crazygames.com/embed/zombie-shooter" },
+    { id: "game4", title: "Bubble Pop", category: "puzzle", rating: 4.2, plays: 8000, image: "🫧", trending: 75, embed: "https://www.crazygames.com/embed/bubble-pop" },
+    { id: "game5", title: "Soccer Stars", category: "sports", rating: 4.6, plays: 11000, image: "⚽", trending: 89, embed: "https://www.crazygames.com/embed/soccer-stars" },
+    { id: "game6", title: "Space Invaders", category: "arcade", rating: 4.4, plays: 9400, image: "👾", trending: 82, embed: "https://www.crazygames.com/embed/space-invaders" },
+    { id: "game7", title: "Dragon's Lair", category: "adventure", rating: 4.9, plays: 6700, image: "🐉", trending: 96, embed: "https://www.crazygames.com/embed/dragons-lair" },
+    { id: "game8", title: "Parking Master", category: "simulation", rating: 4.1, plays: 5300, image: "🚗", trending: 70, embed: "https://www.crazygames.com/embed/parking-master" },
+    { id: "game9", title: "Candy Match", category: "puzzle", rating: 4.7, plays: 14200, image: "🍬", trending: 91, embed: "https://www.crazygames.com/embed/candy-match" },
+    { id: "game10", title: "Ninja Run", category: "action", rating: 4.5, plays: 8800, image: "🥷", trending: 86, embed: "https://www.crazygames.com/embed/ninja-run" },
+    { id: "game11", title: "Moto X3M", category: "racing", rating: 4.8, plays: 21000, image: "🏍️", trending: 98, embed: "https://www.crazygames.com/embed/moto-x3m" },
+    { id: "game12", title: "Shell Shockers", category: "shooter", rating: 4.6, plays: 18000, image: "🥚", trending: 94, embed: "https://www.crazygames.com/embed/shell-shockers" }
   ];
 
-  // Context
-  const AppContext = createContext();
-
-  // Main App Component
-  const App = () => {
-    const [user, setUser] = useState(null);
-    const [theme, setTheme] = useState('dark');
-    const [activeTab, setActiveTab] = useState('home');
-    const [favorites, setFavorites] = useState([]);
-    const [recent, setRecent] = useState([]);
-    const [leaderboard, setLeaderboard] = useState([]);
-    const [achievements, setAchievements] = useState([]);
-    const [dailyReward, setDailyReward] = useState(null);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [categoryFilter, setCategoryFilter] = useState('all');
-    const [selectedGame, setSelectedGame] = useState(null);
-    const [reviews, setReviews] = useState({});
-    const [trendingGames, setTrendingGames] = useState([]);
-    const [featuredGames, setFeaturedGames] = useState([]);
-    const [tournaments, setTournaments] = useState([]);
-    const [premiumStatus, setPremiumStatus] = useState(false);
-    const [showGameModal, setShowGameModal] = useState(false);
-
-    useEffect(() => {
-      // Theme
-      document.documentElement.setAttribute('data-theme', theme);
-      // Auth Listener
-      const unsub = onAuthStateChanged(auth, async (fbUser) => {
-        if (fbUser) {
-          const userData = { uid: fbUser.uid, name: fbUser.displayName, email: fbUser.email, photo: fbUser.photoURL, avatar: fbUser.photoURL || '👤' };
-          setUser(userData);
-          // Load user data from Firestore
-          const userRef = doc(db, 'users', fbUser.uid);
-          const userSnap = await getDoc(userRef);
-          if (userSnap.exists()) {
-            const data = userSnap.data();
-            setFavorites(data.favorites || []);
-            setRecent(data.recent || []);
-            setAchievements(data.achievements || []);
-            setPremiumStatus(data.premium || false);
-          } else {
-            await setDoc(userRef, { favorites: [], recent: [], achievements: [], premium: false, coins: 0 });
-          }
-        } else {
-          setUser(null);
-          setFavorites([]);
-          setRecent([]);
-          setPremiumStatus(false);
-        }
-      });
-      // Load leaderboard, tournaments, etc.
-      loadLeaderboard();
-      loadTournaments();
-      // Trending & Featured
-      const sorted = [...GAMES_CATALOG].sort((a,b) => b.trending - a.trending);
-      setTrendingGames(sorted.slice(0, 6));
-      setFeaturedGames(sorted.slice(0, 4));
-      return () => unsub();
-    }, []);
-
-    const loadLeaderboard = async () => {
-      // Simulated leaderboard based on game plays
-      const sorted = [...GAMES_CATALOG].sort((a,b) => b.plays - a.plays);
-      setLeaderboard(sorted.slice(0, 10));
-    };
-    const loadTournaments = async () => {
-      setTournaments([
-        { id: 't1', name: 'Speed Racer Cup', prize: '500 coins', entry: 10, start: '2025-01-15', participants: 124 },
-        { id: 't2', name: 'Zombie Survival', prize: '1000 coins', entry: 20, start: '2025-01-20', participants: 89 }
-      ]);
-    };
-
-    const handleLogin = async () => {
-      try {
-        await signInWithPopup(auth, provider);
-      } catch(e) { console.error(e); }
-    };
-    const handleLogout = async () => {
-      await signOut(auth);
-    };
-
-    const addToFavorites = async (gameId) => {
-      if (!user) return;
-      const userRef = doc(db, 'users', user.uid);
-      if (favorites.includes(gameId)) {
-        await updateDoc(userRef, { favorites: arrayRemove(gameId) });
-        setFavorites(prev => prev.filter(id => id !== gameId));
-      } else {
-        await updateDoc(userRef, { favorites: arrayUnion(gameId) });
-        setFavorites(prev => [...prev, gameId]);
-      }
-    };
-
-    const addToRecent = (game) => {
-      if (!user) return;
-      const newRecent = [game.id, ...recent.filter(id => id !== game.id)].slice(0, 10);
-      setRecent(newRecent);
-      const userRef = doc(db, 'users', user.uid);
-      updateDoc(userRef, { recent: newRecent }).catch(console.error);
-    };
-
-    const claimDailyReward = async () => {
-      if (!user) return;
-      const lastClaim = localStorage.getItem('lastDaily');
-      const today = new Date().toDateString();
-      if (lastClaim === today) {
-        alert('Already claimed today!');
-        return;
-      }
-      localStorage.setItem('lastDaily', today);
-      const reward = { coins: 50, streak: 1 };
-      setDailyReward(reward);
-      alert(`You claimed ${reward.coins} coins!`);
-      // Update user coins in Firestore
-      const userRef = doc(db, 'users', user.uid);
-      await updateDoc(userRef, { coins: increment(50) });
-    };
-
-    const rateGame = async (gameId, rating) => {
-      const gameRef = doc(db, 'gameRatings', gameId);
-      await setDoc(gameRef, { rating: increment(rating), count: increment(1) }, { merge: true });
-      setReviews(prev => ({ ...prev, [gameId]: { rating, count: 1 } }));
-    };
-
-    const requestGame = async (gameName) => {
-      if (!user) return;
-      await addDoc(collection(db, 'gameRequests'), { name: gameName, userId: user.uid, timestamp: serverTimestamp() });
-      alert('Game request submitted!');
-    };
-
-    const getFilteredGames = () => {
-      let filtered = GAMES_CATALOG;
-      if (activeTab === 'favorites') filtered = filtered.filter(g => favorites.includes(g.id));
-      else if (activeTab === 'trending') filtered = trendingGames;
-      else if (activeTab === 'featured') filtered = featuredGames;
-      if (categoryFilter !== 'all') filtered = filtered.filter(g => g.category === categoryFilter);
-      if (searchQuery) filtered = filtered.filter(g => g.title.toLowerCase().includes(searchQuery.toLowerCase()));
-      return filtered;
-    };
-
-    const playGame = (game) => {
-      addToRecent(game);
-      setSelectedGame(game);
-      setShowGameModal(true);
-    };
-
-    const categories = ['all', 'racing', 'adventure', 'shooter', 'puzzle', 'sports', 'arcade', 'simulation', 'action'];
-
-    return (
-      <AppContext.Provider value={{ user, favorites, addToFavorites, recent, achievements, premiumStatus, claimDailyReward, rateGame, requestGame, leaderboard, tournaments }}>
-        <div className="app">
-          <header className="header">
-            <div className="header-content">
-              <div className="logo">🎮 ArcadeHub</div>
-              <div className="nav-links">
-                <button className="nav-btn" onClick={() => setActiveTab('home')}>Home</button>
-                <button className="nav-btn" onClick={() => setActiveTab('trending')}>Trending</button>
-                <button className="nav-btn" onClick={() => setActiveTab('leaderboard')}>Leaderboard</button>
-                <button className="nav-btn" onClick={() => setActiveTab('tournaments')}>Tournaments</button>
-                <button className="theme-toggle" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-                  <i className={`fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`}></i>
-                </button>
-                {user ? (
-                  <div className="user-info">
-                    <span>{user.name?.split(' ')[0]}</span>
-                    <button className="auth-btn" onClick={handleLogout}>Logout</button>
-                  </div>
-                ) : (
-                  <button className="auth-btn" onClick={handleLogin}>Sign in with Google</button>
-                )}
-              </div>
-            </div>
-          </header>
-
-          <div className="container">
-            <div className="dashboard">
-              <aside className="sidebar">
-                {user && (
-                  <div className="user-card">
-                    <div className="avatar">{user.photo ? <img src={user.photo} alt="avatar" style={{width:'80px',borderRadius:'50%'}} /> : <i className="fas fa-user"></i>}</div>
-                    <h4>{user.name}</h4>
-                    <p>{premiumStatus ? <span className="badge">🌟 Premium</span> : 'Free Member'}</p>
-                    <button className="theme-toggle" onClick={claimDailyReward} style={{marginTop:'8px'}}>🎁 Daily Reward</button>
-                  </div>
-                )}
-                <div className="sidebar-menu">
-                  <div className={`sidebar-item ${activeTab === 'home' ? 'active' : ''}`} onClick={() => setActiveTab('home')}><i className="fas fa-home"></i> Home</div>
-                  <div className={`sidebar-item ${activeTab === 'favorites' ? 'active' : ''}`} onClick={() => setActiveTab('favorites')}><i className="fas fa-heart"></i> Favorites</div>
-                  <div className={`sidebar-item ${activeTab === 'recent' ? 'active' : ''}`} onClick={() => setActiveTab('recent')}><i className="fas fa-history"></i> Recently Played</div>
-                  <div className={`sidebar-item ${activeTab === 'achievements' ? 'active' : ''}`} onClick={() => setActiveTab('achievements')}><i className="fas fa-trophy"></i> Achievements</div>
-                  <div className={`sidebar-item ${activeTab === 'leaderboard' ? 'active' : ''}`} onClick={() => setActiveTab('leaderboard')}><i className="fas fa-chart-line"></i> Leaderboard</div>
-                  <div className={`sidebar-item ${activeTab === 'tournaments' ? 'active' : ''}`} onClick={() => setActiveTab('tournaments')}><i className="fas fa-medal"></i> Tournaments</div>
-                  <div className={`sidebar-item`} onClick={() => document.getElementById('gameRequestModal').style.display='flex'}><i className="fas fa-plus-circle"></i> Request Game</div>
-                  <div className={`sidebar-item`} onClick={() => window.location.href='#analytics'}><i className="fas fa-chart-simple"></i> Analytics</div>
-                </div>
-              </aside>
-
-              <main>
-                <div className="flex-between" style={{marginBottom:'1rem'}}>
-                  <input type="text" placeholder="🔍 Search games..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} style={{padding:'0.5rem', borderRadius:'40px', border:'1px solid var(--border)', background:'var(--bg-card)', color:'var(--text)', width:'60%'}} />
-                  <select value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)} style={{padding:'0.5rem', borderRadius:'40px', background:'var(--bg-card)', color:'var(--text)', border:'1px solid var(--border)'}}>
-                    {categories.map(cat => <option key={cat} value={cat}>{cat.toUpperCase()}</option>)}
-                  </select>
-                </div>
-
-                {activeTab === 'home' && (
-                  <>
-                    <h2>🔥 Featured Games</h2>
-                    <div className="games-grid">
-                      {featuredGames.map(game => (
-                        <div key={game.id} className="game-card" onClick={() => playGame(game)}>
-                          <div className="game-img">{game.image}</div>
-                          <div className="game-info">
-                            <div className="game-title">{game.title}</div>
-                            <div className="game-meta"><span>⭐ {game.rating}</span><span>🎮 {game.plays}</span></div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <h2 style={{marginTop:'2rem'}}>📈 Trending Now</h2>
-                    <div className="games-grid">
-                      {trendingGames.map(game => (
-                        <div key={game.id} className="game-card" onClick={() => playGame(game)}>
-                          <div className="game-img">{game.image}</div>
-                          <div className="game-info">
-                            <div className="game-title">{game.title}</div>
-                            <div className="game-meta"><span>🔥 {game.trending}%</span></div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                )}
-
-                {activeTab === 'favorites' && (
-                  <div className="games-grid">
-                    {getFilteredGames().map(game => (
-                      <div key={game.id} className="game-card" onClick={() => playGame(game)}>
-                        <div className="game-img">{game.image}</div>
-                        <div className="game-info">
-                          <div className="game-title">{game.title}</div>
-                          <button className="badge" onClick={(e) => { e.stopPropagation(); addToFavorites(game.id); }} style={{background:'var(--danger)', marginTop:'5px'}}>❤️ Remove</button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {activeTab === 'recent' && (
-                  <div className="games-grid">
-                    {recent.map(id => {
-                      const game = GAMES_CATALOG.find(g => g.id === id);
-                      return game ? (
-                        <div key={game.id} className="game-card" onClick={() => playGame(game)}>
-                          <div className="game-img">{game.image}</div>
-                          <div className="game-info"><div className="game-title">{game.title}</div></div>
-                        </div>
-                      ) : null;
-                    })}
-                  </div>
-                )}
-
-                {activeTab === 'leaderboard' && (
-                  <div style={{background:'var(--bg-card)', borderRadius:'1rem', padding:'1rem'}}>
-                    <h3>🏆 Top Games by Plays</h3>
-                    <ol>
-                      {leaderboard.map((game, idx) => <li key={game.id} style={{margin:'0.5rem 0'}}>{idx+1}. {game.title} - {game.plays} plays</li>)}
-                    </ol>
-                  </div>
-                )}
-
-                {activeTab === 'tournaments' && (
-                  <div className="games-grid">
-                    {tournaments.map(t => (
-                      <div key={t.id} className="game-card">
-                        <div className="game-img">🏅</div>
-                        <div className="game-info">
-                          <div className="game-title">{t.name}</div>
-                          <div>Prize: {t.prize}</div>
-                          <div>Entry: {t.entry} coins</div>
-                          <button className="theme-toggle" style={{marginTop:'8px'}}>Join Tournament</button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {activeTab === 'achievements' && (
-                  <div className="games-grid">
-                    <div className="game-card"><div className="game-img">🏅</div><div className="game-info"><h4>First Game</h4><p>Play 1 game</p></div></div>
-                    <div className="game-card"><div className="game-img">⭐</div><div className="game-info"><h4>Social Butterfly</h4><p>Login with Google</p></div></div>
-                    <div className="game-card"><div className="game-img">💎</div><div className="game-info"><h4>Premium Player</h4><p>Get premium membership</p></div></div>
-                  </div>
-                )}
-              </main>
-            </div>
-          </div>
-        </div>
-
-        {/* Game Play Modal */}
-        {showGameModal && selectedGame && (
-          <div className="modal" style={{display:'flex'}}>
-            <div className="modal-content" style={{maxWidth:'90%', width:'800px', height:'600px'}}>
-              <div className="flex-between">
-                <h3>{selectedGame.title}</h3>
-                <button onClick={() => setShowGameModal(false)} style={{background:'none', border:'none', fontSize:'1.5rem', cursor:'pointer'}}>✖</button>
-              </div>
-              <iframe src={selectedGame.embed} style={{width:'100%', height:'80%', marginTop:'1rem', border:'none', borderRadius:'1rem'}} allowFullScreen></iframe>
-              <div className="flex-between" style={{marginTop:'1rem'}}>
-                <button onClick={() => addToFavorites(selectedGame.id)} className="theme-toggle">❤️ Favorite</button>
-                <select onChange={(e) => rateGame(selectedGame.id, parseInt(e.target.value))}>
-                  <option>Rate Game</option>
-                  <option value="1">1⭐</option><option value="2">2⭐</option><option value="3">3⭐</option><option value="4">4⭐</option><option value="5">5⭐</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Game Request Modal */}
-        <div id="gameRequestModal" className="modal">
-          <div className="modal-content">
-            <h3>Request a Game</h3>
-            <input type="text" id="reqGameName" placeholder="Game name" style={{width:'100%', padding:'0.5rem', margin:'1rem 0'}} />
-            <button onClick={() => { const name = document.getElementById('reqGameName').value; if(name) requestGame(name); document.getElementById('gameRequestModal').style.display='none'; }} className="theme-toggle">Submit Request</button>
-            <button onClick={() => document.getElementById('gameRequestModal').style.display='none'} style={{marginLeft:'1rem'}}>Cancel</button>
-          </div>
-        </div>
-      </AppContext.Provider>
-    );
+  // Local storage keys
+  const STORAGE_KEYS = {
+    USER: 'arcadehub_user',
+    FAVORITES: 'arcadehub_favorites',
+    RECENT: 'arcadehub_recent',
+    ACHIEVEMENTS: 'arcadehub_achievements',
+    PREMIUM: 'arcadehub_premium',
+    LAST_DAILY: 'arcadehub_last_daily',
+    RATINGS: 'arcadehub_ratings'
   };
 
-  const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.render(React.createElement(App));
+  // Helper functions
+  function getStorage(key, defaultValue) {
+    const val = localStorage.getItem(key);
+    return val ? JSON.parse(val) : defaultValue;
+  }
+  function setStorage(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  // State
+  let currentUser = getStorage(STORAGE_KEYS.USER, null);
+  let favorites = getStorage(STORAGE_KEYS.FAVORITES, []);
+  let recentGames = getStorage(STORAGE_KEYS.RECENT, []);
+  let achievements = getStorage(STORAGE_KEYS.ACHIEVEMENTS, []);
+  let premium = getStorage(STORAGE_KEYS.PREMIUM, false);
+  let ratings = getStorage(STORAGE_KEYS.RATINGS, {});
+  let theme = getStorage('arcadehub_theme', 'dark');
+  let activeTab = 'home';
+  let searchQuery = '';
+  let categoryFilter = 'all';
+  let selectedGame = null;
+  let leaderboard = [];
+  let tournaments = [
+    { id: 't1', name: 'Speed Racer Cup', prize: '500 coins', entry: 10, start: '2025-01-15', participants: 124 },
+    { id: 't2', name: 'Zombie Survival', prize: '1000 coins', entry: 20, start: '2025-01-20', participants: 89 }
+  ];
+
+  // DOM Elements
+  let root;
+  let gameModal, requestModal;
+
+  // Helper to compute leaderboard
+  function updateLeaderboard() {
+    leaderboard = [...GAMES].sort((a,b) => b.plays - a.plays).slice(0, 10);
+  }
+  updateLeaderboard();
+
+  // Save user data
+  function saveUserData() {
+    setStorage(STORAGE_KEYS.USER, currentUser);
+    setStorage(STORAGE_KEYS.FAVORITES, favorites);
+    setStorage(STORAGE_KEYS.RECENT, recentGames);
+    setStorage(STORAGE_KEYS.ACHIEVEMENTS, achievements);
+    setStorage(STORAGE_KEYS.PREMIUM, premium);
+    setStorage(STORAGE_KEYS.RATINGS, ratings);
+  }
+
+  // Login/Logout simulation (Google-like popup)
+  function login() {
+    const name = prompt("Enter your name:", "Player");
+    if (name) {
+      currentUser = { uid: Date.now().toString(), name: name, email: name + "@player.com", avatar: "👤" };
+      saveUserData();
+      render();
+    }
+  }
+  function logout() {
+    currentUser = null;
+    favorites = [];
+    recentGames = [];
+    achievements = [];
+    premium = false;
+    saveUserData();
+    render();
+  }
+
+  // Add to favorites
+  function addToFavorites(gameId) {
+    if (!currentUser) { alert("Please login first"); return; }
+    if (favorites.includes(gameId)) {
+      favorites = favorites.filter(id => id !== gameId);
+    } else {
+      favorites.push(gameId);
+      // Unlock achievement
+      if (favorites.length === 3 && !achievements.includes("collector")) {
+        achievements.push("collector");
+        alert("🎉 Achievement Unlocked: Collector (3 favorites)!");
+      }
+    }
+    saveUserData();
+    render();
+  }
+
+  // Add to recent
+  function addToRecent(gameId) {
+    if (!currentUser) return;
+    recentGames = [gameId, ...recentGames.filter(id => id !== gameId)].slice(0, 10);
+    saveUserData();
+    // First game achievement
+    if (recentGames.length === 1 && !achievements.includes("first_game")) {
+      achievements.push("first_game");
+      alert("🎉 Achievement Unlocked: First Game!");
+    }
+    render();
+  }
+
+  // Claim daily reward
+  function claimDailyReward() {
+    if (!currentUser) { alert("Login first"); return; }
+    const lastClaim = localStorage.getItem(STORAGE_KEYS.LAST_DAILY);
+    const today = new Date().toDateString();
+    if (lastClaim === today) {
+      alert("Already claimed today! Come back tomorrow.");
+      return;
+    }
+    localStorage.setItem(STORAGE_KEYS.LAST_DAILY, today);
+    alert("🎁 You claimed 50 coins! (demo)");
+    render();
+  }
+
+  // Rate game
+  function rateGame(gameId, ratingVal) {
+    if (!currentUser) { alert("Login to rate"); return; }
+    if (!ratings[gameId]) ratings[gameId] = { total: 0, count: 0 };
+    ratings[gameId].total += ratingVal;
+    ratings[gameId].count += 1;
+    saveUserData();
+    render();
+  }
+
+  // Request game
+  function requestGame(gameName) {
+    if (!currentUser) { alert("Login first"); return; }
+    alert(`Game "${gameName}" requested! (demo)`);
+    // In real app, store in localStorage or send to admin
+  }
+
+  // Get filtered games
+  function getFilteredGames() {
+    let filtered = [...GAMES];
+    if (activeTab === 'favorites') {
+      filtered = filtered.filter(g => favorites.includes(g.id));
+    } else if (activeTab === 'trending') {
+      filtered = filtered.filter(g => g.trending > 85).sort((a,b) => b.trending - a.trending);
+    } else if (activeTab === 'featured') {
+      filtered = filtered.filter(g => g.trending > 90).slice(0, 6);
+    }
+    if (categoryFilter !== 'all') {
+      filtered = filtered.filter(g => g.category === categoryFilter);
+    }
+    if (searchQuery) {
+      filtered = filtered.filter(g => g.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    }
+    return filtered;
+  }
+
+  // Play game
+  function playGame(game) {
+    addToRecent(game.id);
+    selectedGame = game;
+    gameModal.style.display = 'flex';
+  }
+
+  // Toggle theme
+  function toggleTheme() {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    setStorage('arcadehub_theme', theme);
+    render(); // re-render to update button icon
+  }
+
+  // Render UI
+  function render() {
+    document.documentElement.setAttribute('data-theme', theme);
+    const filtered = getFilteredGames();
+    const trendingGames = [...GAMES].sort((a,b) => b.trending - a.trending).slice(0, 6);
+    const featuredGames = [...GAMES].filter(g => g.trending > 90).slice(0, 4);
+    const categories = ['all', ...new Set(GAMES.map(g => g.category))];
+
+    const html = `
+      <div class="app">
+        <header class="header">
+          <div class="header-content">
+            <div class="logo">🎮 ArcadeHub</div>
+            <div class="nav-links">
+              <button class="nav-btn ${activeTab === 'home' ? 'active' : ''}" data-tab="home">Home</button>
+              <button class="nav-btn ${activeTab === 'trending' ? 'active' : ''}" data-tab="trending">Trending</button>
+              <button class="nav-btn ${activeTab === 'leaderboard' ? 'active' : ''}" data-tab="leaderboard">Leaderboard</button>
+              <button class="nav-btn ${activeTab === 'tournaments' ? 'active' : ''}" data-tab="tournaments">Tournaments</button>
+              <button class="theme-toggle" id="themeToggle"><i class="fas ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}"></i></button>
+              ${currentUser ? `
+                <span style="color: var(--text);">${currentUser.name}</span>
+                <button class="auth-btn" id="logoutBtn">Logout</button>
+              ` : `
+                <button class="auth-btn" id="loginBtn">Sign in with Google</button>
+              `}
+            </div>
+          </div>
+        </header>
+
+        <div class="container">
+          <div class="dashboard">
+            <aside class="sidebar">
+              ${currentUser ? `
+                <div class="user-card">
+                  <div class="avatar"><i class="fas fa-user"></i></div>
+                  <h4>${currentUser.name}</h4>
+                  <p>${premium ? '<span class="badge">🌟 Premium</span>' : 'Free Member'}</p>
+                  <button class="theme-toggle" id="dailyRewardBtn" style="margin-top:8px;">🎁 Daily Reward</button>
+                </div>
+              ` : `
+                <div class="user-card">
+                  <div class="avatar"><i class="fas fa-user"></i></div>
+                  <p>Login to save favorites & earn rewards</p>
+                </div>
+              `}
+              <div class="sidebar-menu">
+                <div class="sidebar-item ${activeTab === 'home' ? 'active' : ''}" data-tab="home"><i class="fas fa-home"></i> Home</div>
+                <div class="sidebar-item ${activeTab === 'favorites' ? 'active' : ''}" data-tab="favorites"><i class="fas fa-heart"></i> Favorites</div>
+                <div class="sidebar-item ${activeTab === 'recent' ? 'active' : ''}" data-tab="recent"><i class="fas fa-history"></i> Recently Played</div>
+                <div class="sidebar-item ${activeTab === 'achievements' ? 'active' : ''}" data-tab="achievements"><i class="fas fa-trophy"></i> Achievements</div>
+                <div class="sidebar-item ${activeTab === 'leaderboard' ? 'active' : ''}" data-tab="leaderboard"><i class="fas fa-chart-line"></i> Leaderboard</div>
+                <div class="sidebar-item ${activeTab === 'tournaments' ? 'active' : ''}" data-tab="tournaments"><i class="fas fa-medal"></i> Tournaments</div>
+                <div class="sidebar-item" id="requestGameBtn"><i class="fas fa-plus-circle"></i> Request Game</div>
+              </div>
+            </aside>
+
+            <main>
+              <div class="flex-between" style="margin-bottom:1rem;">
+                <input type="text" id="searchInput" placeholder="🔍 Search games..." value="${searchQuery}" style="width:60%;" />
+                <select id="categorySelect">
+                  ${categories.map(cat => `<option value="${cat}" ${categoryFilter === cat ? 'selected' : ''}>${cat.toUpperCase()}</option>`).join('')}
+                </select>
+              </div>
+
+              ${activeTab === 'home' ? `
+                <h2>🔥 Featured Games</h2>
+                <div class="games-grid">
+                  ${featuredGames.map(game => `
+                    <div class="game-card" data-game-id="${game.id}">
+                      <div class="game-img">${game.image}</div>
+                      <div class="game-info">
+                        <div class="game-title">${game.title}</div>
+                        <div class="game-meta"><span>⭐ ${(ratings[game.id] ? (ratings[game.id].total / ratings[game.id].count).toFixed(1) : game.rating)}</span><span>🎮 ${game.plays}</span></div>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+                <h2 style="margin-top:2rem;">📈 Trending Now</h2>
+                <div class="games-grid">
+                  ${trendingGames.map(game => `
+                    <div class="game-card" data-game-id="${game.id}">
+                      <div class="game-img">${game.image}</div>
+                      <div class="game-info">
+                        <div class="game-title">${game.title}</div>
+                        <div class="game-meta"><span>🔥 ${game.trending}%</span></div>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              ` : activeTab === 'favorites' ? `
+                <div class="games-grid">
+                  ${filtered.map(game => `
+                    <div class="game-card" data-game-id="${game.id}">
+                      <div class="game-img">${game.image}</div>
+                      <div class="game-info">
+                        <div class="game-title">${game.title}</div>
+                        <button class="badge fav-remove" data-game-id="${game.id}" style="background:var(--danger); margin-top:5px;">❤️ Remove</button>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              ` : activeTab === 'recent' ? `
+                <div class="games-grid">
+                  ${recentGames.map(id => {
+                    const game = GAMES.find(g => g.id === id);
+                    return game ? `
+                      <div class="game-card" data-game-id="${game.id}">
+                        <div class="game-img">${game.image}</div>
+                        <div class="game-info">
+                          <div class="game-title">${game.title}</div>
+                        </div>
+                      </div>
+                    ` : '';
+                  }).join('')}
+                </div>
+              ` : activeTab === 'achievements' ? `
+                <div class="games-grid">
+                  <div class="game-card"><div class="game-img">🏅</div><div class="game-info"><h4>First Game</h4><p>Play 1 game</p>${achievements.includes('first_game') ? '✅' : '🔒'}</div></div>
+                  <div class="game-card"><div class="game-img">⭐</div><div class="game-info"><h4>Collector</h4><p>3 favorites</p>${achievements.includes('collector') ? '✅' : '🔒'}</div></div>
+                  <div class="game-card"><div class="game-img">💎</div><div class="game-info"><h4>Premium Player</h4><p>Get premium membership</p>${premium ? '✅' : '🔒'}</div></div>
+                </div>
+              ` : activeTab === 'leaderboard' ? `
+                <div style="background:var(--bg-card); border-radius:1rem; padding:1rem;">
+                  <h3>🏆 Top Games by Plays</h3>
+                  <ol>
+                    ${leaderboard.map((game, idx) => `<li style="margin:0.5rem 0">${idx+1}. ${game.title} - ${game.plays} plays</li>`).join('')}
+                  </ol>
+                </div>
+              ` : activeTab === 'tournaments' ? `
+                <div class="games-grid">
+                  ${tournaments.map(t => `
+                    <div class="game-card">
+                      <div class="game-img">🏅</div>
+                      <div class="game-info">
+                        <div class="game-title">${t.name}</div>
+                        <div>Prize: ${t.prize}</div>
+                        <div>Entry: ${t.entry} coins</div>
+                        <button class="theme-toggle join-tournament" data-tournament-id="${t.id}" style="margin-top:8px;">Join Tournament</button>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              ` : ''}
+            </main>
+          </div>
+        </div>
+      </div>
+    `;
+    root.innerHTML = html;
+
+    // Attach event listeners
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        activeTab = btn.getAttribute('data-tab');
+        render();
+      });
+    });
+    document.querySelectorAll('.sidebar-item[data-tab]').forEach(item => {
+      item.addEventListener('click', () => {
+        activeTab = item.getAttribute('data-tab');
+        render();
+      });
+    });
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+    const loginBtn = document.getElementById('loginBtn');
+    if (loginBtn) loginBtn.addEventListener('click', login);
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) logoutBtn.addEventListener('click', logout);
+    const dailyBtn = document.getElementById('dailyRewardBtn');
+    if (dailyBtn) dailyBtn.addEventListener('click', claimDailyReward);
+    const requestBtn = document.getElementById('requestGameBtn');
+    if (requestBtn) requestBtn.addEventListener('click', () => { requestModal.style.display = 'flex'; });
+    const searchInputEl = document.getElementById('searchInput');
+    if (searchInputEl) searchInputEl.addEventListener('input', (e) => { searchQuery = e.target.value; render(); });
+    const categorySelect = document.getElementById('categorySelect');
+    if (categorySelect) categorySelect.addEventListener('change', (e) => { categoryFilter = e.target.value; render(); });
+    // Game cards
+    document.querySelectorAll('.game-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.classList.contains('fav-remove')) return;
+        const gameId = card.getAttribute('data-game-id');
+        const game = GAMES.find(g => g.id === gameId);
+        if (game) playGame(game);
+      });
+    });
+    document.querySelectorAll('.fav-remove').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const gameId = btn.getAttribute('data-game-id');
+        addToFavorites(gameId);
+      });
+    });
+    document.querySelectorAll('.join-tournament').forEach(btn => {
+      btn.addEventListener('click', () => alert("Tournament join feature coming soon!"));
+    });
+  }
+
+  // Initialize modals
+  function initModals() {
+    // Game modal
+    gameModal = document.createElement('div');
+    gameModal.className = 'modal';
+    gameModal.id = 'gameModal';
+    gameModal.innerHTML = `
+      <div class="modal-content" style="max-width:90%; width:800px; height:600px;">
+        <div class="flex-between">
+          <h3 id="gameModalTitle"></h3>
+          <button id="closeGameModal" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">✖</button>
+        </div>
+        <iframe id="gameIframe" style="width:100%; height:80%; margin-top:1rem; border:none; border-radius:1rem;" allowFullScreen></iframe>
+        <div class="flex-between" style="margin-top:1rem;">
+          <button id="favoriteGameBtn" class="theme-toggle">❤️ Favorite</button>
+          <select id="rateGameSelect">
+            <option>Rate Game</option>
+            <option value="1">1⭐</option><option value="2">2⭐</option><option value="3">3⭐</option><option value="4">4⭐</option><option value="5">5⭐</option>
+          </select>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(gameModal);
+    document.getElementById('closeGameModal')?.addEventListener('click', () => {
+      gameModal.style.display = 'none';
+      selectedGame = null;
+    });
+    // Request modal
+    requestModal = document.createElement('div');
+    requestModal.className = 'modal';
+    requestModal.id = 'requestModal';
+    requestModal.innerHTML = `
+      <div class="modal-content">
+        <h3>Request a Game</h3>
+        <input type="text" id="reqGameName" placeholder="Game name" style="width:100%; padding:0.5rem; margin:1rem 0;" />
+        <button id="submitRequest" class="theme-toggle">Submit Request</button>
+        <button id="closeRequestModal" style="margin-left:1rem;">Cancel</button>
+      </div>
+    `;
+    document.body.appendChild(requestModal);
+    document.getElementById('submitRequest')?.addEventListener('click', () => {
+      const name = document.getElementById('reqGameName').value;
+      if (name) requestGame(name);
+      requestModal.style.display = 'none';
+    });
+    document.getElementById('closeRequestModal')?.addEventListener('click', () => {
+      requestModal.style.display = 'none';
+    });
+  }
+
+  function init() {
+    root = document.getElementById('app');
+    initModals();
+    render();
+    // Attach global modal close on outside click
+    window.onclick = (e) => {
+      if (e.target === gameModal) gameModal.style.display = 'none';
+      if (e.target === requestModal) requestModal.style.display = 'none';
+    };
+    // Handle rating
+    document.addEventListener('change', (e) => {
+      if (e.target.id === 'rateGameSelect' && selectedGame) {
+        const rating = parseInt(e.target.value);
+        if (!isNaN(rating)) {
+          rateGame(selectedGame.id, rating);
+          alert(`Rated ${selectedGame.title} ${rating}⭐`);
+          render(); // refresh ratings display
+        }
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (e.target.id === 'favoriteGameBtn' && selectedGame) {
+        addToFavorites(selectedGame.id);
+        alert(`${selectedGame.title} ${favorites.includes(selectedGame.id) ? 'added to' : 'removed from'} favorites`);
+        render();
+      }
+    });
+    // Update game modal title and iframe when selectedGame changes
+    const observer = new MutationObserver(() => {
+      const titleEl = document.getElementById('gameModalTitle');
+      const iframeEl = document.getElementById('gameIframe');
+      if (titleEl && selectedGame) titleEl.innerText = selectedGame.title;
+      if (iframeEl && selectedGame) iframeEl.src = selectedGame.embed;
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+
+  init();
 </script>
 </body>
 </html>
