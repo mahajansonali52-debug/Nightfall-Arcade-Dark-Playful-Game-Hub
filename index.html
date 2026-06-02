@@ -660,4 +660,36 @@
         }
       }
       if (!allGames.length) {
-       
+        allGames = FALLBACK_GAMES;
+      }
+      renderSidebarAffiliates();
+      updateFavoritesList();
+      updateStats();
+      renderGrid();
+    } catch(e) {
+      console.error('Error loading, using fallback games');
+      allGames = FALLBACK_GAMES;
+      renderSidebarAffiliates();
+      updateFavoritesList();
+      updateStats();
+      renderGrid();
+    }
+  }
+  
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.getAttribute('data-category');
+      renderGrid();
+    });
+  });
+  
+  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; renderGrid(); });
+  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; renderGrid(); });
+  
+  window.toggleFavorite = toggleFavorite;
+  loadGames();
+</script>
+</body>
+</html>
