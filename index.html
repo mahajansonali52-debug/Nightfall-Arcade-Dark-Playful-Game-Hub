@@ -17,7 +17,6 @@
     
     .app-layout { display: flex; gap: 2rem; max-width: 1600px; margin: 0 auto; }
     
-    /* Sidebar */
     .sidebar {
       width: 340px;
       background: linear-gradient(145deg, #1a1f2e 0%, #0f172a 100%);
@@ -56,7 +55,6 @@
       gap: 8px;
     }
     
-    /* Amazon Affiliate Links - Dynamic from Database */
     .amazon-link {
       display: flex;
       align-items: center;
@@ -89,7 +87,6 @@
     .amazon-link-info .product-name { font-weight: 700; font-size: 0.85rem; }
     .amazon-link-info .price { font-size: 0.7rem; color: #22c55e; font-weight: bold; }
     
-    /* Game Grid */
     .main-content { flex: 1; min-width: 0; }
     .hero { text-align: center; margin-bottom: 1.5rem; }
     .hero h1 {
@@ -183,7 +180,31 @@
     .favorite-star.favorited { color: #facc15; }
     .favorite-star:not(.favorited) { color: #64748b; }
     
-    .game-icon { width: 90px; height: 90px; object-fit: cover; border-radius: 18px; margin: 0.5rem auto; display: block; background: #0f1222; }
+    /* Game Icon Styles - Fixed */
+    .game-icon {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 18px;
+      margin: 0.5rem auto;
+      display: block;
+      background: linear-gradient(135deg, #4c1d95, #7c3aed);
+    }
+    
+    /* Fallback icon when image fails to load */
+    .game-icon-fallback {
+      width: 90px;
+      height: 90px;
+      border-radius: 18px;
+      margin: 0.5rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #4c1d95, #7c3aed);
+      font-size: 2.5rem;
+      color: #facc15;
+    }
+    
     .game-name { text-align: center; font-weight: 800; color: #facc15; margin: 0.5rem 0; font-size: 0.9rem; }
     .play-badge { text-align: center; font-size: 0.7rem; background: #22c55e; padding: 0.25rem 0.8rem; border-radius: 20px; display: inline-block; margin: 0 auto; color: #022c1a; font-weight: bold; }
     
@@ -267,7 +288,6 @@
 </head>
 <body>
 <div class="app-layout">
-  <!-- Sidebar - Dynamically populated from Google Sheet -->
   <div class="sidebar">
     <h3><i class="fab fa-amazon"></i> Amazon Game Store</h3>
     <div class="sidebar-section">
@@ -298,7 +318,6 @@
     </div>
   </div>
   
-  <!-- Main Content -->
   <div class="main-content">
     <div class="hero">
       <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fab fa-amazon"></i></h1>
@@ -320,7 +339,6 @@
   </div>
 </div>
 
-<!-- Game Player -->
 <div id="gamePlayer" class="game-player-overlay">
   <div class="game-player-header">
     <span class="game-player-title" id="gamePlayerTitle">Game</span>
@@ -338,12 +356,11 @@
   
   let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
   let allGames = [];
-  let affiliateProducts = []; // Store products with affiliate links & images
+  let affiliateProducts = [];
   let filteredGames = [];
   let currentSearchTerm = "";
   let currentCategory = "all";
   
-  // DOM Elements
   const grid = document.getElementById('gamesGridContainer');
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearchBtn');
@@ -355,6 +372,14 @@
   const fullscreenBtn = document.getElementById('fullscreenBtn');
   const dynamicAmazonLinks = document.getElementById('dynamicAmazonLinks');
   
+  // Colorful fallback icons for games (emoji-based)
+  const gameEmojis = ['🎮', '🎯', '🎲', '🎳', '🏀', '⚽', '🎨', '🧩', '🚗', '🏎️', '✈️', '🚀', '👾', '🤖', '🐉', '⭐'];
+  
+  function getEmojiForGame(name) {
+    const index = (name.length * 7) % gameEmojis.length;
+    return gameEmojis[index];
+  }
+  
   function escapeHtml(str) { 
     if (!str) return ''; 
     return str.replace(/[&<>]/g, function(m) {
@@ -363,6 +388,14 @@
       if (m === '>') return '&gt;';
       return m;
     });
+  }
+  
+  function isValidImageUrl(url) {
+    if (!url) return false;
+    if (url.length < 10) return false;
+    if (url.includes('https://img.cdn.f') || url.includes('https://img.game')) return false;
+    if (url.includes('placehold.co')) return true;
+    return true;
   }
   
   function toggleFullscreen() {
@@ -445,17 +478,16 @@
     return url;
   }
   
-  // Render sidebar with dynamic Amazon products from database
   function renderSidebarAffiliates() {
     const productsWithImages = affiliateProducts.filter(p => p.affiliateLink && p.affiliateImage);
     
     if (productsWithImages.length === 0) {
-      dynamicAmazonLinks.innerHTML = '<div style="color:#64748b; text-align:center;">No affiliate products yet. Add "affiliate_link" and "affiliate_image" to your sheet!</div>';
+      dynamicAmazonLinks.innerHTML = '<div style="color:#64748b; text-align:center;">✨ Add "affiliate_link" and "affiliate_image" to your sheet!</div>';
       return;
     }
     
     let html = '';
-    for (let product of productsWithImages.slice(0, 10)) { // Show max 10 products
+    for (let product of productsWithImages.slice(0, 10)) {
       const productName = product.name || 'Product';
       const affiliateUrl = addAmazonTag(product.affiliateLink);
       const productImage = product.affiliateImage || 'https://placehold.co/55x55/4c1d95/white?text=🎮';
@@ -491,12 +523,17 @@
       const favorited = isFavorite(game.id);
       const hasAffiliate = game.affiliateLink && game.affiliateLink.trim();
       const affiliateUrl = hasAffiliate ? addAmazonTag(game.affiliateLink) : null;
+      const emoji = getEmojiForGame(game.name);
+      
+      // Check if icon URL is valid
+      const hasValidIcon = isValidImageUrl(game.icon);
       
       let iconHtml = '';
-      if (game.icon && game.icon.trim() && !game.icon.includes('https://img.cdn.f') && !game.icon.includes('https://img.game')) {
-        iconHtml = `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/90x90/4c1d95/white?text=🎮'">`;
+      if (hasValidIcon && game.icon) {
+        iconHtml = `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'game-icon-fallback\'><i class=\'fas fa-gamepad\' style=\'font-size:2.5rem;\'></i></div>';">`;
       } else {
-        iconHtml = `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem;"></i></div>`;
+        // Use colorful fallback with emoji
+        iconHtml = `<div class="game-icon-fallback">${emoji}</div>`;
       }
       
       html += `
@@ -541,15 +578,17 @@
         buffer = '';
       } else if (ch === '\n' && !inQuotes) {
         row.push(buffer.trim());
-        if (row.length) rows.push(row);
+        if (row.length && row[0] !== '') rows.push(row);
         row = [];
         buffer = '';
       } else {
         buffer += ch;
       }
     }
-    row.push(buffer.trim());
-    if (row.length && row[0] !== '') rows.push(row);
+    if (buffer.trim() || row.length) {
+      row.push(buffer.trim());
+      if (row.length && row[0] !== '') rows.push(row);
+    }
     if (!rows.length) return [];
     let headers = rows[0].map(h => h.replace(/^"|"$/g, '').toLowerCase());
     return rows.slice(1).map(row => {
@@ -571,27 +610,34 @@
       let gamesData = parseCSV(csv);
       
       if (gamesData.length > 0) {
-        // Separate games and affiliate products
         allGames = [];
         affiliateProducts = [];
         
         for (let row of gamesData) {
+          // Clean up the name - remove extra spaces and fix common issues
+          let gameName = row.name || "Game";
+          // Fix common name issues from your sheet
+          if (gameName.includes('Parking Jam')) gameName = '🚗 Parking Jam';
+          if (gameName.includes('Thief')) gameName = '🕵️ Thief Puzzle Game';
+          if (gameName.includes('Table Tennis')) gameName = '🏓 Table Tennis World Tour';
+          if (gameName.includes('Endless Truck')) gameName = '🚛 Endless Truck';
+          if (gameName.includes('Bus Driver')) gameName = '🚌 Bus Driver Simulator 3D';
+          if (gameName.includes('Real Motor')) gameName = '🏎️ Real Motor Race Master';
+          
           const gameObj = {
             id: `game_${allGames.length}`,
-            name: row.name || "Game",
-            icon: (row.icon && row.icon !== 'https://img.cdn.f' && row.icon !== 'https://img.game') ? row.icon : "",
+            name: gameName,
+            icon: (row.icon && row.icon.includes('http') && !row.icon.includes('img.cdn.f') && !row.icon.includes('img.game')) ? row.icon : "",
             link: row.link || "#",
             embed: row['embed code'] || row.embed || "",
             affiliateLink: row['amazon affiliate link'] || row.affiliate_link || "",
             affiliateImage: row.affiliate_image || row['affiliate image'] || ""
           };
           
-          // Add to games list
-          if (gameObj.name && gameObj.name.length > 2 && gameObj.name !== "Table Tennis Wo") {
+          if (gameObj.name && gameObj.name.length > 2) {
             allGames.push(gameObj);
           }
           
-          // Add to affiliate products sidebar if has affiliate link and image
           if (gameObj.affiliateLink && gameObj.affiliateLink.trim()) {
             affiliateProducts.push(gameObj);
           }
@@ -600,11 +646,12 @@
       
       if (!allGames.length) {
         allGames = [
-          { id: 'g0', name: 'Parking Jam', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
-          { id: 'g1', name: 'Thief Puzzle Game', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
-          { id: 'g2', name: 'Table Tennis World Tour', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
-          { id: 'g3', name: 'Endless Truck', icon: '', link: 'https://play.famobi.com/endless-truck', embed: '', affiliateLink: '', affiliateImage: '' },
-          { id: 'g4', name: 'Bus Driver Simulator 3D', icon: '', link: 'https://play.gamepix.com/bus-driver-simulator-3d', embed: '', affiliateLink: '', affiliateImage: '' }
+          { id: 'g0', name: '🚗 Parking Jam', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
+          { id: 'g1', name: '🕵️ Thief Puzzle Game', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
+          { id: 'g2', name: '🏓 Table Tennis World Tour', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
+          { id: 'g3', name: '🚛 Endless Truck', icon: '', link: 'https://play.famobi.com/endless-truck', embed: '', affiliateLink: '', affiliateImage: '' },
+          { id: 'g4', name: '🚌 Bus Driver Simulator 3D', icon: '', link: 'https://play.gamepix.com/bus-driver-simulator-3d', embed: '', affiliateLink: '', affiliateImage: '' },
+          { id: 'g5', name: '🏎️ Real Motor Race Master', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' }
         ];
       }
       
@@ -613,11 +660,11 @@
       updateStats();
       renderGrid();
     } catch(e) {
-      console.warn(e);
+      console.warn('Error loading CSV, using fallback games:', e);
       allGames = [
-        { id: 'g0', name: 'Parking Jam', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
-        { id: 'g1', name: 'Thief Puzzle Game', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
-        { id: 'g2', name: 'Endless Truck', icon: '', link: 'https://play.famobi.com/endless-truck', embed: '', affiliateLink: '', affiliateImage: '' }
+        { id: 'g0', name: '🚗 Parking Jam', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
+        { id: 'g1', name: '🕵️ Thief Puzzle Game', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
+        { id: 'g2', name: '🚛 Endless Truck', icon: '', link: 'https://play.famobi.com/endless-truck', embed: '', affiliateLink: '', affiliateImage: '' }
       ];
       renderSidebarAffiliates();
       updateFavoritesList();
