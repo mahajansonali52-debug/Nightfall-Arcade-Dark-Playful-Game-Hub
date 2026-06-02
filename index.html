@@ -135,6 +135,13 @@
       padding: 2px 8px;
       border-radius: 20px;
       z-index: 5;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .affiliate-badge:hover {
+      background: #ff8c00;
+      transform: scale(1.05);
     }
     
     .favorite-star {
@@ -269,45 +276,51 @@
 </head>
 <body>
 <div class="app-layout">
-  <!-- SIDEBAR WITH AMAZON AFFILIATE LINKS -->
+  <!-- SIDEBAR WITH AMAZON AFFILIATE LINKS - YOUR TAG: bestgadge0b72-21 -->
   <div class="sidebar">
     <h3><i class="fab fa-amazon"></i> Amazon Game Store</h3>
     
-    <!-- ===== AMAZON AFFILIATE SECTION - REPLACE YOURTAG-20 ===== -->
+    <!-- ===== AMAZON AFFILIATE SECTION WITH YOUR TAG ===== -->
     <div class="sidebar-section">
       <h4><i class="fas fa-gamepad"></i> 🎮 Best Sellers for Gamers</h4>
       
-      <a href="https://www.amazon.com/dp/B08N5WRWNW?tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
+      <a href="https://www.amazon.com/dp/B08N5WRWNW?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
         <i class="fas fa-headphones"></i>
         <span>Kids Gaming Headset</span>
         <span class="price">$24.99</span>
       </a>
       
-      <a href="https://www.amazon.com/dp/B07V9Q8X9Z?tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
+      <a href="https://www.amazon.com/dp/B07V9Q8X9Z?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
         <i class="fas fa-gamepad"></i>
         <span>Wireless Controller</span>
         <span class="price">$39.99</span>
       </a>
       
-      <a href="https://www.amazon.com/dp/B08F3T9X4R?tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
+      <a href="https://www.amazon.com/dp/B08F3T9X4R?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
         <i class="fas fa-chair"></i>
         <span>Kids Gaming Chair</span>
         <span class="price">$89.99</span>
       </a>
       
-      <a href="https://www.amazon.com/dp/B09G5Z7X4L?tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
+      <a href="https://www.amazon.com/dp/B09G5Z7X4L?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
         <i class="fas fa-cube"></i>
         <span>Minecraft Toy Set</span>
         <span class="price">$29.99</span>
       </a>
       
-      <a href="https://www.amazon.com/dp/B08XY8W7YJ?tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
+      <a href="https://www.amazon.com/dp/B08XY8W7YJ?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
         <i class="fas fa-gift-card"></i>
         <span>Roblox Gift Card</span>
         <span class="price">$25.00</span>
       </a>
       
-      <a href="https://www.amazon.com/s?k=educational+toys+for+kids+8-12&tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
+      <a href="https://www.amazon.com/dp/B09N3Y7T2M?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
+        <i class="fas fa-tablet-alt"></i>
+        <span>Kids Fire Tablet</span>
+        <span class="price">$99.99</span>
+      </a>
+      
+      <a href="https://www.amazon.com/s?k=educational+toys+for+kids+8-12&tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
         <i class="fas fa-brain"></i>
         <span>Educational Toys</span>
         <span class="price">Shop All →</span>
@@ -341,7 +354,7 @@
   <div class="main-content">
     <div class="hero">
       <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fab fa-amazon"></i></h1>
-      <div class="tagline"><i class="fas fa-star"></i> Free Games + Amazon Affiliate Links in Every Game! ✨</div>
+      <div class="tagline"><i class="fas fa-star"></i> Free Games + Amazon Affiliate Links! 🛍️</div>
     </div>
     
     <div class="search-wrapper">
@@ -356,7 +369,7 @@
     
     <div id="gamesGridContainer" class="games-grid"><div class="loader">Loading games...</div></div>
     <div class="footer">
-      ⭐ Click star to favorite | 🖱️ Click game to play | 🛒 Games with 🛍️ icon have Amazon affiliate links
+      ⭐ Click star to favorite | 🖱️ Click game to play | 🛍️ Click orange badge to shop on Amazon
     </div>
   </div>
 </div>
@@ -374,9 +387,8 @@
 </div>
 
 <script>
-  // ========= CONFIGURATION =========
-  // REPLACE YOURTAG-20 WITH YOUR ACTUAL AMAZON TRACKING ID
-  const AMAZON_TAG = 'YOURTAG-20';
+  // ========= YOUR AMAZON AFFILIATE TAG =========
+  const AMAZON_TAG = 'bestgadge0b72-21';
   
   // Google Sheets CSV URL (add a new column called "affiliate_link")
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
@@ -384,6 +396,7 @@
   // ========= EXPECTED CSV COLUMNS =========
   // Name, Icon, Link, Embed, affiliate_link
   // The "affiliate_link" column can contain your Amazon product link
+  // If you put a partial link, the tag will be added automatically
   
   let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
   let allGames = [];
@@ -481,15 +494,20 @@
       <div><i class="fas fa-database"></i> Total Games: ${allGames.length}</div>
       <div><i class="fas fa-star"></i> Favorites: ${favorites.length}</div>
       <div><i class="fab fa-amazon"></i> Affiliate Links: ${affiliateCount}</div>
+      <div><i class="fas fa-tag"></i> Store ID: ${AMAZON_TAG}</div>
     `;
   }
   
   // Function to append Amazon tag to any Amazon link
   function addAmazonTag(url) {
     if (!url) return null;
+    // Check if it's an Amazon link
     if (url.includes('amazon.com') || url.includes('amazon.')) {
       // Check if already has tag parameter
-      if (url.includes('tag=')) return url;
+      if (url.includes('tag=')) {
+        // Replace existing tag with yours
+        return url.replace(/tag=[^&]+/, `tag=${AMAZON_TAG}`);
+      }
       // Add tag parameter
       const separator = url.includes('?') ? '&' : '?';
       return `${url}${separator}tag=${AMAZON_TAG}`;
@@ -525,7 +543,7 @@
       
       html += `
         <div class="game-card" data-name="${escapeHtml(game.name)}" data-link="${escapeHtml(game.link)}" data-embed="${escapeHtml(game.embed || '')}" data-affiliate="${escapeHtml(affiliateUrl || '')}">
-          ${hasAffiliate ? '<div class="affiliate-badge"><i class="fab fa-amazon"></i> 🛍️ Shop</div>' : ''}
+          ${hasAffiliate ? '<div class="affiliate-badge" data-affiliate-url="' + escapeHtml(affiliateUrl) + '"><i class="fab fa-amazon"></i> 🛍️ Shop on Amazon</div>' : ''}
           <div class="favorite-star ${favorited ? 'favorited' : ''}" data-id="${escapeHtml(game.id)}"><i class="fas fa-star"></i></div>
           ${iconHtml}
           <div class="game-name">${escapeHtml(game.name)}</div>
@@ -540,16 +558,21 @@
       const name = card.getAttribute('data-name');
       const link = card.getAttribute('data-link');
       const embed = card.getAttribute('data-embed');
-      const affiliateUrl = card.getAttribute('data-affiliate');
       
       card.addEventListener('click', (e) => {
-        if (e.target.closest('.favorite-star')) return;
-        
-        // If the game has an affiliate link, open it in a new tab when clicking the affiliate badge area
-        if (e.target.closest('.affiliate-badge') && affiliateUrl) {
-          window.open(affiliateUrl, '_blank');
+        // If clicking on affiliate badge, open affiliate link
+        const affiliateBadge = e.target.closest('.affiliate-badge');
+        if (affiliateBadge) {
+          e.stopPropagation();
+          const affiliateUrl = affiliateBadge.getAttribute('data-affiliate-url');
+          if (affiliateUrl) {
+            window.open(affiliateUrl, '_blank');
+          }
           return;
         }
+        
+        // If clicking on favorite star, don't play game
+        if (e.target.closest('.favorite-star')) return;
         
         // Otherwise play the game
         playGameInside({ name, link, embed });
@@ -670,7 +693,7 @@
 
 <!-- Amazon Affiliate Disclosure (Legal Requirement) -->
 <div style="text-align: center; padding: 1rem; font-size: 0.7rem; color: #64748b; border-top: 1px solid #334155; margin-top: 1rem;">
-  <p>As an Amazon Associate, I earn from qualifying purchases. This site contains affiliate links.</p>
+  <p><i class="fab fa-amazon"></i> As an Amazon Associate I earn from qualifying purchases. This site contains affiliate links. Store ID: bestgadge0b72-21</p>
 </div>
 </body>
 </html>
