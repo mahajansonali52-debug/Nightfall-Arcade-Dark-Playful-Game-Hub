@@ -16,7 +16,6 @@
     }
     .app-layout { display: flex; gap: 1.5rem; max-width: 1600px; margin: 0 auto; }
     
-    /* Sidebar */
     .sidebar {
       width: 320px;
       background: #0f172a;
@@ -273,10 +272,7 @@
 </div>
 
 <script>
-  // YOUR AMAZON AFFILIATE TAG
   const AMAZON_TAG = 'bestgadge0b72-21';
-  
-  // GOOGLE SHEET CSV URL
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
   
   let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
@@ -286,7 +282,25 @@
   let currentSearch = "";
   let currentCategory = "all";
   
-  // DOM Elements
+  // WORKING GAMES DATABASE (FALLBACK - ALL GAMES WORK!)
+  const WORKING_GAMES = [
+    { id: 'g1', name: 'Parking Jam 3D', icon: '', link: 'https://www.crazygames.com/game/parking-jam-3d', embed: 'https://www.crazygames.com/embed/parking-jam-3d', affiliateLink: '', affiliateImage: '' },
+    { id: 'g2', name: 'Thief Puzzle', icon: '', link: 'https://www.crazygames.com/game/thief-puzzle', embed: 'https://www.crazygames.com/embed/thief-puzzle', affiliateLink: '', affiliateImage: '' },
+    { id: 'g3', name: 'Table Tennis World Tour', icon: '', link: 'https://www.crazygames.com/game/table-tennis-world-tour', embed: 'https://www.crazygames.com/embed/table-tennis-world-tour', affiliateLink: '', affiliateImage: '' },
+    { id: 'g4', name: 'Endless Truck', icon: '', link: 'https://www.crazygames.com/game/endless-truck', embed: 'https://www.crazygames.com/embed/endless-truck', affiliateLink: '', affiliateImage: '' },
+    { id: 'g5', name: 'Bus Driver Simulator', icon: '', link: 'https://www.crazygames.com/game/bus-driver-simulator-3d', embed: 'https://www.crazygames.com/embed/bus-driver-simulator-3d', affiliateLink: '', affiliateImage: '' },
+    { id: 'g6', name: 'Real Motor Race Master', icon: '', link: 'https://www.crazygames.com/game/real-motor-race-master', embed: 'https://www.crazygames.com/embed/real-motor-race-master', affiliateLink: '', affiliateImage: '' },
+    { id: 'g7', name: 'War of Knights', icon: '', link: 'https://www.crazygames.com/game/war-of-knights', embed: 'https://www.crazygames.com/embed/war-of-knights', affiliateLink: '', affiliateImage: '' },
+    { id: 'g8', name: 'Penalty Kick Wiz', icon: '', link: 'https://www.crazygames.com/game/penalty-kick-wiz', embed: 'https://www.crazygames.com/embed/penalty-kick-wiz', affiliateLink: '', affiliateImage: '' },
+    { id: 'g9', name: 'Stickman Warriors', icon: '', link: 'https://www.crazygames.com/game/stickman-warriors', embed: 'https://www.crazygames.com/embed/stickman-warriors', affiliateLink: '', affiliateImage: '' },
+    { id: 'g10', name: 'Moto X3M', icon: '', link: 'https://www.crazygames.com/game/moto-x3m', embed: 'https://www.crazygames.com/embed/moto-x3m', affiliateLink: '', affiliateImage: '' },
+    { id: 'g11', name: 'Shell Shockers', icon: '', link: 'https://www.crazygames.com/game/shell-shockers', embed: 'https://www.crazygames.com/embed/shell-shockers', affiliateLink: '', affiliateImage: '' },
+    { id: 'g12', name: 'Tunnel Rush', icon: '', link: 'https://www.crazygames.com/game/tunnel-rush', embed: 'https://www.crazygames.com/embed/tunnel-rush', affiliateLink: '', affiliateImage: '' },
+    { id: 'g13', name: 'Slope', icon: '', link: 'https://www.crazygames.com/game/slope', embed: 'https://www.crazygames.com/embed/slope', affiliateLink: '', affiliateImage: '' },
+    { id: 'g14', name: 'Basketball Stars', icon: '', link: 'https://www.crazygames.com/game/basketball-stars', embed: 'https://www.crazygames.com/embed/basketball-stars', affiliateLink: '', affiliateImage: '' },
+    { id: 'g15', name: 'Subway Surfers', icon: '', link: 'https://www.crazygames.com/game/subway-surfers', embed: 'https://www.crazygames.com/embed/subway-surfers', affiliateLink: '', affiliateImage: '' }
+  ];
+  
   const grid = document.getElementById('gamesGridContainer');
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearchBtn');
@@ -310,22 +324,30 @@
   function playGame(game) {
     gamePlayerTitle.innerText = game.name;
     gameIframeContainer.innerHTML = '';
-    let url = game.embed || game.link;
-    if (url && url !== "#") {
+    
+    // Use embed link or regular link
+    let gameUrl = game.embed || game.link;
+    
+    if (gameUrl && gameUrl !== "#" && gameUrl !== "") {
       let iframe = document.createElement('iframe');
-      iframe.src = url;
+      iframe.src = gameUrl;
       iframe.style.width = '100%';
       iframe.style.height = '100%';
       iframe.style.border = 'none';
       iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('allow', 'autoplay; fullscreen; *');
+      iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-top-navigation');
       gameIframeContainer.appendChild(iframe);
     } else {
-      gameIframeContainer.innerHTML = '<div style="padding:2rem; text-align:center; color:white;">🎮 Game link coming soon!</div>';
+      gameIframeContainer.innerHTML = '<div style="padding:2rem; text-align:center; color:white;"><i class="fas fa-exclamation-triangle"></i> Game link not available. Try another game!</div>';
     }
     gamePlayer.style.display = 'flex';
   }
   
-  function closeGame() { gamePlayer.style.display = 'none'; gameIframeContainer.innerHTML = ''; }
+  function closeGame() { 
+    gamePlayer.style.display = 'none'; 
+    gameIframeContainer.innerHTML = ''; 
+  }
   closeGameBtn.addEventListener('click', closeGame);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gamePlayer.style.display === 'flex') closeGame(); });
   
@@ -398,6 +420,12 @@
     if (n.includes('war') || n.includes('knight')) return '⚔️';
     if (n.includes('penalty') || n.includes('kick')) return '⚽';
     if (n.includes('stickman')) return '🥋';
+    if (n.includes('moto')) return '🏍️';
+    if (n.includes('shell')) return '🥚';
+    if (n.includes('tunnel')) return '🌀';
+    if (n.includes('slope')) return '⛰️';
+    if (n.includes('basketball')) return '🏀';
+    if (n.includes('subway')) return '🚇';
     return '🎮';
   }
   
@@ -493,46 +521,38 @@
   
   async function loadGames() {
     try {
-      grid.innerHTML = '<div class="loader">🎮 Loading games from Google Sheet...</div>';
+      grid.innerHTML = '<div class="loader">🎮 Loading games...</div>';
       let response = await fetch(CSV_URL);
-      if (!response.ok) throw new Error('CSV fetch failed');
-      let csv = await response.text();
-      let data = parseCSV(csv);
-      
-      if (data.length) {
-        allGames = [];
-        affiliateProducts = [];
-        for (let i = 0; i < data.length; i++) {
-          let row = data[i];
-          let gameObj = {
-            id: `game_${i}`,
-            name: row.name || row.title || "Game",
-            icon: (row.icon && row.icon.includes('http') && !row.icon.includes('img.cdn')) ? row.icon : "",
-            link: row.link || row.url || "#",
-            embed: row['embed code'] || row.embed || "",
-            affiliateLink: row['amazon affiliate link'] || row.affiliate_link || row.affiliate || "",
-            affiliateImage: row.affiliate_image || row['affiliate image'] || ""
-          };
-          if (gameObj.name && gameObj.name.length > 2) {
-            allGames.push(gameObj);
-            if (gameObj.affiliateLink && gameObj.affiliateImage) {
-              affiliateProducts.push(gameObj);
+      if (response.ok) {
+        let csv = await response.text();
+        let data = parseCSV(csv);
+        if (data.length > 0) {
+          allGames = [];
+          affiliateProducts = [];
+          for (let i = 0; i < data.length; i++) {
+            let row = data[i];
+            let gameObj = {
+              id: `game_${i}`,
+              name: row.name || row.title || "Game",
+              icon: (row.icon && row.icon.includes('http') && !row.icon.includes('img.cdn')) ? row.icon : "",
+              link: row.link || row.url || "#",
+              embed: row['embed code'] || row.embed || row.link || "",
+              affiliateLink: row['amazon affiliate link'] || row.affiliate_link || row.affiliate || "",
+              affiliateImage: row.affiliate_image || row['affiliate image'] || ""
+            };
+            if (gameObj.name && gameObj.name.length > 2) {
+              allGames.push(gameObj);
+              if (gameObj.affiliateLink && gameObj.affiliateImage) {
+                affiliateProducts.push(gameObj);
+              }
             }
           }
         }
       }
       
+      // If no games from CSV, use working games
       if (!allGames.length) {
-        allGames = [
-          { id: 'g0', name: 'Parking Jam', icon: '', link: 'https://www.crazygames.com/game/parking-jam-3d', embed: 'https://www.crazygames.com/embed/parking-jam-3d', affiliateLink: '', affiliateImage: '' },
-          { id: 'g1', name: 'Thief Puzzle', icon: '', link: 'https://www.crazygames.com/game/thief-puzzle', embed: 'https://www.crazygames.com/embed/thief-puzzle', affiliateLink: '', affiliateImage: '' },
-          { id: 'g2', name: 'Table Tennis World Tour', icon: '', link: 'https://www.crazygames.com/game/table-tennis-world-tour', embed: 'https://www.crazygames.com/embed/table-tennis-world-tour', affiliateLink: '', affiliateImage: '' },
-          { id: 'g3', name: 'Endless Truck', icon: '', link: 'https://www.crazygames.com/game/endless-truck', embed: 'https://www.crazygames.com/embed/endless-truck', affiliateLink: '', affiliateImage: '' },
-          { id: 'g4', name: 'Bus Driver Simulator', icon: '', link: 'https://www.crazygames.com/game/bus-driver-simulator-3d', embed: 'https://www.crazygames.com/embed/bus-driver-simulator-3d', affiliateLink: '', affiliateImage: '' },
-          { id: 'g5', name: 'Real Motor Race Master', icon: '', link: 'https://www.crazygames.com/game/real-motor-race-master', embed: 'https://www.crazygames.com/embed/real-motor-race-master', affiliateLink: '', affiliateImage: '' },
-          { id: 'g6', name: 'War of Knights', icon: '', link: 'https://www.crazygames.com/game/war-of-knights', embed: 'https://www.crazygames.com/embed/war-of-knights', affiliateLink: '', affiliateImage: '' },
-          { id: 'g7', name: 'Penalty Kick Wiz', icon: '', link: 'https://www.crazygames.com/game/penalty-kick-wiz', embed: 'https://www.crazygames.com/embed/penalty-kick-wiz', affiliateLink: '', affiliateImage: '' }
-        ];
+        allGames = WORKING_GAMES;
       }
       
       renderSidebarAffiliates();
@@ -540,14 +560,8 @@
       updateStats();
       renderGrid();
     } catch(e) {
-      console.error('Error:', e);
-      allGames = [
-        { id: 'g0', name: 'Parking Jam', icon: '', link: 'https://www.crazygames.com/game/parking-jam-3d', embed: 'https://www.crazygames.com/embed/parking-jam-3d', affiliateLink: '', affiliateImage: '' },
-        { id: 'g1', name: 'Thief Puzzle', icon: '', link: 'https://www.crazygames.com/game/thief-puzzle', embed: 'https://www.crazygames.com/embed/thief-puzzle', affiliateLink: '', affiliateImage: '' },
-        { id: 'g2', name: 'Table Tennis World Tour', icon: '', link: 'https://www.crazygames.com/game/table-tennis-world-tour', embed: 'https://www.crazygames.com/embed/table-tennis-world-tour', affiliateLink: '', affiliateImage: '' },
-        { id: 'g3', name: 'Endless Truck', icon: '', link: 'https://www.crazygames.com/game/endless-truck', embed: 'https://www.crazygames.com/embed/endless-truck', affiliateLink: '', affiliateImage: '' },
-        { id: 'g4', name: 'Bus Driver Simulator', icon: '', link: 'https://www.crazygames.com/game/bus-driver-simulator-3d', embed: 'https://www.crazygames.com/embed/bus-driver-simulator-3d', affiliateLink: '', affiliateImage: '' }
-      ];
+      console.error('Error loading CSV:', e);
+      allGames = WORKING_GAMES;
       renderSidebarAffiliates();
       updateFavoritesList();
       updateStats();
