@@ -7,7 +7,7 @@
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="QDw0cSLBlmhFX-jvbY6gZsG-_Jq8x8T8MOgbwWvwHYo" />
   
-  <title>🌙 Nightfall Arcade | Play Inside - No New Tabs</title>
+  <title>🌙 Nightfall Arcade | Play Inside - Fullscreen + Favorites</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -16,122 +16,188 @@
       background: linear-gradient(145deg, #0b0f1c 0%, #1a1f2e 100%);
       font-family: 'Quicksand', sans-serif;
       min-height: 100vh;
-      padding: 2rem 1.5rem;
+      padding: 1rem;
     }
-    body::before {
-      content: "✨ 🌙 ⭐ 🎮 🌟 🧸";
-      font-size: 70px;
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: 0;
+    
+    /* Layout with Sidebar */
+    .app-layout {
+      display: flex;
+      gap: 1.5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
-    .container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
-    .hero { text-align: center; margin-bottom: 2rem; }
+    
+    /* Sidebar Styles */
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 28px;
+      padding: 1.5rem;
+      border: 1px solid #334155;
+      height: fit-content;
+      position: sticky;
+      top: 1rem;
+    }
+    
+    .sidebar h3 {
+      color: #facc15;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #334155;
+      padding-bottom: 0.5rem;
+    }
+    
+    .sidebar-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .category-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 0.7rem 1rem;
+      margin: 0.3rem 0;
+      background: #0f1222;
+      border: 1px solid #2d3a5e;
+      border-radius: 16px;
+      color: #cbd5e6;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .category-btn:hover, .category-btn.active {
+      background: #4c1d95;
+      border-color: #818cf8;
+      color: white;
+    }
+    
+    .favorite-list {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .favorite-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      margin: 0.3rem 0;
+      background: #0f1222;
+      border-radius: 12px;
+      font-size: 0.85rem;
+    }
+    
+    .favorite-item button {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+    }
+    
+    .suggest-btn {
+      background: #22c55e;
+      color: #022c1a;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+    
+    /* Main Content */
+    .main-content {
+      flex: 1;
+    }
+    
+    .hero { text-align: center; margin-bottom: 1.5rem; }
     .hero h1 {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 800;
       background: linear-gradient(135deg, #c084fc, #60a5fa, #f472b6);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 12px rgba(96, 165, 250, 0.3);
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
     }
-    .hero h1 i { background: none; color: #a855f7; text-shadow: 0 0 6px #a855f7; font-size: 2.8rem; }
     .tagline {
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 600;
       color: #cbd5e6;
       background-color: #1e293b;
       display: inline-block;
-      padding: 0.5rem 1.5rem;
+      padding: 0.3rem 1rem;
       border-radius: 60px;
-      margin-top: 0.8rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      margin-top: 0.5rem;
     }
-    .search-wrapper { max-width: 550px; margin: 1.5rem auto 2rem auto; position: relative; }
-    .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: #818cf8; }
+    
+    .search-wrapper { max-width: 500px; margin: 1rem auto; position: relative; }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #818cf8; }
     #searchInput {
       width: 100%;
-      padding: 1rem 1rem 1rem 3.5rem;
-      font-size: 1.2rem;
+      padding: 0.8rem 1rem 0.8rem 2.8rem;
+      font-size: 1rem;
       font-family: 'Quicksand', sans-serif;
       font-weight: 600;
       border: none;
       border-radius: 60px;
       background: #0f1222;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
       outline: none;
       color: #f1f5f9;
     }
-    #searchInput:focus { box-shadow: 0 0 0 3px #6366f1; background: #181e2f; }
-    #searchInput::placeholder { color: #64748b; }
-    .info-bar { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 1.8rem; gap: 12px; }
-    .game-counter { background: #1e293b; border-radius: 40px; padding: 0.4rem 1.2rem; font-weight: 700; color: #a5b4fc; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #334155; }
-    .clear-search { background: #4c1d95; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; padding: 0.4rem 1.3rem; border-radius: 50px; color: #e2e8f0; cursor: pointer; box-shadow: 0 3px 0 #2e1065; transition: all 0.1s; }
-    .clear-search:active { transform: translateY(2px); box-shadow: 0 1px 0 #2e1065; }
     
-    /* Ad Containers Styling */
-    .ad-container {
-      text-align: center;
-      margin: 1.5rem 0;
-      padding: 0.8rem;
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 20px;
-      border: 1px solid #334155;
-      backdrop-filter: blur(4px);
-    }
-    .ad-label {
-      font-size: 0.7rem;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 0.5rem;
-    }
-    .ad-label i { margin-right: 4px; }
-    
-    /* First Ad (Top Banner) - Smaller, above games */
-    .top-banner-ad {
-      max-width: 728px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    /* Second Ad (Side/Responsive) - Will appear between games dynamically */
-    .inline-ad {
-      margin: 0.5rem 0;
-      background: rgba(15, 23, 42, 0.7);
-    }
+    .info-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
+    .game-counter { background: #1e293b; border-radius: 40px; padding: 0.3rem 1rem; font-weight: 700; color: #a5b4fc; }
+    .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; }
     
     /* Game Grid */
-    .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.8rem; margin-top: 0.5rem; }
+    .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
     .game-card {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border-radius: 28px;
+      border-radius: 24px;
       cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 0 12px 20px -8px rgba(0,0,0,0.5);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 1.2rem;
+      padding: 1rem;
       border: 1px solid #2d3a5e;
-      overflow: hidden;
+      position: relative;
     }
-    .game-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 22px 28px -12px #00000080, 0 0 0 2px #818cf8; border-color: #818cf8; }
-    .game-icon { width: 90px; height: 90px; object-fit: cover; border-radius: 20px; background: #0b0e17; padding: 0.5rem; box-shadow: 0 4px 0 #2d3a5e; margin-bottom: 0.8rem; }
-    .game-name { font-size: 1.2rem; font-weight: 800; margin: 0.5rem 0 0.3rem; color: #facc15; background: #1e293b; display: inline-block; padding: 0.2rem 1rem; border-radius: 50px; }
-    .play-badge { margin-top: 0.5rem; font-size: 0.8rem; font-weight: 700; background: #22c55e; padding: 0.25rem 1rem; border-radius: 30px; color: #022c1a; display: inline-flex; align-items: center; gap: 6px; }
+    .game-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 2px #818cf8; }
     
-    /* Game Player Overlay */
+    .favorite-star {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.2rem;
+      color: #facc15;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+    }
+    .favorite-star.favorited { color: #facc15; text-shadow: 0 0 5px #facc15; }
+    .favorite-star:not(.favorited) { color: #64748b; }
+    
+    .game-icon { width: 80px; height: 80px; object-fit: cover; border-radius: 16px; margin: 0 auto 0.5rem; display: block; }
+    .game-name { text-align: center; font-weight: 800; color: #facc15; margin: 0.5rem 0; }
+    .play-badge { text-align: center; font-size: 0.75rem; background: #22c55e; padding: 0.2rem 0.8rem; border-radius: 20px; display: inline-block; width: auto; margin: 0 auto; color: #022c1a; }
+    
+    /* Game Player Overlay with Fullscreen */
     .game-player-overlay {
       position: fixed;
       top: 0;
@@ -148,197 +214,188 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.8rem 1rem;
+      padding: 0.6rem 1rem;
       background: #1e293b;
       border-radius: 20px;
       margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 10px;
     }
-    .game-player-title {
-      color: #facc15;
-      font-weight: 800;
-      font-size: 1.3rem;
-    }
-    .close-game-btn {
-      background: #dc2626;
-      border: none;
-      color: white;
-      font-family: 'Quicksand', sans-serif;
-      font-weight: 700;
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.2s;
-    }
-    .close-game-btn:hover { background: #b91c1c; transform: scale(1.02); }
-    .game-iframe-container {
-      flex: 1;
-      width: 100%;
-      background: #000000;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-    .game-iframe-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    .no-embed-message {
-      text-align: center;
-      padding: 3rem;
-      color: white;
-    }
-    .back-to-games {
+    .game-player-title { color: #facc15; font-weight: 800; }
+    .player-controls { display: flex; gap: 10px; }
+    .fullscreen-btn, .close-game-btn {
       background: #4c1d95;
       border: none;
       color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 40px;
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
       cursor: pointer;
-      margin-top: 1rem;
     }
-    .empty-state { text-align: center; grid-column: 1 / -1; padding: 4rem 1rem; background: #0f172a; border-radius: 70px; border: 1px solid #334155; }
-    .empty-state i { font-size: 4rem; color: #facc15; }
-    .empty-state p { font-size: 1.5rem; font-weight: 700; color: #cbd5e1; }
-    .loader { text-align: center; padding: 4rem; font-size: 2rem; color: #a78bfa; }
-    .footer { text-align: center; margin-top: 3rem; color: #94a3b8; font-weight: 600; }
+    .fullscreen-btn { background: #0284c7; }
+    .close-game-btn { background: #dc2626; }
+    .game-iframe-container { flex: 1; width: 100%; background: #000; border-radius: 20px; overflow: hidden; }
+    .game-iframe-container iframe { width: 100%; height: 100%; border: none; }
     
-    /* Sidebar layout for larger screens (optional ad placement) */
-    @media (min-width: 1200px) {
-      .two-column-layout {
-        display: flex;
-        gap: 2rem;
-      }
-      .main-content {
-        flex: 3;
-      }
-      .sidebar-ad {
-        flex: 1;
-        position: sticky;
-        top: 2rem;
-        height: fit-content;
-      }
+    /* Modal for Suggestions */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 1100;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #1e293b;
+      padding: 2rem;
+      border-radius: 28px;
+      max-width: 500px;
+      width: 90%;
+    }
+    .modal-content input, .modal-content textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      background: #0f1222;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      color: white;
+      font-family: inherit;
+    }
+    .modal-content button {
+      background: #22c55e;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 0.5rem;
     }
     
-    @media (max-width: 640px) {
-      body { padding: 1rem; }
-      .hero h1 { font-size: 2rem; }
-      .games-grid { gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
-      .game-icon { width: 70px; height: 70px; }
+    .footer { text-align: center; margin-top: 2rem; color: #94a3b8; }
+    
+    @media (max-width: 768px) {
+      .app-layout { flex-direction: column; }
+      .sidebar { width: 100%; position: static; }
+      .games-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <div class="hero">
-    <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fas fa-play-circle"></i></h1>
-    <div class="tagline"><i class="fas fa-star"></i> Click any game — plays right here! ✨</div>
+<div class="app-layout">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3><i class="fas fa-gamepad"></i> Arcade Hub</h3>
+    
+    <div class="sidebar-section">
+      <h4><i class="fas fa-filter"></i> Categories</h4>
+      <button class="category-btn active" data-category="all"><i class="fas fa-globe"></i> All Games</button>
+      <button class="category-btn" data-category="favorites"><i class="fas fa-star"></i> My Favorites</button>
+    </div>
+    
+    <div class="sidebar-section">
+      <h4><i class="fas fa-heart"></i> Favorite Games</h4>
+      <div id="favoritesList" class="favorite-list">
+        <div style="color:#64748b; text-align:center;">⭐ Click star on any game</div>
+      </div>
+    </div>
+    
+    <div class="sidebar-section">
+      <h4><i class="fas fa-lightbulb"></i> Suggest a Game</h4>
+      <button class="suggest-btn" id="openSuggestModal"><i class="fas fa-envelope"></i> Suggest New Game</button>
+    </div>
+    
+    <div class="sidebar-section">
+      <h4><i class="fas fa-chart-line"></i> Stats</h4>
+      <div id="statsDisplay" style="font-size:0.85rem;">Loading...</div>
+    </div>
   </div>
   
-  <div class="search-wrapper">
-    <i class="fas fa-search search-icon"></i>
-    <input type="text" id="searchInput" placeholder="🔎 Search games by name..." autocomplete="off">
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="hero">
+      <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fas fa-play-circle"></i></h1>
+      <div class="tagline"><i class="fas fa-star"></i> Click any game — Fullscreen & Favorites! ✨</div>
+    </div>
+    
+    <div class="search-wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="🔎 Search games..." autocomplete="off">
+    </div>
+    
+    <div class="info-bar">
+      <div class="game-counter"><i class="fas fa-dice-d6"></i> <span id="countValue">0</span> games</div>
+      <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear</button>
+    </div>
+    
+    <div id="gamesGridContainer" class="games-grid"><div class="loader">Loading...</div></div>
+    <div class="footer">🌙 Earn money with ads | ⭐ Favorite games save to your browser</div>
   </div>
-  
-  <!-- ===== AD CODE 1: Top Banner (First Ad) ===== -->
-  <div class="ad-container top-banner-ad">
-    <div class="ad-label"><i class="fas fa-ad"></i> Sponsored</div>
-    <div id="container-bc2a8143d092c7dfebeb7982d9dcfed3"></div>
-  </div>
-  <!-- ========================================== -->
-  
-  <div class="info-bar">
-    <div class="game-counter"><i class="fas fa-dice-d6"></i> <span id="countValue">0</span> glowing games</div>
-    <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear search</button>
-  </div>
-  
-  <!-- Games Grid Container -->
-  <div id="gamesGridContainer" class="games-grid"><div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading cosmic games...</div></div>
-  
-  <!-- ===== AD CODE 2: Footer Ad (Bottom of page) ===== -->
-  <div class="ad-container" style="margin-top: 2rem;">
-    <div class="ad-label"><i class="fas fa-ad"></i> Advertisement</div>
-    <div id="highperformance-ad-container"></div>
-  </div>
-  <!-- ============================================== -->
-  
-  <div class="footer">🌙 Games with embed codes play inside | Others open in new tab 💫</div>
 </div>
 
 <!-- Game Player Overlay -->
 <div id="gamePlayer" class="game-player-overlay">
   <div class="game-player-header">
-    <span class="game-player-title" id="gamePlayerTitle">Loading...</span>
-    <button class="close-game-btn" id="closeGameBtn"><i class="fas fa-times"></i> Close Game</button>
+    <span class="game-player-title" id="gamePlayerTitle">Game</span>
+    <div class="player-controls">
+      <button class="fullscreen-btn" id="fullscreenBtn"><i class="fas fa-expand"></i> Fullscreen</button>
+      <button class="close-game-btn" id="closeGameBtn"><i class="fas fa-times"></i> Close</button>
+    </div>
   </div>
   <div id="gameIframeContainer" class="game-iframe-container"></div>
 </div>
 
-<!-- ===== AD SCRIPTS ===== -->
-<!-- Ad Script 1: Effective CPM Network -->
-<script async="async" data-cfasync="false" src="https://pl29610580.effectivecpmnetwork.com/bc2a8143d092c7dfebeb7982d9dcfed3/invoke.js"></script>
+<!-- Suggestion Modal -->
+<div id="suggestModal" class="modal">
+  <div class="modal-content">
+    <h3><i class="fas fa-gamepad"></i> Suggest a Game</h3>
+    <input type="text" id="suggestName" placeholder="Game Name *">
+    <input type="url" id="suggestLink" placeholder="Game Link (URL)">
+    <textarea id="suggestDesc" placeholder="Why would kids love this game?" rows="3"></textarea>
+    <input type="email" id="suggestEmail" placeholder="Your email (optional)">
+    <button id="submitSuggestion"><i class="fas fa-paper-plane"></i> Send Suggestion</button>
+    <button id="closeModal" style="background:#475569; margin-top:0.5rem;">Cancel</button>
+  </div>
+</div>
 
-<!-- Ad Script 2: High Performance Format (Iframe Ad) -->
+<!-- Ad Scripts -->
+<script async="async" data-cfasync="false" src="https://pl29610580.effectivecpmnetwork.com/bc2a8143d092c7dfebeb7982d9dcfed3/invoke.js"></script>
 <script>
-  atOptions = {
-    'key' : '52352aafdb8e582a93ea264d64273a99',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
+  atOptions = { 'key' : '52352aafdb8e582a93ea264d64273a99', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
 </script>
 <script src="https://www.highperformanceformat.com/52352aafdb8e582a93ea264d64273a99/invoke.js"></script>
 
 <script>
-  // ========= MAIN APPLICATION CODE =========
+  // ========= CONFIG =========
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
   
-  // Robust CSV parser
-  function parseCSV(csvText) {
-    const rows = [];
-    let row = [];
-    let buffer = '';
-    let inQuotes = false;
-    for (let i = 0; i < csvText.length; i++) {
-      let ch = csvText[i];
-      if (ch === '"') {
-        if (inQuotes && csvText[i+1] === '"') {
-          buffer += '"';
-          i++;
-        } else {
-          inQuotes = !inQuotes;
-        }
-      } else if (ch === ',' && !inQuotes) {
-        row.push(buffer.trim());
-        buffer = '';
-      } else if (ch === '\n' && !inQuotes) {
-        row.push(buffer.trim());
-        if (row.length > 0) rows.push(row);
-        row = [];
-        buffer = '';
-      } else {
-        buffer += ch;
-      }
-    }
-    row.push(buffer.trim());
-    if (row.length > 0 && row[0] !== '') rows.push(row);
-    if (rows.length === 0) return [];
-    let headers = rows[0].map(h => h.replace(/^"|"$/g, '').toLowerCase());
-    const data = [];
-    for (let i = 1; i < rows.length; i++) {
-      let obj = {};
-      for (let j = 0; j < headers.length; j++) {
-        let val = rows[i][j] || '';
-        val = val.replace(/^"|"$/g, '').replace(/""/g, '"');
-        obj[headers[j]] = val;
-      }
-      data.push(obj);
-    }
-    return data;
+  // Favorites System (localStorage)
+  let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
+  
+  function saveFavorites() {
+    localStorage.setItem('nightfall_favorites', JSON.stringify(favorites));
+    updateFavoritesList();
+    updateStats();
   }
   
-  let allGames = [], filteredGames = [], currentSearchTerm = "";
+  function toggleFavorite(gameId, gameName) {
+    const index = favorites.indexOf(gameId);
+    if (index === -1) {
+      favorites.push(gameId);
+    } else {
+      favorites.splice(index, 1);
+    }
+    saveFavorites();
+    renderGrid(); // re-render to update star icons
+  }
+  
+  function isFavorite(gameId) { return favorites.includes(gameId); }
+  
+  let allGames = [], filteredGames = [], currentSearchTerm = "", currentCategory = "all";
   const grid = document.getElementById('gamesGridContainer');
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearchBtn');
@@ -347,18 +404,21 @@
   const gamePlayerTitle = document.getElementById('gamePlayerTitle');
   const gameIframeContainer = document.getElementById('gameIframeContainer');
   const closeGameBtn = document.getElementById('closeGameBtn');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
   
-  function escapeHtml(str) { 
-    if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
-      return m;
-    });
+  function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+  
+  // Fullscreen function
+  function toggleFullscreen() {
+    const container = document.getElementById('gameIframeContainer');
+    if (!document.fullscreenElement) {
+      container.requestFullscreen().catch(err => console.log(err));
+    } else {
+      document.exitFullscreen();
+    }
   }
+  fullscreenBtn.addEventListener('click', toggleFullscreen);
   
-  // Show game inside the page (no new tab)
   function playGameInside(game) {
     gamePlayerTitle.innerText = game.name;
     gameIframeContainer.innerHTML = '';
@@ -369,147 +429,182 @@
       embedDiv.style.width = '100%';
       embedDiv.style.height = '100%';
       embedDiv.innerHTML = safeEmbed;
-      
-      const iframes = embedDiv.querySelectorAll('iframe');
-      iframes.forEach(iframe => {
-        iframe.style.width = '100%';
-        iframe.style.height = '100%';
-        iframe.style.minHeight = '400px';
-        if (!iframe.hasAttribute('sandbox')) {
-          iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms allow-modals');
-        }
-      });
-      
       gameIframeContainer.appendChild(embedDiv);
-    } else if (game.link && game.link !== "#" && game.link !== '') {
+    } else if (game.link && game.link !== "#") {
       const iframe = document.createElement('iframe');
       iframe.src = game.link;
       iframe.style.width = '100%';
       iframe.style.height = '100%';
       iframe.style.border = 'none';
       iframe.setAttribute('allowfullscreen', 'true');
-      iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-top-navigation');
       gameIframeContainer.appendChild(iframe);
     } else {
-      gameIframeContainer.innerHTML = `<div class="no-embed-message"><i class="fas fa-link" style="font-size:3rem;"></i><p>No game link or embed available.</p><button class="back-to-games" onclick="document.getElementById('gamePlayer').style.display='none'">Back to Arcade</button></div>`;
+      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center;">No game content available</div>';
     }
-    
     gamePlayer.style.display = 'flex';
   }
   
-  function closeGamePlayer() {
-    gamePlayer.style.display = 'none';
-    gameIframeContainer.innerHTML = '';
+  function closeGamePlayer() { gamePlayer.style.display = 'none'; gameIframeContainer.innerHTML = ''; }
+  
+  function updateFavoritesList() {
+    const favList = document.getElementById('favoritesList');
+    const favGames = allGames.filter(g => isFavorite(g.id || g.name));
+    if (favGames.length === 0) {
+      favList.innerHTML = '<div style="color:#64748b; text-align:center;">⭐ Click star on any game</div>';
+      return;
+    }
+    favList.innerHTML = favGames.map(g => `
+      <div class="favorite-item">
+        <span style="overflow:hidden; text-overflow:ellipsis;">${escapeHtml(g.name)}</span>
+        <button onclick="toggleFavorite('${escapeHtml(g.id || g.name)}', '${escapeHtml(g.name)}')"><i class="fas fa-trash"></i></button>
+      </div>
+    `).join('');
+  }
+  
+  function updateStats() {
+    const statsDiv = document.getElementById('statsDisplay');
+    const totalGames = allGames.length;
+    const favCount = favorites.length;
+    statsDiv.innerHTML = `
+      <div><i class="fas fa-database"></i> Total: ${totalGames}</div>
+      <div><i class="fas fa-star"></i> Favorites: ${favCount}</div>
+      <div><i class="fas fa-chart-simple"></i> ${new Date().toLocaleDateString()}</div>
+    `;
   }
   
   function renderGrid() {
+    let displayGames = [...allGames];
+    if (currentCategory === 'favorites') {
+      displayGames = displayGames.filter(g => isFavorite(g.id || g.name));
+    }
+    if (currentSearchTerm.trim()) {
+      displayGames = displayGames.filter(g => g.name.toLowerCase().includes(currentSearchTerm.toLowerCase()));
+    }
+    filteredGames = displayGames;
     countSpan.innerText = filteredGames.length;
-    if (filteredGames.length === 0) { 
-      grid.innerHTML = `<div class="empty-state"><i class="fas fa-skull-cowboy"></i><p>No games found 🌑</p><div>Try another search ✨</div></div>`; 
-      return; 
+    
+    if (filteredGames.length === 0) {
+      grid.innerHTML = `<div class="empty-state">No games found</div>`;
+      return;
     }
     
     let html = '';
     for (let game of filteredGames) {
-      const iconHtml = game.icon ? `<img class="game-icon" src="${escapeHtml(game.icon)}" alt="${escapeHtml(game.name)}" onerror="this.onerror=null; this.src=''; this.outerHTML='<div class=\\'game-icon fallback\\'><i class=\\'fas fa-meteor\\' style=\\'font-size:2.5rem;\\'></i></div>';">` : `<div class="game-icon fallback"><i class="fas fa-gamepad" style="font-size:2.5rem;"></i></div>`;
+      const gameId = game.id || game.name;
+      const favorited = isFavorite(gameId);
+      const iconHtml = game.icon ? `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/80x80?text=🎮'">` : `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem;"></i></div>`;
       
       html += `
-        <div class="game-card" data-game-name="${escapeHtml(game.name)}" data-game-link="${escapeHtml(game.link)}" data-game-embed="${escapeHtml(game.embed || '')}" data-game-icon="${escapeHtml(game.icon || '')}" role="button" tabindex="0">
+        <div class="game-card" data-game-name="${escapeHtml(game.name)}" data-game-link="${escapeHtml(game.link)}" data-game-embed="${escapeHtml(game.embed || '')}">
+          <div class="favorite-star ${favorited ? 'favorited' : ''}" data-game-id="${escapeHtml(gameId)}" data-game-name="${escapeHtml(game.name)}">
+            <i class="fas fa-star"></i>
+          </div>
           ${iconHtml}
           <div class="game-name">${escapeHtml(game.name)}</div>
-          <div class="play-badge"><i class="fas fa-play-circle"></i> Play Inside!</div>
+          <div class="play-badge"><i class="fas fa-play-circle"></i> Play</div>
         </div>
       `;
     }
     grid.innerHTML = html;
     
-    // Attach click handlers
     document.querySelectorAll('.game-card').forEach(card => {
       const gameName = card.getAttribute('data-game-name');
       const gameLink = card.getAttribute('data-game-link');
       const gameEmbed = card.getAttribute('data-game-embed');
-      const gameIcon = card.getAttribute('data-game-icon');
-      
       card.addEventListener('click', (e) => {
-        e.stopPropagation();
-        playGameInside({
-          name: gameName,
-          link: gameLink,
-          embed: gameEmbed,
-          icon: gameIcon
-        });
+        if (e.target.closest('.favorite-star')) return;
+        playGameInside({ name: gameName, link: gameLink, embed: gameEmbed });
       });
-      card.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
-        }
+    });
+    
+    document.querySelectorAll('.favorite-star').forEach(star => {
+      star.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const gameId = star.getAttribute('data-game-id');
+        const gameName = star.getAttribute('data-game-name');
+        toggleFavorite(gameId, gameName);
       });
     });
   }
   
-  function applyFilter() { 
-    let term = currentSearchTerm.trim().toLowerCase(); 
-    filteredGames = term === "" ? [...allGames] : allGames.filter(g => g.name && g.name.toLowerCase().includes(term)); 
-    renderGrid(); 
+  function applyFilter() { renderGrid(); }
+  
+  // Category buttons
+  document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.getAttribute('data-category');
+      renderGrid();
+    });
+  });
+  
+  // Suggestion Modal
+  const modal = document.getElementById('suggestModal');
+  document.getElementById('openSuggestModal').onclick = () => modal.style.display = 'flex';
+  document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
+  document.getElementById('submitSuggestion').onclick = () => {
+    const name = document.getElementById('suggestName').value;
+    const link = document.getElementById('suggestLink').value;
+    const desc = document.getElementById('suggestDesc').value;
+    const email = document.getElementById('suggestEmail').value;
+    if (!name) { alert('Please enter game name'); return; }
+    const subject = `Game Suggestion: ${name}`;
+    const body = `Game: ${name}%0ALink: ${link}%0ADescription: ${desc}%0ASuggested by: ${email || 'anonymous'}`;
+    window.location.href = `mailto:youremail@example.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    alert('Suggestion sent! (Opens your email app)');
+    modal.style.display = 'none';
+    document.getElementById('suggestName').value = '';
+    document.getElementById('suggestLink').value = '';
+    document.getElementById('suggestDesc').value = '';
+    document.getElementById('suggestEmail').value = '';
+  };
+  
+  function parseCSV(csvText) {
+    const rows = []; let row = [], buffer = '', inQuotes = false;
+    for (let i = 0; i < csvText.length; i++) {
+      let ch = csvText[i];
+      if (ch === '"') { if (inQuotes && csvText[i+1] === '"') { buffer += '"'; i++; } else { inQuotes = !inQuotes; } }
+      else if (ch === ',' && !inQuotes) { row.push(buffer.trim()); buffer = ''; }
+      else if (ch === '\n' && !inQuotes) { row.push(buffer.trim()); if (row.length) rows.push(row); row = []; buffer = ''; }
+      else { buffer += ch; }
+    }
+    row.push(buffer.trim()); if (row.length && row[0] !== '') rows.push(row);
+    if (!rows.length) return [];
+    let headers = rows[0].map(h => h.replace(/^"|"$/g, '').toLowerCase());
+    return rows.slice(1).map(row => {
+      let obj = {};
+      headers.forEach((h, i) => obj[h] = (row[i] || '').replace(/^"|"$/g, '').replace(/""/g, '"'));
+      return obj;
+    });
   }
   
   async function loadGames() {
     try {
-      grid.innerHTML = `<div class="loader"><i class="fas fa-spinner fa-pulse"></i> Fetching games...</div>`;
       const resp = await fetch(CSV_URL);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      if (!resp.ok) throw new Error();
       const csv = await resp.text();
       let gamesData = parseCSV(csv);
-      
-      allGames = gamesData.map(row => ({
-        name: row.name || row.title || "✨ Mystery Game",
+      allGames = gamesData.map((row, idx) => ({
+        id: `game_${idx}`,
+        name: row.name || row.title || "Mystery Game",
         icon: row.icon || row.image || "",
         link: row.link || row.url || "#",
-        embed: row.embed || row.embedded || row.iframe || ""
-      })).filter(g => g.name);
-      
-      if (allGames.length === 0) {
-        allGames = [{ name: "Demo Game", icon: "", link: "https://example.com", embed: "<div style='padding:40px; background:#4c1d95; border-radius:20px; color:white; text-align:center;'><h2>✨ Add games to your CSV!</h2><p>Column 'Embed' can contain iframe or HTML</p></div>" }];
-      }
-      filteredGames = [...allGames];
+        embed: row.embed || row.embedded || ""
+      }));
+      if (!allGames.length) allGames = [{ id: 'demo', name: 'Demo Game', icon: '', link: '#', embed: '<div style="padding:40px; text-align:center;">✨ Add games to your CSV!</div>' }];
+      updateFavoritesList();
+      updateStats();
       renderGrid();
-    } catch(e) { 
-      console.error(e);
-      grid.innerHTML = `<div class="empty-state"><i class="fas fa-cloud-moon"></i><p>⚠️ Couldn't load games!</p><div>Make sure CSV is public</div></div>`; 
-      allGames = []; 
-      filteredGames = []; 
-      countSpan.innerText = "0"; 
-    }
+    } catch(e) { grid.innerHTML = '<div class="empty-state">⚠️ Could not load games. Check CSV URL.</div>'; }
   }
   
-  // Event Listeners
   closeGameBtn.addEventListener('click', closeGamePlayer);
-  
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && gamePlayer.style.display === 'flex') {
-      closeGamePlayer();
-    }
-  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gamePlayer.style.display === 'flex') closeGamePlayer(); });
+  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; renderGrid(); });
+  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; renderGrid(); });
   
   loadGames();
-  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; applyFilter(); });
-  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; applyFilter(); searchInput.focus(); });
-  
-  // Optional: Reload ads dynamically when search filters change (to refresh ad containers)
-  function refreshAdContainers() {
-    // Some ad networks need this to re-initialize after DOM changes
-    if (typeof window.adsbygoogle !== 'undefined') {
-      try { window.adsbygoogle.push({}); } catch(e) {}
-    }
-  }
-  
-  // Call refresh after filtering
-  const originalApplyFilter = applyFilter;
-  window.applyFilter = function() {
-    originalApplyFilter();
-    setTimeout(refreshAdContainers, 100);
-  };
 </script>
 </body>
 </html>
