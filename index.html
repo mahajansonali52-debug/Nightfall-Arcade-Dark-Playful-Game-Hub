@@ -29,13 +29,14 @@
       z-index: 2;
     }
     
-    /* Sidebar Styles */
+    /* Sidebar Styles - IMPROVED CONTRAST & READABILITY */
     .sidebar {
-      width: 280px;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      width: 300px;
+      background: linear-gradient(145deg, #1a1f2e 0%, #0f172a 100%);
       border-radius: 28px;
       padding: 1.5rem;
-      border: 1px solid #334155;
+      border: 1px solid #4c1d95;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
       height: fit-content;
       position: sticky;
       top: 1rem;
@@ -43,17 +44,28 @@
     
     .sidebar h3 {
       color: #facc15;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 1rem;
       display: flex;
       align-items: center;
       gap: 10px;
-      border-bottom: 2px solid #334155;
-      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #4c1d95;
+      padding-bottom: 0.7rem;
     }
     
     .sidebar-section {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
+    }
+    
+    .sidebar-section h4 {
+      color: #c084fc;
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 3px solid #facc15;
+      padding-left: 10px;
     }
     
     .category-btn {
@@ -62,11 +74,11 @@
       gap: 10px;
       width: 100%;
       padding: 0.7rem 1rem;
-      margin: 0.3rem 0;
+      margin: 0.4rem 0;
       background: #0f1222;
       border: 1px solid #2d3a5e;
       border-radius: 16px;
-      color: #cbd5e6;
+      color: #e2e8f0;
       font-family: 'Quicksand', sans-serif;
       font-weight: 600;
       cursor: pointer;
@@ -79,39 +91,109 @@
       color: white;
     }
     
+    /* FAVORITES LIST - IMPROVED READABILITY */
     .favorite-list {
-      max-height: 200px;
+      max-height: 260px;
       overflow-y: auto;
+      background: #0f1222;
+      border-radius: 16px;
+      padding: 0.3rem;
+    }
+    
+    .favorite-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .favorite-list::-webkit-scrollbar-track {
+      background: #1e293b;
+      border-radius: 10px;
+    }
+    
+    .favorite-list::-webkit-scrollbar-thumb {
+      background: #4c1d95;
+      border-radius: 10px;
     }
     
     .favorite-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.5rem;
-      margin: 0.3rem 0;
-      background: #0f1222;
-      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+      margin: 0.4rem 0;
+      background: #1e293b;
+      border-radius: 14px;
       font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      border-left: 3px solid #facc15;
+    }
+    
+    .favorite-item span {
+      color: #facc15;
+      font-weight: 700;
+      font-size: 0.9rem;
+      word-break: break-word;
+      flex: 1;
+      margin-right: 8px;
     }
     
     .favorite-item button {
-      background: none;
+      background: #dc2626;
       border: none;
-      color: #ef4444;
+      color: white;
       cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      transition: all 0.2s;
+    }
+    
+    .favorite-item button:hover {
+      background: #ef4444;
+      transform: scale(1.05);
+    }
+    
+    .empty-favorites {
+      color: #94a3b8;
+      text-align: center;
+      padding: 1rem;
+      font-style: italic;
+      font-size: 0.85rem;
     }
     
     .suggest-btn {
       background: #22c55e;
       color: #022c1a;
       border: none;
-      padding: 0.6rem;
+      padding: 0.7rem;
       border-radius: 20px;
       font-weight: bold;
       cursor: pointer;
       width: 100%;
       margin-top: 0.5rem;
+      transition: all 0.2s;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.9rem;
+    }
+    
+    .suggest-btn:hover {
+      background: #2ecc71;
+      transform: translateY(-2px);
+    }
+    
+    /* Stats Display */
+    #statsDisplay {
+      background: #0f1222;
+      padding: 0.8rem;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      color: #cbd5e6;
+      line-height: 1.6;
+    }
+    
+    #statsDisplay i {
+      width: 24px;
+      color: #facc15;
     }
     
     /* Main Content */
@@ -156,10 +238,11 @@
       outline: none;
       color: #f1f5f9;
     }
+    #searchInput:focus { box-shadow: 0 0 0 2px #818cf8; }
     
     .info-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
-    .game-counter { background: #1e293b; border-radius: 40px; padding: 0.3rem 1rem; font-weight: 700; color: #a5b4fc; }
-    .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; }
+    .game-counter { background: #1e293b; border-radius: 40px; padding: 0.3rem 1rem; font-weight: 700; color: #facc15; }
+    .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; font-family: 'Quicksand'; font-weight: 600; }
     
     /* Game Grid */
     .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
@@ -178,24 +261,25 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      font-size: 1.2rem;
-      color: #facc15;
-      background: rgba(0,0,0,0.5);
+      font-size: 1.3rem;
+      background: rgba(0,0,0,0.6);
       border-radius: 50%;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 5;
+      transition: all 0.2s;
     }
-    .favorite-star.favorited { color: #facc15; text-shadow: 0 0 5px #facc15; }
+    .favorite-star.favorited { color: #facc15; text-shadow: 0 0 8px #facc15; }
     .favorite-star:not(.favorited) { color: #64748b; }
+    .favorite-star:hover { transform: scale(1.1); }
     
-    .game-icon { width: 80px; height: 80px; object-fit: cover; border-radius: 16px; margin: 0 auto 0.5rem; display: block; }
-    .game-name { text-align: center; font-weight: 800; color: #facc15; margin: 0.5rem 0; }
-    .play-badge { text-align: center; font-size: 0.75rem; background: #22c55e; padding: 0.2rem 0.8rem; border-radius: 20px; display: inline-block; width: auto; margin: 0 auto; color: #022c1a; }
+    .game-icon { width: 80px; height: 80px; object-fit: cover; border-radius: 16px; margin: 0 auto 0.5rem; display: block; background: #0f1222; }
+    .game-name { text-align: center; font-weight: 800; color: #facc15; margin: 0.5rem 0; font-size: 1rem; }
+    .play-badge { text-align: center; font-size: 0.75rem; background: #22c55e; padding: 0.2rem 0.8rem; border-radius: 20px; display: inline-block; width: auto; margin: 0 auto; color: #022c1a; font-weight: bold; }
     
     /* Game Player Overlay with Fullscreen */
     .game-player-overlay {
@@ -221,7 +305,7 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    .game-player-title { color: #facc15; font-weight: 800; }
+    .game-player-title { color: #facc15; font-weight: 800; font-size: 1.1rem; }
     .player-controls { display: flex; gap: 10px; }
     .fullscreen-btn, .close-game-btn {
       background: #4c1d95;
@@ -230,6 +314,8 @@
       padding: 0.4rem 1rem;
       border-radius: 30px;
       cursor: pointer;
+      font-family: 'Quicksand';
+      font-weight: 600;
     }
     .fullscreen-btn { background: #0284c7; }
     .close-game-btn { background: #dc2626; }
@@ -244,7 +330,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.9);
       z-index: 1100;
       align-items: center;
       justify-content: center;
@@ -255,7 +341,9 @@
       border-radius: 28px;
       max-width: 500px;
       width: 90%;
+      border: 1px solid #4c1d95;
     }
+    .modal-content h3 { color: #facc15; margin-bottom: 1rem; }
     .modal-content input, .modal-content textarea {
       width: 100%;
       padding: 0.8rem;
@@ -274,9 +362,13 @@
       font-weight: bold;
       cursor: pointer;
       margin-top: 0.5rem;
+      font-family: 'Quicksand';
     }
+    #closeModal { background: #475569; color: white; }
     
-    .footer { text-align: center; margin-top: 2rem; color: #94a3b8; }
+    .empty-state { text-align: center; padding: 3rem; color: #94a3b8; grid-column: 1/-1; }
+    .loader { text-align: center; padding: 3rem; color: #a78bfa; grid-column: 1/-1; }
+    .footer { text-align: center; margin-top: 2rem; color: #94a3b8; font-size: 0.8rem; }
     
     @media (max-width: 768px) {
       .app-layout { flex-direction: column; }
@@ -287,31 +379,31 @@
 </head>
 <body>
 <div class="app-layout">
-  <!-- Sidebar -->
+  <!-- Sidebar - Enhanced colors for better visibility -->
   <div class="sidebar">
     <h3><i class="fas fa-gamepad"></i> Arcade Hub</h3>
     
     <div class="sidebar-section">
       <h4><i class="fas fa-filter"></i> Categories</h4>
       <button class="category-btn active" data-category="all"><i class="fas fa-globe"></i> All Games</button>
-      <button class="category-btn" data-category="favorites"><i class="fas fa-star"></i> My Favorites</button>
+      <button class="category-btn" data-category="favorites"><i class="fas fa-star"></i> My Favorites ⭐</button>
     </div>
     
     <div class="sidebar-section">
-      <h4><i class="fas fa-heart"></i> Favorite Games</h4>
+      <h4><i class="fas fa-heart"></i> Saved Favorites</h4>
       <div id="favoritesList" class="favorite-list">
-        <div style="color:#64748b; text-align:center;">⭐ Click star on any game</div>
+        <div class="empty-favorites">⭐ Click the star on any game to save here</div>
       </div>
     </div>
     
     <div class="sidebar-section">
       <h4><i class="fas fa-lightbulb"></i> Suggest a Game</h4>
-      <button class="suggest-btn" id="openSuggestModal"><i class="fas fa-envelope"></i> Suggest New Game</button>
+      <button class="suggest-btn" id="openSuggestModal"><i class="fas fa-envelope"></i> 📧 Suggest New Game</button>
     </div>
     
     <div class="sidebar-section">
       <h4><i class="fas fa-chart-line"></i> Stats</h4>
-      <div id="statsDisplay" style="font-size:0.85rem;">Loading...</div>
+      <div id="statsDisplay">Loading...</div>
     </div>
   </div>
   
@@ -324,16 +416,16 @@
     
     <div class="search-wrapper">
       <i class="fas fa-search search-icon"></i>
-      <input type="text" id="searchInput" placeholder="🔎 Search games..." autocomplete="off">
+      <input type="text" id="searchInput" placeholder="🔎 Search games by name..." autocomplete="off">
     </div>
     
     <div class="info-bar">
       <div class="game-counter"><i class="fas fa-dice-d6"></i> <span id="countValue">0</span> games</div>
-      <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear</button>
+      <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear search</button>
     </div>
     
-    <div id="gamesGridContainer" class="games-grid"><div class="loader">Loading...</div></div>
-    <div class="footer">🌙 Earn money with ads | ⭐ Favorite games save to your browser</div>
+    <div id="gamesGridContainer" class="games-grid"><div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading games...</div></div>
+    <div class="footer">🌙 Earn money with ads | ⭐ Click star to add to favorites | 🖱️ Click game to play</div>
   </div>
 </div>
 
@@ -380,6 +472,7 @@
     localStorage.setItem('nightfall_favorites', JSON.stringify(favorites));
     updateFavoritesList();
     updateStats();
+    renderGrid(); // Refresh stars
   }
   
   function toggleFavorite(gameId, gameName) {
@@ -390,7 +483,6 @@
       favorites.splice(index, 1);
     }
     saveFavorites();
-    renderGrid(); // re-render to update star icons
   }
   
   function isFavorite(gameId) { return favorites.includes(gameId); }
@@ -439,7 +531,7 @@
       iframe.setAttribute('allowfullscreen', 'true');
       gameIframeContainer.appendChild(iframe);
     } else {
-      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center;">No game content available</div>';
+      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center; color:white;">No game content available</div>';
     }
     gamePlayer.style.display = 'flex';
   }
@@ -450,13 +542,13 @@
     const favList = document.getElementById('favoritesList');
     const favGames = allGames.filter(g => isFavorite(g.id || g.name));
     if (favGames.length === 0) {
-      favList.innerHTML = '<div style="color:#64748b; text-align:center;">⭐ Click star on any game</div>';
+      favList.innerHTML = '<div class="empty-favorites">⭐ Click the star on any game to save here</div>';
       return;
     }
     favList.innerHTML = favGames.map(g => `
       <div class="favorite-item">
-        <span style="overflow:hidden; text-overflow:ellipsis;">${escapeHtml(g.name)}</span>
-        <button onclick="toggleFavorite('${escapeHtml(g.id || g.name)}', '${escapeHtml(g.name)}')"><i class="fas fa-trash"></i></button>
+        <span><i class="fas fa-star" style="color:#facc15; font-size:0.7rem; margin-right:6px;"></i> ${escapeHtml(g.name)}</span>
+        <button onclick="toggleFavorite('${escapeHtml(g.id || g.name)}', '${escapeHtml(g.name)}')"><i class="fas fa-trash-alt"></i> Remove</button>
       </div>
     `).join('');
   }
@@ -466,9 +558,9 @@
     const totalGames = allGames.length;
     const favCount = favorites.length;
     statsDiv.innerHTML = `
-      <div><i class="fas fa-database"></i> Total: ${totalGames}</div>
-      <div><i class="fas fa-star"></i> Favorites: ${favCount}</div>
-      <div><i class="fas fa-chart-simple"></i> ${new Date().toLocaleDateString()}</div>
+      <div><i class="fas fa-database"></i> Total Games: ${totalGames}</div>
+      <div><i class="fas fa-star" style="color:#facc15;"></i> Favorites: ${favCount}</div>
+      <div><i class="fas fa-calendar"></i> Updated: ${new Date().toLocaleDateString()}</div>
     `;
   }
   
@@ -484,7 +576,7 @@
     countSpan.innerText = filteredGames.length;
     
     if (filteredGames.length === 0) {
-      grid.innerHTML = `<div class="empty-state">No games found</div>`;
+      grid.innerHTML = `<div class="empty-state"><i class="fas fa-star-of-life"></i> No games found. Try a different search or add favorites!</div>`;
       return;
     }
     
@@ -492,7 +584,7 @@
     for (let game of filteredGames) {
       const gameId = game.id || game.name;
       const favorited = isFavorite(gameId);
-      const iconHtml = game.icon ? `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/80x80?text=🎮'">` : `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem;"></i></div>`;
+      const iconHtml = game.icon && game.icon.trim() ? `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/80x80/4c1d95/white?text=🎮'">` : `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem; color:white;"></i></div>`;
       
       html += `
         <div class="game-card" data-game-name="${escapeHtml(game.name)}" data-game-link="${escapeHtml(game.link)}" data-game-embed="${escapeHtml(game.embed || '')}">
@@ -501,7 +593,7 @@
           </div>
           ${iconHtml}
           <div class="game-name">${escapeHtml(game.name)}</div>
-          <div class="play-badge"><i class="fas fa-play-circle"></i> Play</div>
+          <div class="play-badge"><i class="fas fa-play-circle"></i> Play Now!</div>
         </div>
       `;
     }
@@ -552,7 +644,7 @@
     const subject = `Game Suggestion: ${name}`;
     const body = `Game: ${name}%0ALink: ${link}%0ADescription: ${desc}%0ASuggested by: ${email || 'anonymous'}`;
     window.location.href = `mailto:youremail@example.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-    alert('Suggestion sent! (Opens your email app)');
+    alert('📧 Suggestion sent! (Your email app will open)');
     modal.style.display = 'none';
     document.getElementById('suggestName').value = '';
     document.getElementById('suggestLink').value = '';
@@ -592,11 +684,11 @@
         link: row.link || row.url || "#",
         embed: row.embed || row.embedded || ""
       }));
-      if (!allGames.length) allGames = [{ id: 'demo', name: 'Demo Game', icon: '', link: '#', embed: '<div style="padding:40px; text-align:center;">✨ Add games to your CSV!</div>' }];
+      if (!allGames.length) allGames = [{ id: 'demo', name: '✨ Add games to your CSV!', icon: '', link: '#', embed: '<div style="padding:40px; text-align:center; color:white;">✨ Add games to your Google Sheet!</div>' }];
       updateFavoritesList();
       updateStats();
       renderGrid();
-    } catch(e) { grid.innerHTML = '<div class="empty-state">⚠️ Could not load games. Check CSV URL.</div>'; }
+    } catch(e) { grid.innerHTML = '<div class="empty-state">⚠️ Could not load games. Make sure CSV is public.</div>'; }
   }
   
   closeGameBtn.addEventListener('click', closeGamePlayer);
