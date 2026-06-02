@@ -7,7 +7,7 @@
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="QDw0cSLBlmhFX-jvbY6gZsG-_Jq8x8T8MOgbwWvwHYo" />
   
-  <title>🌙 Nightfall Arcade | Play Free Games - Support the Arcade</title>
+  <title>🌙 Nightfall Arcade | Play Games - Shop Amazon</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -19,7 +19,6 @@
       padding: 1rem;
     }
     
-    /* Layout with Sidebar */
     .app-layout {
       display: flex;
       gap: 1.5rem;
@@ -29,7 +28,7 @@
       z-index: 2;
     }
     
-    /* Sidebar Styles - Revenue Focused */
+    /* Sidebar */
     .sidebar {
       width: 320px;
       background: linear-gradient(145deg, #1a1f2e 0%, #0f172a 100%);
@@ -75,8 +74,8 @@
       gap: 8px;
     }
     
-    /* Amazon & ClickBank Affiliate Links */
-    .affiliate-link {
+    /* Amazon Affiliate Links in Sidebar */
+    .amazon-link {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -90,219 +89,76 @@
       border: 1px solid #334155;
     }
     
-    .affiliate-link:hover {
+    .amazon-link:hover {
       background: #4c1d95;
       transform: translateX(5px);
       border-color: #facc15;
     }
     
-    .affiliate-link i {
-      font-size: 1.5rem;
+    .amazon-link i {
+      font-size: 1.3rem;
       color: #facc15;
     }
     
-    .affiliate-link span {
+    .amazon-link span {
       flex: 1;
       font-weight: 600;
     }
     
-    .affiliate-link .price {
+    .amazon-link .price {
       font-size: 0.8rem;
       color: #22c55e;
       font-weight: bold;
     }
     
-    /* Sponsored Game Card */
-    .sponsored-game {
-      background: linear-gradient(135deg, #2d1b4e 0%, #1e1b4e 100%);
-      border-radius: 16px;
-      padding: 0.8rem;
-      margin: 0.5rem 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border: 1px solid #facc15;
-    }
-    
-    .sponsored-badge {
-      background: #facc15;
-      color: #1a1f2e;
-      font-size: 0.65rem;
-      font-weight: bold;
-      padding: 2px 8px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-bottom: 5px;
-    }
-    
-    .sponsored-game img {
-      width: 50px;
-      height: 50px;
-      border-radius: 12px;
-      object-fit: cover;
-    }
-    
-    .sponsored-game-info {
-      flex: 1;
-    }
-    
-    .sponsored-game-info .name {
-      color: #facc15;
-      font-weight: 800;
-      font-size: 0.9rem;
-    }
-    
-    .sponsored-game-info .desc {
-      font-size: 0.7rem;
-      color: #94a3b8;
-    }
-    
-    /* Buy Me a Coffee Button */
-    .bmc-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #FFDD00;
-      color: #1a1f2e;
-      padding: 0.8rem 1rem;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: 800;
-      width: 100%;
-      justify-content: center;
-      transition: all 0.2s;
-      border: none;
+    /* Game Card with Affiliate Badge */
+    .game-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 24px;
       cursor: pointer;
-      font-family: 'Quicksand', sans-serif;
-    }
-    
-    .bmc-button:hover {
-      transform: scale(1.02);
-      background: #FFE44D;
-    }
-    
-    .paypal-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #0070ba;
-      color: white;
-      padding: 0.8rem 1rem;
-      border-radius: 40px;
-      text-decoration: none;
-      font-weight: 800;
-      width: 100%;
-      justify-content: center;
-      margin-top: 0.5rem;
-    }
-    
-    /* Premium Upgrade Section */
-    .premium-card {
-      background: linear-gradient(135deg, #4c1d95, #7c3aed);
-      border-radius: 20px;
+      transition: all 0.25s ease;
       padding: 1rem;
-      text-align: center;
-      border: 1px solid #facc15;
+      border: 1px solid #2d3a5e;
+      position: relative;
     }
     
-    .premium-price {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #facc15;
-    }
+    .game-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 2px #facc15; }
     
-    .premium-btn {
+    .affiliate-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
       background: #facc15;
       color: #1a1f2e;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 30px;
+      font-size: 0.6rem;
       font-weight: bold;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 0.5rem;
-      font-family: 'Quicksand', sans-serif;
-    }
-    
-    /* Category Buttons */
-    .category-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      padding: 0.6rem 1rem;
-      margin: 0.3rem 0;
-      background: #0f1222;
-      border: 1px solid #2d3a5e;
-      border-radius: 16px;
-      color: #e2e8f0;
-      font-family: 'Quicksand', sans-serif;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .category-btn:hover, .category-btn.active {
-      background: #4c1d95;
-      border-color: #facc15;
-      color: white;
-    }
-    
-    /* Favorites List */
-    .favorite-list {
-      max-height: 200px;
-      overflow-y: auto;
-    }
-    
-    .favorite-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem;
-      margin: 0.3rem 0;
-      background: #1e293b;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      border-left: 2px solid #facc15;
-    }
-    
-    .favorite-item span {
-      color: #facc15;
-      font-weight: 600;
-      flex: 1;
-    }
-    
-    .favorite-item button {
-      background: #dc2626;
-      border: none;
-      color: white;
       padding: 2px 8px;
       border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.7rem;
+      z-index: 5;
     }
     
-    /* Main Content */
-    .main-content { flex: 1; }
-    .hero { text-align: center; margin-bottom: 1.5rem; }
-    .hero h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #c084fc, #60a5fa, #f472b6);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .favorite-star {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.3rem;
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
-    .tagline {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #cbd5e6;
-      background-color: #1e293b;
-      display: inline-block;
-      padding: 0.3rem 1rem;
-      border-radius: 60px;
-      margin-top: 0.5rem;
-    }
+    .favorite-star.favorited { color: #facc15; }
+    .favorite-star:not(.favorited) { color: #64748b; }
+    
+    .game-icon { width: 80px; height: 80px; object-fit: cover; border-radius: 16px; margin: 0 auto 0.5rem; display: block; }
+    .game-name { text-align: center; font-weight: 800; color: #facc15; margin: 0.5rem 0; font-size: 0.9rem; }
+    .play-badge { text-align: center; font-size: 0.7rem; background: #22c55e; padding: 0.2rem 0.8rem; border-radius: 20px; display: inline-block; margin: 0 auto; color: #022c1a; }
+    
+    .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
     
     .search-wrapper { max-width: 500px; margin: 1rem auto; position: relative; }
     .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #818cf8; }
@@ -323,41 +179,47 @@
     .game-counter { background: #1e293b; border-radius: 40px; padding: 0.3rem 1rem; font-weight: 700; color: #facc15; }
     .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; }
     
-    /* Game Grid */
-    .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
-    .game-card {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border-radius: 24px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      padding: 1rem;
-      border: 1px solid #2d3a5e;
-      position: relative;
+    .hero { text-align: center; margin-bottom: 1.5rem; }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #c084fc, #60a5fa, #f472b6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
-    .game-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 2px #facc15; }
+    .tagline {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #cbd5e6;
+      background-color: #1e293b;
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 60px;
+    }
     
-    .favorite-star {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 1.3rem;
-      background: rgba(0,0,0,0.6);
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
+    .category-btn {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 0.6rem 1rem;
+      margin: 0.3rem 0;
+      background: #0f1222;
+      border: 1px solid #2d3a5e;
+      border-radius: 16px;
+      color: #e2e8f0;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
       cursor: pointer;
     }
-    .favorite-star.favorited { color: #facc15; }
-    .favorite-star:not(.favorited) { color: #64748b; }
+    .category-btn:hover, .category-btn.active { background: #4c1d95; border-color: #facc15; }
     
-    .game-icon { width: 80px; height: 80px; object-fit: cover; border-radius: 16px; margin: 0 auto 0.5rem; display: block; }
-    .game-name { text-align: center; font-weight: 800; color: #facc15; margin: 0.5rem 0; }
-    .play-badge { text-align: center; font-size: 0.75rem; background: #22c55e; padding: 0.2rem 0.8rem; border-radius: 20px; display: inline-block; margin: 0 auto; color: #022c1a; }
+    .favorite-list { max-height: 200px; overflow-y: auto; }
+    .favorite-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; margin: 0.3rem 0; background: #1e293b; border-radius: 12px; border-left: 2px solid #facc15; }
+    .favorite-item span { color: #facc15; font-weight: 600; flex: 1; font-size: 0.8rem; }
+    .favorite-item button { background: #dc2626; border: none; color: white; padding: 2px 8px; border-radius: 20px; cursor: pointer; }
     
-    /* Game Player */
     .game-player-overlay {
       position: fixed;
       top: 0;
@@ -381,7 +243,6 @@
       flex-wrap: wrap;
       gap: 10px;
     }
-    .game-player-title { color: #facc15; font-weight: 800; }
     .player-controls { display: flex; gap: 10px; }
     .fullscreen-btn, .close-game-btn {
       background: #4c1d95;
@@ -397,18 +258,7 @@
     .game-iframe-container iframe { width: 100%; height: 100%; border: none; }
     
     .empty-state, .loader { text-align: center; padding: 3rem; color: #94a3b8; grid-column: 1/-1; }
-    .footer { text-align: center; margin-top: 2rem; color: #94a3b8; font-size: 0.8rem; }
-    
-    /* Premium Ad Removal Message */
-    .premium-message {
-      background: #4c1d95;
-      color: white;
-      padding: 0.3rem;
-      text-align: center;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-      font-size: 0.75rem;
-    }
+    .footer { text-align: center; margin-top: 2rem; color: #94a3b8; font-size: 0.7rem; }
     
     @media (max-width: 768px) {
       .app-layout { flex-direction: column; }
@@ -419,88 +269,61 @@
 </head>
 <body>
 <div class="app-layout">
-  <!-- Sidebar - Revenue Methods Integrated -->
+  <!-- SIDEBAR WITH AMAZON AFFILIATE LINKS -->
   <div class="sidebar">
-    <h3><i class="fas fa-gamepad"></i> Arcade Hub</h3>
+    <h3><i class="fab fa-amazon"></i> Amazon Game Store</h3>
     
-    <!-- ===== METHOD 1: AMAZON AFFILIATE ===== -->
+    <!-- ===== AMAZON AFFILIATE SECTION - REPLACE YOURTAG-20 ===== -->
     <div class="sidebar-section">
-      <h4><i class="fab fa-amazon"></i> Amazon Picks (We earn commission)</h4>
-      <a href="https://www.amazon.com/dp/B08N5WRWNW?tag=YOURID-20" target="_blank" class="affiliate-link" rel="sponsored">
+      <h4><i class="fas fa-gamepad"></i> 🎮 Best Sellers for Gamers</h4>
+      
+      <a href="https://www.amazon.com/dp/B08N5WRWNW?tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
         <i class="fas fa-headphones"></i>
         <span>Kids Gaming Headset</span>
         <span class="price">$24.99</span>
       </a>
-      <a href="https://www.amazon.com/dp/B07V9Q8X9Z?tag=YOURID-20" target="_blank" class="affiliate-link" rel="sponsored">
+      
+      <a href="https://www.amazon.com/dp/B07V9Q8X9Z?tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
         <i class="fas fa-gamepad"></i>
         <span>Wireless Controller</span>
         <span class="price">$39.99</span>
       </a>
-      <a href="https://www.amazon.com/dp/B08F3T9X4R?tag=YOURID-20" target="_blank" class="affiliate-link" rel="sponsored">
+      
+      <a href="https://www.amazon.com/dp/B08F3T9X4R?tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
         <i class="fas fa-chair"></i>
         <span>Kids Gaming Chair</span>
         <span class="price">$89.99</span>
       </a>
-      <div style="font-size:0.7rem; color:#64748b; margin-top:8px;">🔗 As an Amazon Associate I earn from qualifying purchases</div>
-    </div>
-    
-    <!-- ===== METHOD 2: CLICKBANK AFFILIATE ===== -->
-    <div class="sidebar-section">
-      <h4><i class="fas fa-rocket"></i> Hot Deals (ClickBank)</h4>
-      <a href="https://www.clickbank.com/hoplink?YOUR_HOPLINK_ID" target="_blank" class="affiliate-link" rel="sponsored">
+      
+      <a href="https://www.amazon.com/dp/B09G5Z7X4L?tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
+        <i class="fas fa-cube"></i>
+        <span>Minecraft Toy Set</span>
+        <span class="price">$29.99</span>
+      </a>
+      
+      <a href="https://www.amazon.com/dp/B08XY8W7YJ?tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
+        <i class="fas fa-gift-card"></i>
+        <span>Roblox Gift Card</span>
+        <span class="price">$25.00</span>
+      </a>
+      
+      <a href="https://www.amazon.com/s?k=educational+toys+for+kids+8-12&tag=YOURTAG-20" target="_blank" class="amazon-link" rel="sponsored nofollow">
         <i class="fas fa-brain"></i>
-        <span>Brain Training for Kids</span>
-        <span class="price">$47</span>
+        <span>Educational Toys</span>
+        <span class="price">Shop All →</span>
       </a>
-      <a href="https://www.clickbank.com/hoplink?YOUR_HOPLINK_ID2" target="_blank" class="affiliate-link" rel="sponsored">
-        <i class="fas fa-code"></i>
-        <span>Coding for Kids Course</span>
-        <span class="price">$67</span>
-      </a>
-    </div>
-    
-    <!-- ===== METHOD 3: SPONSORED GAMES ===== -->
-    <div class="sidebar-section">
-      <h4><i class="fas fa-crown"></i> Sponsored Games</h4>
-      <div class="sponsored-game">
-        <i class="fas fa-gamepad" style="font-size:2rem; color:#facc15;"></i>
-        <div class="sponsored-game-info">
-          <div class="sponsored-badge">🌟 SPONSORED</div>
-          <div class="name">Your Game Here!</div>
-          <div class="desc">Contact us: sponsor@nightfallarcade.com</div>
-        </div>
-      </div>
-      <div style="font-size:0.7rem; color:#94a3b8; margin-top:8px; text-align:center;">
-        <i class="fas fa-envelope"></i> Promote your game - $20/week
+      
+      <div style="font-size:0.65rem; color:#64748b; margin-top:10px; text-align:center;">
+        🔗 As an Amazon Associate I earn from qualifying purchases
       </div>
     </div>
     
-    <!-- ===== METHOD 4: BUY ME A COFFEE + PAYPAL ===== -->
-    <div class="sidebar-section">
-      <h4><i class="fas fa-heart"></i> Support the Arcade</h4>
-      <button class="bmc-button" id="bmcButton">
-        <i class="fas fa-coffee"></i> Buy Me a Coffee ☕
-      </button>
-      <button class="paypal-button" id="paypalButton">
-        <i class="fab fa-paypal"></i> Donate via PayPal
-      </button>
-    </div>
-    
-    <!-- ===== METHOD 5: PREMIUM FEATURES ===== -->
-    <div class="sidebar-section premium-card">
-      <div class="premium-price">$4.99 <span style="font-size:0.8rem;">/ lifetime</span></div>
-      <div style="font-size:0.7rem; margin:5px 0;">✨ Remove ALL ads forever!</div>
-      <button class="premium-btn" id="premiumUpgradeBtn">
-        <i class="fas fa-gem"></i> Go Premium - Remove Ads
-      </button>
-      <div style="font-size:0.6rem; margin-top:8px;">🔒 One-time payment · No subscription</div>
-    </div>
-    
-    <!-- Categories & Favorites -->
+    <!-- Categories -->
     <div class="sidebar-section">
       <h4><i class="fas fa-filter"></i> Categories</h4>
       <button class="category-btn active" data-category="all"><i class="fas fa-globe"></i> All Games</button>
       <button class="category-btn" data-category="favorites"><i class="fas fa-star"></i> My Favorites ⭐</button>
+      <button class="category-btn" data-category="affiliate"><i class="fab fa-amazon"></i> Games with Affiliate Links</button>
     </div>
     
     <div class="sidebar-section">
@@ -510,20 +333,15 @@
     
     <div class="sidebar-section">
       <h4><i class="fas fa-chart-line"></i> Stats</h4>
-      <div id="statsDisplay" style="font-size:0.8rem;">Loading...</div>
+      <div id="statsDisplay" style="font-size:0.75rem;">Loading...</div>
     </div>
   </div>
   
-  <!-- Main Content -->
+  <!-- MAIN CONTENT -->
   <div class="main-content">
     <div class="hero">
-      <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fas fa-play-circle"></i></h1>
-      <div class="tagline"><i class="fas fa-star"></i> 100% Free Games | Support us to remove ads! ✨</div>
-    </div>
-    
-    <!-- Premium Message (shows if user has ads removed) -->
-    <div id="premiumMessage" class="premium-message" style="display:none;">
-      <i class="fas fa-crown"></i> You're a Premium Member! Ads are disabled. Thank you for your support! 🎉
+      <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fab fa-amazon"></i></h1>
+      <div class="tagline"><i class="fas fa-star"></i> Free Games + Amazon Affiliate Links in Every Game! ✨</div>
     </div>
     
     <div class="search-wrapper">
@@ -537,11 +355,13 @@
     </div>
     
     <div id="gamesGridContainer" class="games-grid"><div class="loader">Loading games...</div></div>
-    <div class="footer">⭐ Click star to favorite | 🖱️ Click game to play | 💰 Purchases support free games</div>
+    <div class="footer">
+      ⭐ Click star to favorite | 🖱️ Click game to play | 🛒 Games with 🛍️ icon have Amazon affiliate links
+    </div>
   </div>
 </div>
 
-<!-- Game Player -->
+<!-- Game Player Overlay -->
 <div id="gamePlayer" class="game-player-overlay">
   <div class="game-player-header">
     <span class="game-player-title" id="gamePlayerTitle">Game</span>
@@ -553,65 +373,25 @@
   <div id="gameIframeContainer" class="game-iframe-container"></div>
 </div>
 
-<!-- Ad Scripts (only show if user not premium) -->
-<div id="adScriptsContainer">
-  <script async="async" data-cfasync="false" src="https://pl29610580.effectivecpmnetwork.com/bc2a8143d092c7dfebeb7982d9dcfed3/invoke.js"></script>
-  <script>
-    atOptions = { 'key' : '52352aafdb8e582a93ea264d64273a99', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-  </script>
-  <script src="https://www.highperformanceformat.com/52352aafdb8e582a93ea264d64273a99/invoke.js"></script>
-</div>
-
 <script>
-  // ========= PREMIUM SYSTEM (localStorage) =========
-  let isPremium = localStorage.getItem('nightfall_premium') === 'true';
+  // ========= CONFIGURATION =========
+  // REPLACE YOURTAG-20 WITH YOUR ACTUAL AMAZON TRACKING ID
+  const AMAZON_TAG = 'YOURTAG-20';
   
-  function toggleAdsBasedOnPremium() {
-    const adContainer = document.getElementById('adScriptsContainer');
-    const premiumMsg = document.getElementById('premiumMessage');
-    if (isPremium) {
-      if (adContainer) adContainer.style.display = 'none';
-      if (premiumMsg) premiumMsg.style.display = 'block';
-    } else {
-      if (adContainer) adContainer.style.display = 'block';
-      if (premiumMsg) premiumMsg.style.display = 'none';
-    }
-  }
-  
-  function upgradeToPremium() {
-    isPremium = true;
-    localStorage.setItem('nightfall_premium', 'true');
-    toggleAdsBasedOnPremium();
-    alert('🎉 Thank you for going Premium! Ads are now removed. Refresh to see changes.');
-  }
-  
-  // Premium upgrade button
-  document.getElementById('premiumUpgradeBtn').addEventListener('click', () => {
-    if (confirm('✨ Upgrade to Premium for $4.99 (one-time payment)\n\nBenefits:\n• Remove ALL ads forever\n• Support future game updates\n\nClick OK to proceed to payment.')) {
-      // Simulate payment success
-      upgradeToPremium();
-      alert('Payment simulated! In real implementation, this would integrate with Stripe/PayPal.');
-    }
-  });
-  
-  // Buy Me a Coffee
-  document.getElementById('bmcButton').addEventListener('click', () => {
-    window.open('https://www.buymeacoffee.com/YOUR_USERNAME', '_blank');
-    alert('☕ Thank you for considering! Replace YOUR_USERNAME with your actual BuyMeACoffee username.');
-  });
-  
-  // PayPal Donation
-  document.getElementById('paypalButton').addEventListener('click', () => {
-    window.open('https://www.paypal.com/donate?hosted_button_id=YOUR_BUTTON_ID', '_blank');
-    alert('💰 Create your PayPal donation button at paypal.com/donate/buttons');
-  });
-  
-  // ========= GAME SYSTEM =========
+  // Google Sheets CSV URL (add a new column called "affiliate_link")
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
   
-  let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
-  let allGames = [], filteredGames = [], currentSearchTerm = "", currentCategory = "all";
+  // ========= EXPECTED CSV COLUMNS =========
+  // Name, Icon, Link, Embed, affiliate_link
+  // The "affiliate_link" column can contain your Amazon product link
   
+  let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
+  let allGames = [];
+  let filteredGames = [];
+  let currentSearchTerm = "";
+  let currentCategory = "all";
+  
+  // DOM Elements
   const grid = document.getElementById('gamesGridContainer');
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearchBtn');
@@ -622,8 +402,17 @@
   const closeGameBtn = document.getElementById('closeGameBtn');
   const fullscreenBtn = document.getElementById('fullscreenBtn');
   
-  function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+  function escapeHtml(str) { 
+    if (!str) return ''; 
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
   
+  // Fullscreen
   function toggleFullscreen() {
     const container = document.getElementById('gameIframeContainer');
     if (!document.fullscreenElement) container.requestFullscreen();
@@ -650,13 +439,14 @@
       iframe.setAttribute('allowfullscreen', 'true');
       gameIframeContainer.appendChild(iframe);
     } else {
-      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center;">No game available</div>';
+      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center; color:white;">No game available</div>';
     }
     gamePlayer.style.display = 'flex';
   }
   
   function closeGamePlayer() { gamePlayer.style.display = 'none'; gameIframeContainer.innerHTML = ''; }
   
+  // Favorites System
   function saveFavorites() {
     localStorage.setItem('nightfall_favorites', JSON.stringify(favorites));
     updateFavoritesList();
@@ -675,101 +465,187 @@
   
   function updateFavoritesList() {
     const favList = document.getElementById('favoritesList');
-    const favGames = allGames.filter(g => isFavorite(g.id || g.name));
+    const favGames = allGames.filter(g => isFavorite(g.id));
     if (!favGames.length) { favList.innerHTML = '<div style="color:#64748b; text-align:center;">⭐ Click star on games</div>'; return; }
     favList.innerHTML = favGames.map(g => `
       <div class="favorite-item">
         <span>${escapeHtml(g.name)}</span>
-        <button onclick="toggleFavorite('${escapeHtml(g.id || g.name)}')"><i class="fas fa-trash"></i></button>
+        <button onclick="toggleFavorite('${escapeHtml(g.id)}')"><i class="fas fa-trash"></i></button>
       </div>
     `).join('');
   }
   
   function updateStats() {
+    const affiliateCount = allGames.filter(g => g.affiliateLink && g.affiliateLink.trim()).length;
     document.getElementById('statsDisplay').innerHTML = `
-      <div><i class="fas fa-database"></i> Games: ${allGames.length}</div>
-      <div><i class="fas fa-star"></i> Favs: ${favorites.length}</div>
-      <div><i class="fas fa-crown"></i> Premium: ${isPremium ? '✓ Active' : 'No'}</div>
+      <div><i class="fas fa-database"></i> Total Games: ${allGames.length}</div>
+      <div><i class="fas fa-star"></i> Favorites: ${favorites.length}</div>
+      <div><i class="fab fa-amazon"></i> Affiliate Links: ${affiliateCount}</div>
     `;
+  }
+  
+  // Function to append Amazon tag to any Amazon link
+  function addAmazonTag(url) {
+    if (!url) return null;
+    if (url.includes('amazon.com') || url.includes('amazon.')) {
+      // Check if already has tag parameter
+      if (url.includes('tag=')) return url;
+      // Add tag parameter
+      const separator = url.includes('?') ? '&' : '?';
+      return `${url}${separator}tag=${AMAZON_TAG}`;
+    }
+    return url;
   }
   
   function renderGrid() {
     let display = [...allGames];
-    if (currentCategory === 'favorites') display = display.filter(g => isFavorite(g.id || g.name));
-    if (currentSearchTerm.trim()) display = display.filter(g => g.name.toLowerCase().includes(currentSearchTerm.toLowerCase()));
+    if (currentCategory === 'favorites') {
+      display = display.filter(g => isFavorite(g.id));
+    } else if (currentCategory === 'affiliate') {
+      display = display.filter(g => g.affiliateLink && g.affiliateLink.trim());
+    }
+    if (currentSearchTerm.trim()) {
+      display = display.filter(g => g.name.toLowerCase().includes(currentSearchTerm.toLowerCase()));
+    }
     filteredGames = display;
     countSpan.innerText = filteredGames.length;
     
-    if (!filteredGames.length) { grid.innerHTML = '<div class="empty-state">No games found</div>'; return; }
+    if (!filteredGames.length) {
+      grid.innerHTML = '<div class="empty-state">🎮 No games found. Try another search or add games to your CSV!</div>';
+      return;
+    }
     
     let html = '';
     for (let game of filteredGames) {
-      const gameId = game.id || game.name;
-      const favorited = isFavorite(gameId);
+      const favorited = isFavorite(game.id);
+      const hasAffiliate = game.affiliateLink && game.affiliateLink.trim();
+      const affiliateUrl = hasAffiliate ? addAmazonTag(game.affiliateLink) : null;
+      
       const iconHtml = game.icon ? `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/80x80/4c1d95/white?text=🎮'">` : `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem;"></i></div>`;
+      
       html += `
-        <div class="game-card" data-name="${escapeHtml(game.name)}" data-link="${escapeHtml(game.link)}" data-embed="${escapeHtml(game.embed || '')}">
-          <div class="favorite-star ${favorited ? 'favorited' : ''}" data-id="${escapeHtml(gameId)}"><i class="fas fa-star"></i></div>
+        <div class="game-card" data-name="${escapeHtml(game.name)}" data-link="${escapeHtml(game.link)}" data-embed="${escapeHtml(game.embed || '')}" data-affiliate="${escapeHtml(affiliateUrl || '')}">
+          ${hasAffiliate ? '<div class="affiliate-badge"><i class="fab fa-amazon"></i> 🛍️ Shop</div>' : ''}
+          <div class="favorite-star ${favorited ? 'favorited' : ''}" data-id="${escapeHtml(game.id)}"><i class="fas fa-star"></i></div>
           ${iconHtml}
           <div class="game-name">${escapeHtml(game.name)}</div>
-          <div class="play-badge"><i class="fas fa-play-circle"></i> Play</div>
+          <div class="play-badge"><i class="fas fa-play-circle"></i> Play Now!</div>
         </div>
       `;
     }
     grid.innerHTML = html;
     
+    // Add click handlers for game cards
     document.querySelectorAll('.game-card').forEach(card => {
-      const name = card.getAttribute('data-name'), link = card.getAttribute('data-link'), embed = card.getAttribute('data-embed');
-      card.addEventListener('click', (e) => { if (!e.target.closest('.favorite-star')) playGameInside({ name, link, embed }); });
+      const name = card.getAttribute('data-name');
+      const link = card.getAttribute('data-link');
+      const embed = card.getAttribute('data-embed');
+      const affiliateUrl = card.getAttribute('data-affiliate');
+      
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.favorite-star')) return;
+        
+        // If the game has an affiliate link, open it in a new tab when clicking the affiliate badge area
+        if (e.target.closest('.affiliate-badge') && affiliateUrl) {
+          window.open(affiliateUrl, '_blank');
+          return;
+        }
+        
+        // Otherwise play the game
+        playGameInside({ name, link, embed });
+      });
     });
+    
+    // Add favorite star handlers
     document.querySelectorAll('.favorite-star').forEach(star => {
-      star.addEventListener('click', (e) => { e.stopPropagation(); toggleFavorite(star.getAttribute('data-id')); });
+      star.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleFavorite(star.getAttribute('data-id'));
+      });
     });
   }
   
+  // CSV Parser
   function parseCSV(csvText) {
-    const rows = []; let row = [], buffer = '', inQuotes = false;
+    const rows = [];
+    let row = [];
+    let buffer = '';
+    let inQuotes = false;
     for (let i = 0; i < csvText.length; i++) {
       let ch = csvText[i];
-      if (ch === '"') { if (inQuotes && csvText[i+1] === '"') { buffer += '"'; i++; } else { inQuotes = !inQuotes; } }
-      else if (ch === ',' && !inQuotes) { row.push(buffer.trim()); buffer = ''; }
-      else if (ch === '\n' && !inQuotes) { row.push(buffer.trim()); if (row.length) rows.push(row); row = []; buffer = ''; }
-      else { buffer += ch; }
+      if (ch === '"') {
+        if (inQuotes && csvText[i+1] === '"') {
+          buffer += '"';
+          i++;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (ch === ',' && !inQuotes) {
+        row.push(buffer.trim());
+        buffer = '';
+      } else if (ch === '\n' && !inQuotes) {
+        row.push(buffer.trim());
+        if (row.length) rows.push(row);
+        row = [];
+        buffer = '';
+      } else {
+        buffer += ch;
+      }
     }
-    row.push(buffer.trim()); if (row.length && row[0] !== '') rows.push(row);
+    row.push(buffer.trim());
+    if (row.length && row[0] !== '') rows.push(row);
     if (!rows.length) return [];
+    
     let headers = rows[0].map(h => h.replace(/^"|"$/g, '').toLowerCase());
     return rows.slice(1).map(row => {
       let obj = {};
-      headers.forEach((h, i) => obj[h] = (row[i] || '').replace(/^"|"$/g, '').replace(/""/g, '"'));
+      headers.forEach((h, i) => {
+        let val = (row[i] || '').replace(/^"|"$/g, '').replace(/""/g, '"');
+        obj[h] = val;
+      });
       return obj;
     });
   }
   
+  // Load games from CSV
   async function loadGames() {
     try {
+      grid.innerHTML = '<div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading games from Google Sheets...</div>';
       const resp = await fetch(CSV_URL);
-      if (!resp.ok) throw new Error();
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const csv = await resp.text();
       let gamesData = parseCSV(csv);
+      
       allGames = gamesData.map((row, idx) => ({
         id: `game_${idx}`,
-        name: row.name || row.title || "Game",
+        name: row.name || row.title || "Mystery Game",
         icon: row.icon || row.image || "",
         link: row.link || row.url || "#",
-        embed: row.embed || row.embedded || ""
+        embed: row.embed || row.embedded || "",
+        affiliateLink: row.affiliate_link || row.affiliate || row.amazon || ""  // NEW COLUMN: affiliate_link
       }));
-      if (!allGames.length) allGames = [{ id: 'demo', name: 'Add games to CSV!', icon: '', link: '#', embed: '' }];
+      
+      if (!allGames.length) {
+        allGames = [{ 
+          id: 'demo', 
+          name: '✨ Add games to your CSV!', 
+          icon: '', 
+          link: '#', 
+          embed: '<div style="padding:40px; text-align:center; color:white;">✨ Add "affiliate_link" column to your Google Sheet!</div>',
+          affiliateLink: ''
+        }];
+      }
+      
       updateFavoritesList();
       updateStats();
       renderGrid();
-    } catch(e) { grid.innerHTML = '<div class="empty-state">⚠️ Load failed. Check CSV URL.</div>'; }
+    } catch(e) {
+      console.error(e);
+      grid.innerHTML = '<div class="empty-state">⚠️ Could not load games. Make sure your Google Sheet CSV is public.</div>';
+    }
   }
   
-  closeGameBtn.addEventListener('click', closeGamePlayer);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gamePlayer.style.display === 'flex') closeGamePlayer(); });
-  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; renderGrid(); });
-  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; renderGrid(); });
+  // Category filter
   document.querySelectorAll('.category-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -779,11 +655,22 @@
     });
   });
   
-  loadGames();
-  toggleAdsBasedOnPremium();
+  // Event listeners
+  closeGameBtn.addEventListener('click', closeGamePlayer);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gamePlayer.style.display === 'flex') closeGamePlayer(); });
+  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; renderGrid(); });
+  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; renderGrid(); });
   
   // Make toggleFavorite global for inline onclick
   window.toggleFavorite = toggleFavorite;
+  
+  // Start
+  loadGames();
 </script>
+
+<!-- Amazon Affiliate Disclosure (Legal Requirement) -->
+<div style="text-align: center; padding: 1rem; font-size: 0.7rem; color: #64748b; border-top: 1px solid #334155; margin-top: 1rem;">
+  <p>As an Amazon Associate, I earn from qualifying purchases. This site contains affiliate links.</p>
+</div>
 </body>
 </html>
