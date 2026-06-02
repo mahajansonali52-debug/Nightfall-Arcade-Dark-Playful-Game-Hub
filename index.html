@@ -145,6 +145,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      min-height: 240px;
     }
     
     .game-card:hover { transform: translateY(-6px); box-shadow: 0 0 0 2px #facc15; }
@@ -176,37 +177,68 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      z-index: 5;
     }
     .favorite-star.favorited { color: #facc15; }
     .favorite-star:not(.favorited) { color: #64748b; }
     
-    /* Game Icon Styles - Fixed */
-    .game-icon {
+    /* PERFECT GAME ICON STYLES - Colorful gradients with emojis */
+    .game-icon-wrapper {
       width: 90px;
       height: 90px;
-      object-fit: cover;
-      border-radius: 18px;
-      margin: 0.5rem auto;
-      display: block;
-      background: linear-gradient(135deg, #4c1d95, #7c3aed);
-    }
-    
-    /* Fallback icon when image fails to load */
-    .game-icon-fallback {
-      width: 90px;
-      height: 90px;
-      border-radius: 18px;
+      border-radius: 22px;
       margin: 0.5rem auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #4c1d95, #7c3aed);
-      font-size: 2.5rem;
-      color: #facc15;
+      font-size: 3rem;
+      transition: transform 0.2s ease;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.2);
     }
     
-    .game-name { text-align: center; font-weight: 800; color: #facc15; margin: 0.5rem 0; font-size: 0.9rem; }
-    .play-badge { text-align: center; font-size: 0.7rem; background: #22c55e; padding: 0.25rem 0.8rem; border-radius: 20px; display: inline-block; margin: 0 auto; color: #022c1a; font-weight: bold; }
+    .game-card:hover .game-icon-wrapper {
+      transform: scale(1.05);
+    }
+    
+    /* Individual game icon colors */
+    .icon-parking { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .icon-thief { background: linear-gradient(135deg, #2c3e50, #1a252f); }
+    .icon-tennis { background: linear-gradient(135deg, #27ae60, #1e8449); }
+    .icon-truck { background: linear-gradient(135deg, #f39c12, #e67e22); }
+    .icon-bus { background: linear-gradient(135deg, #3498db, #2980b9); }
+    .icon-race { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .icon-war { background: linear-gradient(135deg, #8e44ad, #6c3483); }
+    .icon-penalty { background: linear-gradient(135deg, #1abc9c, #16a085); }
+    .icon-stickman { background: linear-gradient(135deg, #e67e22, #d35400); }
+    .icon-default { background: linear-gradient(135deg, #4c1d95, #7c3aed); }
+    
+    .game-name {
+      text-align: center;
+      font-weight: 800;
+      color: #facc15;
+      margin: 0.5rem 0;
+      font-size: 0.85rem;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      word-break: break-word;
+      min-height: 2.2rem;
+      padding: 0 0.2rem;
+    }
+    
+    .play-badge { 
+      text-align: center; 
+      font-size: 0.7rem; 
+      background: #22c55e; 
+      padding: 0.25rem 0.8rem; 
+      border-radius: 20px; 
+      display: inline-block; 
+      margin: 0.3rem auto 0; 
+      color: #022c1a; 
+      font-weight: bold;
+    }
     
     .category-btn {
       display: flex;
@@ -283,6 +315,8 @@
       .app-layout { flex-direction: column; }
       .sidebar { width: 100%; position: static; }
       .games-grid { grid-template-columns: repeat(2, 1fr); }
+      .game-name { font-size: 0.75rem; }
+      .game-icon-wrapper { width: 70px; height: 70px; font-size: 2.2rem; }
     }
   </style>
 </head>
@@ -316,12 +350,20 @@
       <h4><i class="fas fa-chart-line"></i> Stats</h4>
       <div id="statsDisplay" style="font-size:0.75rem;">Loading...</div>
     </div>
+    
+    <div class="sidebar-section" style="text-align: center; background: linear-gradient(135deg, #1e293b, #0f172a);">
+      <h4><i class="fas fa-heart" style="color: #ff6b6b;"></i> Support Free Games</h4>
+      <p style="font-size: 0.7rem; color: #cbd5e6; margin-bottom: 0.5rem;">☕ Your donation keeps the arcade running!</p>
+      <a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #FFDD00; color: #1a1f2e; padding: 0.6rem 1rem; border-radius: 40px; text-decoration: none; font-weight: 700; font-size: 0.85rem;">
+        <i class="fas fa-coffee"></i> Buy Me a Coffee ☕
+      </a>
+    </div>
   </div>
   
   <div class="main-content">
     <div class="hero">
       <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fab fa-amazon"></i></h1>
-      <div class="tagline"><i class="fas fa-star"></i> Free Games + Amazon Affiliate Links! 🛍️</div>
+      <div class="tagline"><i class="fas fa-star"></i> Free Games - Click to Play! 🎮</div>
     </div>
     
     <div class="search-wrapper">
@@ -335,7 +377,7 @@
     </div>
     
     <div id="gamesGridContainer" class="games-grid"><div class="loader">Loading games...</div></div>
-    <div class="footer">⭐ Click star to favorite | 🖱️ Click game to play | 🛍️ Games with 🛍️ badge have Amazon affiliate links</div>
+    <div class="footer">⭐ Click star to favorite | 🖱️ Click game to play | 🛍️ Orange badge = Amazon shop</div>
   </div>
 </div>
 
@@ -372,13 +414,21 @@
   const fullscreenBtn = document.getElementById('fullscreenBtn');
   const dynamicAmazonLinks = document.getElementById('dynamicAmazonLinks');
   
-  // Colorful fallback icons for games (emoji-based)
-  const gameEmojis = ['🎮', '🎯', '🎲', '🎳', '🏀', '⚽', '🎨', '🧩', '🚗', '🏎️', '✈️', '🚀', '👾', '🤖', '🐉', '⭐'];
-  
-  function getEmojiForGame(name) {
-    const index = (name.length * 7) % gameEmojis.length;
-    return gameEmojis[index];
-  }
+  // Complete game database with icons, emojis, and proper names
+  const gamesDatabase = [
+    { id: 'g0', name: 'Parking Jam', displayName: '🚗 Parking Jam', emoji: '🚗', iconClass: 'icon-parking', link: 'https://html5.gamedistribution.com/56b693d4476b472ba1ed25cc7c0ddb4f/', embed: '' },
+    { id: 'g1', name: 'Thief Puzzle Game', displayName: '🕵️ Thief Puzzle', emoji: '🕵️', iconClass: 'icon-thief', link: 'https://html5.gamedistribution.com/thief-puzzle/', embed: '' },
+    { id: 'g2', name: 'Table Tennis World Tour', displayName: '🏓 Table Tennis World Tour', emoji: '🏓', iconClass: 'icon-tennis', link: 'https://www.crazygames.com/game/table-tennis-world-tour', embed: '' },
+    { id: 'g3', name: 'Endless Truck', displayName: '🚛 Endless Truck', emoji: '🚛', iconClass: 'icon-truck', link: 'https://play.famobi.com/endless-truck', embed: '' },
+    { id: 'g4', name: 'Bus Driver Simulator 3D', displayName: '🚌 Bus Driver Simulator', emoji: '🚌', iconClass: 'icon-bus', link: 'https://www.crazygames.com/game/bus-driver-simulator-3d', embed: '' },
+    { id: 'g5', name: 'Real Motor Race Master', displayName: '🏎️ Real Motor Race', emoji: '🏎️', iconClass: 'icon-race', link: 'https://www.crazygames.com/game/real-motor-race-master', embed: '' },
+    { id: 'g6', name: 'War the Knights', displayName: '⚔️ War of the Knights', emoji: '⚔️', iconClass: 'icon-war', link: 'https://www.crazygames.com/game/war-of-knights', embed: '' },
+    { id: 'g7', name: 'Penalty Kick Wiz', displayName: '⚽ Penalty Kick Wiz', emoji: '⚽', iconClass: 'icon-penalty', link: 'https://www.crazygames.com/game/penalty-kick-wiz', embed: '' },
+    { id: 'g8', name: 'Stickman Warriors', displayName: '🥋 Stickman Warriors', emoji: '🥋', iconClass: 'icon-stickman', link: 'https://www.crazygames.com/game/stickman-warriors', embed: '' },
+    { id: 'g9', name: 'Stickman Street Fighting 3D', displayName: '🥊 Stickman Street Fight', emoji: '🥊', iconClass: 'icon-stickman', link: 'https://www.crazygames.com/game/stickman-street-fighting', embed: '' },
+    { id: 'g10', name: 'Bike Racing', displayName: '🏍️ Bike Racing', emoji: '🏍️', iconClass: 'icon-race', link: 'https://www.crazygames.com/game/bike-racing', embed: '' },
+    { id: 'g11', name: 'Soccer Skills', displayName: '⚽ Soccer Skills', emoji: '⚽', iconClass: 'icon-penalty', link: 'https://www.crazygames.com/game/soccer-skills', embed: '' }
+  ];
   
   function escapeHtml(str) { 
     if (!str) return ''; 
@@ -390,14 +440,6 @@
     });
   }
   
-  function isValidImageUrl(url) {
-    if (!url) return false;
-    if (url.length < 10) return false;
-    if (url.includes('https://img.cdn.f') || url.includes('https://img.game')) return false;
-    if (url.includes('placehold.co')) return true;
-    return true;
-  }
-  
   function toggleFullscreen() {
     const container = document.getElementById('gameIframeContainer');
     if (!document.fullscreenElement) container.requestFullscreen();
@@ -406,7 +448,7 @@
   fullscreenBtn.addEventListener('click', toggleFullscreen);
   
   function playGameInside(game) {
-    gamePlayerTitle.innerText = game.name;
+    gamePlayerTitle.innerText = game.displayName || game.name;
     gameIframeContainer.innerHTML = '';
     if (game.embed && game.embed.trim()) {
       let safeEmbed = game.embed.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
@@ -422,6 +464,7 @@
       iframe.style.height = '100%';
       iframe.style.border = 'none';
       iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms allow-modals');
       gameIframeContainer.appendChild(iframe);
     } else {
       gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center; color:white;">🎮 Game coming soon!</div>';
@@ -453,7 +496,7 @@
     if (!favGames.length) { favList.innerHTML = '<div style="color:#64748b; text-align:center;">⭐ Click star on games</div>'; return; }
     favList.innerHTML = favGames.map(g => `
       <div class="favorite-item">
-        <span>${escapeHtml(g.name)}</span>
+        <span>${escapeHtml(g.displayName || g.name)}</span>
         <button onclick="toggleFavorite('${escapeHtml(g.id)}')"><i class="fas fa-trash"></i></button>
       </div>
     `).join('');
@@ -480,18 +523,15 @@
   
   function renderSidebarAffiliates() {
     const productsWithImages = affiliateProducts.filter(p => p.affiliateLink && p.affiliateImage);
-    
     if (productsWithImages.length === 0) {
       dynamicAmazonLinks.innerHTML = '<div style="color:#64748b; text-align:center;">✨ Add "affiliate_link" and "affiliate_image" to your sheet!</div>';
       return;
     }
-    
     let html = '';
     for (let product of productsWithImages.slice(0, 10)) {
-      const productName = product.name || 'Product';
+      const productName = product.displayName || product.name || 'Product';
       const affiliateUrl = addAmazonTag(product.affiliateLink);
       const productImage = product.affiliateImage || 'https://placehold.co/55x55/4c1d95/white?text=🎮';
-      
       html += `
         <a href="${escapeHtml(affiliateUrl)}" target="_blank" class="amazon-link" rel="sponsored nofollow">
           <img src="${escapeHtml(productImage)}" class="amazon-product-img" onerror="this.src='https://placehold.co/55x55/4c1d95/white?text=🛍️'">
@@ -505,11 +545,39 @@
     dynamicAmazonLinks.innerHTML = html;
   }
   
+  function getGameIconClass(gameName) {
+    const name = gameName.toLowerCase();
+    if (name.includes('parking')) return 'icon-parking';
+    if (name.includes('thief')) return 'icon-thief';
+    if (name.includes('table tennis') || name.includes('tennis')) return 'icon-tennis';
+    if (name.includes('truck') || name.includes('endless')) return 'icon-truck';
+    if (name.includes('bus')) return 'icon-bus';
+    if (name.includes('race') || name.includes('motor')) return 'icon-race';
+    if (name.includes('war') || name.includes('knight')) return 'icon-war';
+    if (name.includes('penalty') || name.includes('kick')) return 'icon-penalty';
+    if (name.includes('stickman')) return 'icon-stickman';
+    return 'icon-default';
+  }
+  
+  function getGameEmoji(gameName) {
+    const name = gameName.toLowerCase();
+    if (name.includes('parking')) return '🚗';
+    if (name.includes('thief')) return '🕵️';
+    if (name.includes('table tennis')) return '🏓';
+    if (name.includes('truck')) return '🚛';
+    if (name.includes('bus')) return '🚌';
+    if (name.includes('race') || name.includes('motor')) return '🏎️';
+    if (name.includes('war') || name.includes('knight')) return '⚔️';
+    if (name.includes('penalty') || name.includes('kick')) return '⚽';
+    if (name.includes('stickman')) return '🥋';
+    return '🎮';
+  }
+  
   function renderGrid() {
     let display = [...allGames];
     if (currentCategory === 'favorites') display = display.filter(g => isFavorite(g.id));
     if (currentCategory === 'affiliate') display = display.filter(g => g.affiliateLink && g.affiliateLink.trim());
-    if (currentSearchTerm.trim()) display = display.filter(g => g.name.toLowerCase().includes(currentSearchTerm.toLowerCase()));
+    if (currentSearchTerm.trim()) display = display.filter(g => (g.displayName || g.name).toLowerCase().includes(currentSearchTerm.toLowerCase()));
     filteredGames = display;
     countSpan.innerText = filteredGames.length;
     
@@ -523,25 +591,16 @@
       const favorited = isFavorite(game.id);
       const hasAffiliate = game.affiliateLink && game.affiliateLink.trim();
       const affiliateUrl = hasAffiliate ? addAmazonTag(game.affiliateLink) : null;
-      const emoji = getEmojiForGame(game.name);
-      
-      // Check if icon URL is valid
-      const hasValidIcon = isValidImageUrl(game.icon);
-      
-      let iconHtml = '';
-      if (hasValidIcon && game.icon) {
-        iconHtml = `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'game-icon-fallback\'><i class=\'fas fa-gamepad\' style=\'font-size:2.5rem;\'></i></div>';">`;
-      } else {
-        // Use colorful fallback with emoji
-        iconHtml = `<div class="game-icon-fallback">${emoji}</div>`;
-      }
+      const displayName = game.displayName || game.name;
+      const iconClass = getGameIconClass(displayName);
+      const emoji = getGameEmoji(displayName);
       
       html += `
-        <div class="game-card" data-name="${escapeHtml(game.name)}" data-link="${escapeHtml(game.link)}" data-embed="${escapeHtml(game.embed || '')}" data-affiliate="${escapeHtml(affiliateUrl || '')}">
+        <div class="game-card" data-name="${escapeHtml(displayName)}" data-link="${escapeHtml(game.link)}" data-embed="${escapeHtml(game.embed || '')}" data-affiliate="${escapeHtml(affiliateUrl || '')}">
           ${hasAffiliate ? '<div class="affiliate-badge" data-affiliate-url="' + escapeHtml(affiliateUrl) + '"><i class="fab fa-amazon"></i> 🛍️ Shop</div>' : ''}
           <div class="favorite-star ${favorited ? 'favorited' : ''}" data-id="${escapeHtml(game.id)}"><i class="fas fa-star"></i></div>
-          ${iconHtml}
-          <div class="game-name">${escapeHtml(game.name)}</div>
+          <div class="game-icon-wrapper ${iconClass}">${emoji}</div>
+          <div class="game-name">${escapeHtml(displayName)}</div>
           <div class="play-badge"><i class="fas fa-play-circle"></i> Play Now!</div>
         </div>
       `;
@@ -556,7 +615,7 @@
         const badge = e.target.closest('.affiliate-badge');
         if (badge) { e.stopPropagation(); const url = badge.getAttribute('data-affiliate-url'); if (url) window.open(url, '_blank'); return; }
         if (e.target.closest('.favorite-star')) return;
-        playGameInside({ name, link, embed });
+        playGameInside({ displayName: name, name: name, link: link, embed: embed });
       });
     });
     
@@ -605,94 +664,12 @@
     try {
       grid.innerHTML = '<div class="loader">Loading games...</div>';
       const resp = await fetch(CSV_URL);
-      if (!resp.ok) throw new Error();
-      const csv = await resp.text();
-      let gamesData = parseCSV(csv);
-      
-      if (gamesData.length > 0) {
-        allGames = [];
-        affiliateProducts = [];
-        
-        for (let row of gamesData) {
-          // Clean up the name - remove extra spaces and fix common issues
-          let gameName = row.name || "Game";
-          // Fix common name issues from your sheet
-          if (gameName.includes('Parking Jam')) gameName = '🚗 Parking Jam';
-          if (gameName.includes('Thief')) gameName = '🕵️ Thief Puzzle Game';
-          if (gameName.includes('Table Tennis')) gameName = '🏓 Table Tennis World Tour';
-          if (gameName.includes('Endless Truck')) gameName = '🚛 Endless Truck';
-          if (gameName.includes('Bus Driver')) gameName = '🚌 Bus Driver Simulator 3D';
-          if (gameName.includes('Real Motor')) gameName = '🏎️ Real Motor Race Master';
-          
-          const gameObj = {
-            id: `game_${allGames.length}`,
-            name: gameName,
-            icon: (row.icon && row.icon.includes('http') && !row.icon.includes('img.cdn.f') && !row.icon.includes('img.game')) ? row.icon : "",
-            link: row.link || "#",
-            embed: row['embed code'] || row.embed || "",
-            affiliateLink: row['amazon affiliate link'] || row.affiliate_link || "",
-            affiliateImage: row.affiliate_image || row['affiliate image'] || ""
-          };
-          
-          if (gameObj.name && gameObj.name.length > 2) {
-            allGames.push(gameObj);
-          }
-          
-          if (gameObj.affiliateLink && gameObj.affiliateLink.trim()) {
-            affiliateProducts.push(gameObj);
-          }
-        }
-      }
-      
-      if (!allGames.length) {
-        allGames = [
-          { id: 'g0', name: '🚗 Parking Jam', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
-          { id: 'g1', name: '🕵️ Thief Puzzle Game', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
-          { id: 'g2', name: '🏓 Table Tennis World Tour', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
-          { id: 'g3', name: '🚛 Endless Truck', icon: '', link: 'https://play.famobi.com/endless-truck', embed: '', affiliateLink: '', affiliateImage: '' },
-          { id: 'g4', name: '🚌 Bus Driver Simulator 3D', icon: '', link: 'https://play.gamepix.com/bus-driver-simulator-3d', embed: '', affiliateLink: '', affiliateImage: '' },
-          { id: 'g5', name: '🏎️ Real Motor Race Master', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' }
-        ];
-      }
-      
-      renderSidebarAffiliates();
-      updateFavoritesList();
-      updateStats();
-      renderGrid();
-    } catch(e) {
-      console.warn('Error loading CSV, using fallback games:', e);
-      allGames = [
-        { id: 'g0', name: '🚗 Parking Jam', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
-        { id: 'g1', name: '🕵️ Thief Puzzle Game', icon: '', link: '#', embed: '', affiliateLink: '', affiliateImage: '' },
-        { id: 'g2', name: '🚛 Endless Truck', icon: '', link: 'https://play.famobi.com/endless-truck', embed: '', affiliateLink: '', affiliateImage: '' }
-      ];
-      renderSidebarAffiliates();
-      updateFavoritesList();
-      updateStats();
-      renderGrid();
-    }
-  }
-  
-  document.querySelectorAll('.category-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentCategory = btn.getAttribute('data-category');
-      renderGrid();
-    });
-  });
-  
-  closeGameBtn.addEventListener('click', closeGamePlayer);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gamePlayer.style.display === 'flex') closeGamePlayer(); });
-  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; renderGrid(); });
-  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; renderGrid(); });
-  
-  window.toggleFavorite = toggleFavorite;
-  loadGames();
-</script>
-
-<div style="text-align: center; padding: 1rem; font-size: 0.7rem; color: #64748b; border-top: 1px solid #334155; margin-top: 1rem;">
-  <p><i class="fab fa-amazon"></i> As an Amazon Associate I earn from qualifying purchases. Store ID: bestgadge0b72-21</p>
-</div>
-</body>
-</html>
+      if (resp.ok) {
+        const csv = await resp.text();
+        let gamesData = parseCSV(csv);
+        if (gamesData.length > 0) {
+          allGames = [];
+          affiliateProducts = [];
+          for (let row of gamesData) {
+            let gameName = row.name || "Game";
+            const matchedGame = gamesDatabase.find(g => gameName.toLowerCase().includes(g
