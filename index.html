@@ -7,7 +7,7 @@
   <!-- Google Search Console Verification -->
   <meta name="google-site-verification" content="QDw0cSLBlmhFX-jvbY6gZsG-_Jq8x8T8MOgbwWvwHYo" />
   
-  <title>🌙 Nightfall Arcade | Play Games - Shop Amazon</title>
+  <title>🌙 Nightfall Arcade | Play Free Kids Games Online</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -16,19 +16,20 @@
       background: linear-gradient(145deg, #0b0f1c 0%, #1a1f2e 100%);
       font-family: 'Quicksand', sans-serif;
       min-height: 100vh;
-      padding: 1rem;
+      padding: 1.5rem;
     }
     
+    /* Desktop Layout */
     .app-layout {
       display: flex;
-      gap: 1.5rem;
+      gap: 2rem;
       max-width: 1600px;
       margin: 0 auto;
       position: relative;
       z-index: 2;
     }
     
-    /* Sidebar */
+    /* Sidebar - Fixed width for desktop */
     .sidebar {
       width: 320px;
       background: linear-gradient(145deg, #1a1f2e 0%, #0f172a 100%);
@@ -38,7 +39,7 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.4);
       height: fit-content;
       position: sticky;
-      top: 1rem;
+      top: 1.5rem;
     }
     
     .sidebar h3 {
@@ -74,7 +75,7 @@
       gap: 8px;
     }
     
-    /* Amazon Affiliate Links in Sidebar */
+    /* Amazon Affiliate Links */
     .amazon-link {
       display: flex;
       align-items: center;
@@ -111,80 +112,11 @@
       font-weight: bold;
     }
     
-    /* Game Card with Affiliate Badge */
-    .game-card {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      border-radius: 24px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      padding: 1rem;
-      border: 1px solid #2d3a5e;
-      position: relative;
+    /* Desktop Game Grid - 4 to 5 columns */
+    .main-content {
+      flex: 1;
+      min-width: 0;
     }
-    
-    .game-card:hover { transform: translateY(-4px); box-shadow: 0 0 0 2px #facc15; }
-    
-    .affiliate-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: #facc15;
-      color: #1a1f2e;
-      font-size: 0.6rem;
-      font-weight: bold;
-      padding: 2px 8px;
-      border-radius: 20px;
-      z-index: 5;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .affiliate-badge:hover {
-      background: #ff8c00;
-      transform: scale(1.05);
-    }
-    
-    .favorite-star {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 1.3rem;
-      background: rgba(0,0,0,0.6);
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .favorite-star.favorited { color: #facc15; }
-    .favorite-star:not(.favorited) { color: #64748b; }
-    
-    .game-icon { width: 80px; height: 80px; object-fit: cover; border-radius: 16px; margin: 0 auto 0.5rem; display: block; }
-    .game-name { text-align: center; font-weight: 800; color: #facc15; margin: 0.5rem 0; font-size: 0.9rem; }
-    .play-badge { text-align: center; font-size: 0.7rem; background: #22c55e; padding: 0.2rem 0.8rem; border-radius: 20px; display: inline-block; margin: 0 auto; color: #022c1a; }
-    
-    .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
-    
-    .search-wrapper { max-width: 500px; margin: 1rem auto; position: relative; }
-    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #818cf8; }
-    #searchInput {
-      width: 100%;
-      padding: 0.8rem 1rem 0.8rem 2.8rem;
-      font-size: 1rem;
-      font-family: 'Quicksand', sans-serif;
-      font-weight: 600;
-      border: none;
-      border-radius: 60px;
-      background: #0f1222;
-      outline: none;
-      color: #f1f5f9;
-    }
-    
-    .info-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
-    .game-counter { background: #1e293b; border-radius: 40px; padding: 0.3rem 1rem; font-weight: 700; color: #facc15; }
-    .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; }
     
     .hero { text-align: center; margin-bottom: 1.5rem; }
     .hero h1 {
@@ -205,6 +137,129 @@
       border-radius: 60px;
     }
     
+    .search-wrapper { max-width: 500px; margin: 1rem auto; position: relative; }
+    .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #818cf8; }
+    #searchInput {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.8rem;
+      font-size: 1rem;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      border: none;
+      border-radius: 60px;
+      background: #0f1222;
+      outline: none;
+      color: #f1f5f9;
+    }
+    
+    .info-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 10px; }
+    .game-counter { background: #1e293b; border-radius: 40px; padding: 0.3rem 1rem; font-weight: 700; color: #facc15; }
+    .clear-search { background: #4c1d95; border: none; padding: 0.3rem 1rem; border-radius: 50px; color: white; cursor: pointer; font-family: 'Quicksand'; font-weight: 600; }
+    
+    /* DESKTOP GAME GRID - 5 columns on large screens */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    /* Game Card - Desktop optimized */
+    .game-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      padding: 1rem;
+      border: 1px solid #2d3a5e;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .game-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 0 2px #facc15;
+    }
+    
+    .affiliate-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: #facc15;
+      color: #1a1f2e;
+      font-size: 0.6rem;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 20px;
+      z-index: 5;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .affiliate-badge:hover {
+      background: #ff8c00;
+      transform: scale(1.05);
+    }
+    
+    .favorite-star {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 1.2rem;
+      background: rgba(0,0,0,0.6);
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .favorite-star:hover { transform: scale(1.1); }
+    .favorite-star.favorited { color: #facc15; }
+    .favorite-star:not(.favorited) { color: #64748b; }
+    
+    .game-icon {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 18px;
+      margin: 0.5rem auto;
+      display: block;
+      background: #0f1222;
+    }
+    
+    .game-name {
+      text-align: center;
+      font-weight: 800;
+      color: #facc15;
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .play-badge {
+      text-align: center;
+      font-size: 0.7rem;
+      background: #22c55e;
+      padding: 0.25rem 0.8rem;
+      border-radius: 20px;
+      display: inline-block;
+      margin: 0 auto;
+      color: #022c1a;
+      font-weight: bold;
+    }
+    
+    /* Category buttons */
     .category-btn {
       display: flex;
       align-items: center;
@@ -219,14 +274,26 @@
       font-family: 'Quicksand', sans-serif;
       font-weight: 600;
       cursor: pointer;
+      transition: all 0.2s;
     }
+    
     .category-btn:hover, .category-btn.active { background: #4c1d95; border-color: #facc15; }
     
     .favorite-list { max-height: 200px; overflow-y: auto; }
-    .favorite-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; margin: 0.3rem 0; background: #1e293b; border-radius: 12px; border-left: 2px solid #facc15; }
+    .favorite-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      margin: 0.3rem 0;
+      background: #1e293b;
+      border-radius: 12px;
+      border-left: 2px solid #facc15;
+    }
     .favorite-item span { color: #facc15; font-weight: 600; flex: 1; font-size: 0.8rem; }
-    .favorite-item button { background: #dc2626; border: none; color: white; padding: 2px 8px; border-radius: 20px; cursor: pointer; }
+    .favorite-item button { background: #dc2626; border: none; color: white; padding: 2px 8px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; }
     
+    /* Game Player Overlay */
     .game-player-overlay {
       position: fixed;
       top: 0;
@@ -258,6 +325,8 @@
       padding: 0.4rem 1rem;
       border-radius: 30px;
       cursor: pointer;
+      font-family: 'Quicksand';
+      font-weight: 600;
     }
     .fullscreen-btn { background: #0284c7; }
     .close-game-btn { background: #dc2626; }
@@ -267,20 +336,34 @@
     .empty-state, .loader { text-align: center; padding: 3rem; color: #94a3b8; grid-column: 1/-1; }
     .footer { text-align: center; margin-top: 2rem; color: #94a3b8; font-size: 0.7rem; }
     
+    /* Responsive: Tablet (3 columns) */
+    @media (max-width: 1200px) {
+      .games-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    
+    @media (max-width: 992px) {
+      .games-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    
     @media (max-width: 768px) {
+      body { padding: 1rem; }
       .app-layout { flex-direction: column; }
       .sidebar { width: 100%; position: static; }
-      .games-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      .games-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .game-icon { width: 70px; height: 70px; }
+    }
+    
+    @media (max-width: 480px) {
+      .games-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
 <div class="app-layout">
-  <!-- SIDEBAR WITH AMAZON AFFILIATE LINKS - YOUR TAG: bestgadge0b72-21 -->
+  <!-- SIDEBAR WITH AMAZON AFFILIATE LINKS -->
   <div class="sidebar">
     <h3><i class="fab fa-amazon"></i> Amazon Game Store</h3>
     
-    <!-- ===== AMAZON AFFILIATE SECTION WITH YOUR TAG ===== -->
     <div class="sidebar-section">
       <h4><i class="fas fa-gamepad"></i> 🎮 Best Sellers for Gamers</h4>
       
@@ -314,24 +397,11 @@
         <span class="price">$25.00</span>
       </a>
       
-      <a href="https://www.amazon.com/dp/B09N3Y7T2M?tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
-        <i class="fas fa-tablet-alt"></i>
-        <span>Kids Fire Tablet</span>
-        <span class="price">$99.99</span>
-      </a>
-      
-      <a href="https://www.amazon.com/s?k=educational+toys+for+kids+8-12&tag=bestgadge0b72-21" target="_blank" class="amazon-link" rel="sponsored nofollow">
-        <i class="fas fa-brain"></i>
-        <span>Educational Toys</span>
-        <span class="price">Shop All →</span>
-      </a>
-      
       <div style="font-size:0.65rem; color:#64748b; margin-top:10px; text-align:center;">
         🔗 As an Amazon Associate I earn from qualifying purchases
       </div>
     </div>
     
-    <!-- Categories -->
     <div class="sidebar-section">
       <h4><i class="fas fa-filter"></i> Categories</h4>
       <button class="category-btn active" data-category="all"><i class="fas fa-globe"></i> All Games</button>
@@ -390,13 +460,22 @@
   // ========= YOUR AMAZON AFFILIATE TAG =========
   const AMAZON_TAG = 'bestgadge0b72-21';
   
-  // Google Sheets CSV URL (add a new column called "affiliate_link")
+  // Google Sheets CSV URL
   const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
   
-  // ========= EXPECTED CSV COLUMNS =========
-  // Name, Icon, Link, Embed, affiliate_link
-  // The "affiliate_link" column can contain your Amazon product link
-  // If you put a partial link, the tag will be added automatically
+  // Fallback games (in case CSV fails to load)
+  const FALLBACK_GAMES = [
+    { id: 'game_0', name: 'Thief Puzzle Game', icon: 'https://placehold.co/90x90/4c1d95/white?text=🎮', link: 'https://example.com/thief', embed: '', affiliateLink: '' },
+    { id: 'game_1', name: 'Table Tennis World Tour', icon: 'https://placehold.co/90x90/4c1d95/white?text=🏓', link: 'https://example.com/tennis', embed: '', affiliateLink: '' },
+    { id: 'game_2', name: 'Endless Truck', icon: 'https://placehold.co/90x90/4c1d95/white?text=🚛', link: 'https://example.com/truck', embed: '', affiliateLink: '' },
+    { id: 'game_3', name: 'Bus Driver Simulator 3D', icon: 'https://placehold.co/90x90/4c1d95/white?text=🚌', link: 'https://example.com/bus', embed: '', affiliateLink: '' },
+    { id: 'game_4', name: 'Real Motor Race Master', icon: 'https://placehold.co/90x90/4c1d95/white?text=🏎️', link: 'https://example.com/race', embed: '', affiliateLink: '' },
+    { id: 'game_5', name: 'Geometry Dash', icon: 'https://placehold.co/90x90/4c1d95/white?text=⚡', link: 'https://geometrydash.io', embed: '<iframe src="https://geometrydash.io" width="100%" height="100%"></iframe>', affiliateLink: 'https://www.amazon.com/dp/B08N5WRWNW' },
+    { id: 'game_6', name: 'Subway Surfers', icon: 'https://placehold.co/90x90/4c1d95/white?text=🚇', link: 'https://subwaysurfers.com', embed: '', affiliateLink: 'https://www.amazon.com/dp/B07V9Q8X9Z' },
+    { id: 'game_7', name: 'Temple Run 2', icon: 'https://placehold.co/90x90/4c1d95/white?text=🏃', link: 'https://templerun.com', embed: '', affiliateLink: '' },
+    { id: 'game_8', name: 'Candy Crush Saga', icon: 'https://placehold.co/90x90/4c1d95/white?text=🍬', link: 'https://candycrush.com', embed: '', affiliateLink: '' },
+    { id: 'game_9', name: 'Among Us', icon: 'https://placehold.co/90x90/4c1d95/white?text=👾', link: 'https://amongus.io', embed: '', affiliateLink: 'https://www.amazon.com/dp/B08F3T9X4R' }
+  ];
   
   let favorites = JSON.parse(localStorage.getItem('nightfall_favorites') || '[]');
   let allGames = [];
@@ -425,7 +504,6 @@
     });
   }
   
-  // Fullscreen
   function toggleFullscreen() {
     const container = document.getElementById('gameIframeContainer');
     if (!document.fullscreenElement) container.requestFullscreen();
@@ -452,14 +530,13 @@
       iframe.setAttribute('allowfullscreen', 'true');
       gameIframeContainer.appendChild(iframe);
     } else {
-      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center; color:white;">No game available</div>';
+      gameIframeContainer.innerHTML = '<div style="padding:3rem; text-align:center; color:white;">🎮 Game coming soon!</div>';
     }
     gamePlayer.style.display = 'flex';
   }
   
   function closeGamePlayer() { gamePlayer.style.display = 'none'; gameIframeContainer.innerHTML = ''; }
   
-  // Favorites System
   function saveFavorites() {
     localStorage.setItem('nightfall_favorites', JSON.stringify(favorites));
     updateFavoritesList();
@@ -494,21 +571,15 @@
       <div><i class="fas fa-database"></i> Total Games: ${allGames.length}</div>
       <div><i class="fas fa-star"></i> Favorites: ${favorites.length}</div>
       <div><i class="fab fa-amazon"></i> Affiliate Links: ${affiliateCount}</div>
-      <div><i class="fas fa-tag"></i> Store ID: ${AMAZON_TAG}</div>
     `;
   }
   
-  // Function to append Amazon tag to any Amazon link
   function addAmazonTag(url) {
     if (!url) return null;
-    // Check if it's an Amazon link
     if (url.includes('amazon.com') || url.includes('amazon.')) {
-      // Check if already has tag parameter
       if (url.includes('tag=')) {
-        // Replace existing tag with yours
         return url.replace(/tag=[^&]+/, `tag=${AMAZON_TAG}`);
       }
-      // Add tag parameter
       const separator = url.includes('?') ? '&' : '?';
       return `${url}${separator}tag=${AMAZON_TAG}`;
     }
@@ -529,7 +600,7 @@
     countSpan.innerText = filteredGames.length;
     
     if (!filteredGames.length) {
-      grid.innerHTML = '<div class="empty-state">🎮 No games found. Try another search or add games to your CSV!</div>';
+      grid.innerHTML = '<div class="empty-state">🎮 No games found. Try another search!</div>';
       return;
     }
     
@@ -539,11 +610,11 @@
       const hasAffiliate = game.affiliateLink && game.affiliateLink.trim();
       const affiliateUrl = hasAffiliate ? addAmazonTag(game.affiliateLink) : null;
       
-      const iconHtml = game.icon ? `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/80x80/4c1d95/white?text=🎮'">` : `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem;"></i></div>`;
+      const iconHtml = game.icon ? `<img class="game-icon" src="${escapeHtml(game.icon)}" onerror="this.src='https://placehold.co/90x90/4c1d95/white?text=🎮'">` : `<div class="game-icon" style="background:#4c1d95; display:flex; align-items:center; justify-content:center;"><i class="fas fa-gamepad" style="font-size:2rem;"></i></div>`;
       
       html += `
         <div class="game-card" data-name="${escapeHtml(game.name)}" data-link="${escapeHtml(game.link)}" data-embed="${escapeHtml(game.embed || '')}" data-affiliate="${escapeHtml(affiliateUrl || '')}">
-          ${hasAffiliate ? '<div class="affiliate-badge" data-affiliate-url="' + escapeHtml(affiliateUrl) + '"><i class="fab fa-amazon"></i> 🛍️ Shop on Amazon</div>' : ''}
+          ${hasAffiliate ? '<div class="affiliate-badge" data-affiliate-url="' + escapeHtml(affiliateUrl) + '"><i class="fab fa-amazon"></i> 🛍️ Shop</div>' : ''}
           <div class="favorite-star ${favorited ? 'favorited' : ''}" data-id="${escapeHtml(game.id)}"><i class="fas fa-star"></i></div>
           ${iconHtml}
           <div class="game-name">${escapeHtml(game.name)}</div>
@@ -553,33 +624,24 @@
     }
     grid.innerHTML = html;
     
-    // Add click handlers for game cards
     document.querySelectorAll('.game-card').forEach(card => {
       const name = card.getAttribute('data-name');
       const link = card.getAttribute('data-link');
       const embed = card.getAttribute('data-embed');
       
       card.addEventListener('click', (e) => {
-        // If clicking on affiliate badge, open affiliate link
         const affiliateBadge = e.target.closest('.affiliate-badge');
         if (affiliateBadge) {
           e.stopPropagation();
           const affiliateUrl = affiliateBadge.getAttribute('data-affiliate-url');
-          if (affiliateUrl) {
-            window.open(affiliateUrl, '_blank');
-          }
+          if (affiliateUrl) window.open(affiliateUrl, '_blank');
           return;
         }
-        
-        // If clicking on favorite star, don't play game
         if (e.target.closest('.favorite-star')) return;
-        
-        // Otherwise play the game
         playGameInside({ name, link, embed });
       });
     });
     
-    // Add favorite star handlers
     document.querySelectorAll('.favorite-star').forEach(star => {
       star.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -588,21 +650,14 @@
     });
   }
   
-  // CSV Parser
   function parseCSV(csvText) {
     const rows = [];
-    let row = [];
-    let buffer = '';
-    let inQuotes = false;
+    let row = [], buffer = '', inQuotes = false;
     for (let i = 0; i < csvText.length; i++) {
       let ch = csvText[i];
       if (ch === '"') {
-        if (inQuotes && csvText[i+1] === '"') {
-          buffer += '"';
-          i++;
-        } else {
-          inQuotes = !inQuotes;
-        }
+        if (inQuotes && csvText[i+1] === '"') { buffer += '"'; i++; }
+        else { inQuotes = !inQuotes; }
       } else if (ch === ',' && !inQuotes) {
         row.push(buffer.trim());
         buffer = '';
@@ -630,45 +685,41 @@
     });
   }
   
-  // Load games from CSV
   async function loadGames() {
     try {
-      grid.innerHTML = '<div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading games from Google Sheets...</div>';
+      grid.innerHTML = '<div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading games...</div>';
       const resp = await fetch(CSV_URL);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      if (!resp.ok) throw new Error();
       const csv = await resp.text();
       let gamesData = parseCSV(csv);
       
-      allGames = gamesData.map((row, idx) => ({
-        id: `game_${idx}`,
-        name: row.name || row.title || "Mystery Game",
-        icon: row.icon || row.image || "",
-        link: row.link || row.url || "#",
-        embed: row.embed || row.embedded || "",
-        affiliateLink: row.affiliate_link || row.affiliate || row.amazon || ""  // NEW COLUMN: affiliate_link
-      }));
-      
-      if (!allGames.length) {
-        allGames = [{ 
-          id: 'demo', 
-          name: '✨ Add games to your CSV!', 
-          icon: '', 
-          link: '#', 
-          embed: '<div style="padding:40px; text-align:center; color:white;">✨ Add "affiliate_link" column to your Google Sheet!</div>',
-          affiliateLink: ''
-        }];
+      if (gamesData.length > 0) {
+        allGames = gamesData.map((row, idx) => ({
+          id: `game_${idx}`,
+          name: row.name || row.title || "Game",
+          icon: row.icon || row.image || "",
+          link: row.link || row.url || "#",
+          embed: row.embed || row.embedded || "",
+          affiliateLink: row.affiliate_link || row.affiliate || row.amazon || ""
+        }));
+      } else {
+        allGames = FALLBACK_GAMES;
       }
+      
+      if (!allGames.length) allGames = FALLBACK_GAMES;
       
       updateFavoritesList();
       updateStats();
       renderGrid();
     } catch(e) {
-      console.error(e);
-      grid.innerHTML = '<div class="empty-state">⚠️ Could not load games. Make sure your Google Sheet CSV is public.</div>';
+      console.warn('Using fallback games due to CSV error');
+      allGames = FALLBACK_GAMES;
+      updateFavoritesList();
+      updateStats();
+      renderGrid();
     }
   }
   
-  // Category filter
   document.querySelectorAll('.category-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -678,22 +729,18 @@
     });
   });
   
-  // Event listeners
   closeGameBtn.addEventListener('click', closeGamePlayer);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gamePlayer.style.display === 'flex') closeGamePlayer(); });
   searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; renderGrid(); });
   clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; renderGrid(); });
   
-  // Make toggleFavorite global for inline onclick
   window.toggleFavorite = toggleFavorite;
-  
-  // Start
   loadGames();
 </script>
 
-<!-- Amazon Affiliate Disclosure (Legal Requirement) -->
+<!-- Amazon Affiliate Disclosure -->
 <div style="text-align: center; padding: 1rem; font-size: 0.7rem; color: #64748b; border-top: 1px solid #334155; margin-top: 1rem;">
-  <p><i class="fab fa-amazon"></i> As an Amazon Associate I earn from qualifying purchases. This site contains affiliate links. Store ID: bestgadge0b72-21</p>
+  <p><i class="fab fa-amazon"></i> As an Amazon Associate I earn from qualifying purchases. Store ID: bestgadge0b72-21</p>
 </div>
 </body>
 </html>
