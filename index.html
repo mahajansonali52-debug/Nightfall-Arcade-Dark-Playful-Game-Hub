@@ -1,1278 +1,419 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import {
-  Moon,
-  PlayCircle,
-  Search,
-  Brush,
-  Dice6,
-  Star,
-  Heart,
-  History,
-  X,
-  Volume2,
-  VolumeX,
-  Sparkles,
-  Maximize2,
-  Minimize2,
-  Flame,
-  Gamepad,
-  ExternalLink,
-  Laptop,
-  Coins,
-  NotebookPen,
-  ChevronRight,
-  TrendingUp
-} from "lucide-react";
-
-// ==========================================
-// 1. TYPE DECLARATIONS
-// ==========================================
-export interface Game {
-  name: string;
-  icon: string;
-  link: string;
-  embed: string;
-  affiliateLink?: string;
-  affiliateImage?: string;
-}
-
-export interface AffiliateProduct {
-  id: string;
-  name: string;
-  price: string;
-  rating: number;
-  image: string;
-  link: string;
-  description: string;
-  category: "Gear" | "Accessory" | "Collectibles";
-  badge?: string;
-  isCustom?: boolean;
-  gameAssociation?: string;
-}
-
-// ==========================================
-// 2. CURATED AFFILIATES CATALOG DATA
-// ==========================================
-const CURATED_AFFILIATES: AffiliateProduct[] = [
-  {
-    id: "neon-keyboard",
-    name: "Nightfall Mechanical Keyboard",
-    price: "$89.99",
-    rating: 4.8,
-    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=400&q=80",
-    link: "https://amazon.com/s?k=mechanical+gaming+keyboard+rainbow",
-    description: "Compact RGB mechanical keyboard with custom lunar tactile switches and deep nightfall violet keycaps.",
-    category: "Gear",
-    badge: "Staff Pick"
-  },
-  {
-    id: "cosmic-gamepad",
-    name: "Aero-Glow Wireless Controller",
-    price: "$49.95",
-    rating: 4.9,
-    image: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=400&q=80",
-    link: "https://amazon.com/s?k=wireless+pc+controller+nebula+glow",
-    description: "High-precision hall effect analog sticks with adjustable neon haptics and a matte constellation grip.",
-    category: "Gear",
-    badge: "Trending"
-  },
-  {
-    id: "retro-headphones",
-    name: "Nebula-X Noise Isolation Cuff",
-    price: "$119.00",
-    rating: 4.7,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80",
-    link: "https://amazon.com/s?k=gaming+headphones+over+ear+rgb",
-    description: "Immersive 3D audio space positioning. Padded premium nebula-foam cups designed for marathon night shifts.",
-    category: "Gear",
-    badge: "Pro Audio"
-  },
-  {
-    id: "holo-strip",
-    name: "Ambient Aurora Dynamic Strips",
-    price: "$19.99",
-    rating: 4.6,
-    image: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=400&q=80",
-    link: "https://amazon.com/s?k=smart+led+strip+lights+cozy",
-    description: "Smart ambient LED light strips that automatically sync rhythmically to retro platformer chiptune beats.",
-    category: "Accessory",
-    badge: "Cozy Vibe"
-  }
-];
-
-// ==========================================
-// 3. RETRO CHIPTUNE SOUND SYNTHESIZER UTILITIES
-// ==========================================
-let audioContext: AudioContext | null = null;
-let bgSequenceInterval: number | null = null;
-
-function getAudioContext(): AudioContext {
-  if (!audioContext) {
-    audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-  }
-  if (audioContext.state === "suspended") {
-    audioContext.resume();
-  }
-  return audioContext;
-}
-
-export function playChirp() {
-  try {
-    const ctx = getAudioContext();
-    const now = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(300, now);
-    osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
-    
-    gain.gain.setValueAtTime(0.04, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-    
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    
-    osc.start(now);
-    osc.stop(now + 0.09);
-  } catch (e) {
-    // Fail silently if audio is blocked or unsupported
-  }
-}
-
-export function playCoin() {
-  try {
-    const ctx = getAudioContext();
-    const now = ctx.currentTime;
-    
-    // Low-level helper for quick tones
-    const playTone = (freq: number, duration: number, type: OscillatorType, volume: number, startTime: number) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, startTime);
-      gain.gain.setValueAtTime(volume, startTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration - 0.01);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(startTime);
-      osc.stop(startTime + duration);
-    };
-
-    playTone(987.77, 0.08, "square", 0.05, now);
-    playTone(1318.51, 0.25, "square", 0.05, now + 0.08);
-  } catch (e) {}
-}
-
-export function playChime() {
-  try {
-    const ctx = getAudioContext();
-    const now = ctx.currentTime;
-    
-    const playTone = (freq: number, duration: number, type: OscillatorType, volume: number, startTime: number) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, startTime);
-      gain.gain.setValueAtTime(volume, startTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration - 0.01);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(startTime);
-      osc.stop(startTime + duration);
-    };
-
-    playTone(523.25, 0.08, "sine", 0.06, now);
-    playTone(659.25, 0.08, "sine", 0.06, now + 0.06);
-    playTone(783.99, 0.12, "sine", 0.06, now + 0.12);
-  } catch (e) {}
-}
-
-export function playPowerDown() {
-  try {
-    const ctx = getAudioContext();
-    const now = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    
-    osc.type = "sawtooth";
-    osc.frequency.setValueAtTime(440, now);
-    osc.frequency.exponentialRampToValueAtTime(110, now + 0.25);
-    
-    gain.gain.setValueAtTime(0.05, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
-    
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    
-    osc.start(now);
-    osc.stop(now + 0.27);
-  } catch (e) {}
-}
-
-export function toggleChiptuneAmbient(isPlaying: boolean, onTick?: (noteNum: number) => void): boolean {
-  if (!isPlaying) {
-    if (bgSequenceInterval !== null) {
-      window.clearInterval(bgSequenceInterval);
-      bgSequenceInterval = null;
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>🌙 Nightfall Arcade | Play Inside - No New Tabs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(145deg, #0b0f1c 0%, #1a1f2e 100%);
+      font-family: 'Quicksand', sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
     }
-    return false;
-  }
+    body::before {
+      content: "✨ 🌙 ⭐ 🎮 🌟 🧸";
+      font-size: 70px;
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
+    .hero { text-align: center; margin-bottom: 2rem; }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #c084fc, #60a5fa, #f472b6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 12px rgba(96, 165, 250, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hero h1 i { background: none; color: #a855f7; text-shadow: 0 0 6px #a855f7; font-size: 2.8rem; }
+    .tagline {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #cbd5e6;
+      background-color: #1e293b;
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 60px;
+      margin-top: 0.8rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .search-wrapper { max-width: 550px; margin: 1.5rem auto 2rem auto; position: relative; }
+    .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.4rem; color: #818cf8; }
+    #searchInput {
+      width: 100%;
+      padding: 1rem 1rem 1rem 3.5rem;
+      font-size: 1.2rem;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      border: none;
+      border-radius: 60px;
+      background: #0f1222;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      outline: none;
+      color: #f1f5f9;
+    }
+    #searchInput:focus { box-shadow: 0 0 0 3px #6366f1; background: #181e2f; }
+    #searchInput::placeholder { color: #64748b; }
+    .info-bar { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 1.8rem; gap: 12px; }
+    .game-counter { background: #1e293b; border-radius: 40px; padding: 0.4rem 1.2rem; font-weight: 700; color: #a5b4fc; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #334155; }
+    .clear-search { background: #4c1d95; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; padding: 0.4rem 1.3rem; border-radius: 50px; color: #e2e8f0; cursor: pointer; box-shadow: 0 3px 0 #2e1065; transition: all 0.1s; }
+    .clear-search:active { transform: translateY(2px); box-shadow: 0 1px 0 #2e1065; }
+    
+    /* Game Grid */
+    .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.8rem; margin-top: 0.5rem; }
+    .game-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 28px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 12px 20px -8px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1.2rem;
+      border: 1px solid #2d3a5e;
+      overflow: hidden;
+    }
+    .game-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 22px 28px -12px #00000080, 0 0 0 2px #818cf8; border-color: #818cf8; }
+    .game-icon { width: 90px; height: 90px; object-fit: cover; border-radius: 20px; background: #0b0e17; padding: 0.5rem; box-shadow: 0 4px 0 #2d3a5e; margin-bottom: 0.8rem; }
+    .game-name { font-size: 1.2rem; font-weight: 800; margin: 0.5rem 0 0.3rem; color: #facc15; background: #1e293b; display: inline-block; padding: 0.2rem 1rem; border-radius: 50px; }
+    .play-badge { margin-top: 0.5rem; font-size: 0.8rem; font-weight: 700; background: #22c55e; padding: 0.25rem 1rem; border-radius: 30px; color: #022c1a; display: inline-flex; align-items: center; gap: 6px; }
+    
+    /* Game Player (full screen embed view) */
+    .game-player-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0a0c15;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      padding: 1rem;
+    }
+    .game-player-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      background: #1e293b;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+    .game-player-title {
+      color: #facc15;
+      font-weight: 800;
+      font-size: 1.3rem;
+    }
+    .close-game-btn {
+      background: #dc2626;
+      border: none;
+      color: white;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .close-game-btn:hover { background: #b91c1c; transform: scale(1.02); }
+    .game-iframe-container {
+      flex: 1;
+      width: 100%;
+      background: #000000;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .game-iframe-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .no-embed-message {
+      text-align: center;
+      padding: 3rem;
+      color: white;
+    }
+    .back-to-games {
+      background: #4c1d95;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .empty-state { text-align: center; grid-column: 1 / -1; padding: 4rem 1rem; background: #0f172a; border-radius: 70px; border: 1px solid #334155; }
+    .empty-state i { font-size: 4rem; color: #facc15; }
+    .empty-state p { font-size: 1.5rem; font-weight: 700; color: #cbd5e1; }
+    .loader { text-align: center; padding: 4rem; font-size: 2rem; color: #a78bfa; }
+    .footer { text-align: center; margin-top: 3rem; color: #94a3b8; font-weight: 600; }
+    
+    @media (max-width: 640px) {
+      body { padding: 1rem; }
+      .hero h1 { font-size: 2rem; }
+      .games-grid { gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+      .game-icon { width: 70px; height: 70px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1><i class="fas fa-moon"></i> Nightfall Arcade <i class="fas fa-play-circle"></i></h1>
+    <div class="tagline"><i class="fas fa-star"></i> Click any game — plays right here! ✨</div>
+  </div>
+  <div class="search-wrapper">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" id="searchInput" placeholder="🔎 Search games by name..." autocomplete="off">
+  </div>
+  <div class="info-bar">
+    <div class="game-counter"><i class="fas fa-dice-d6"></i> <span id="countValue">0</span> glowing games</div>
+    <button class="clear-search" id="clearSearchBtn"><i class="fas fa-brush"></i> Clear search</button>
+  </div>
+  <div id="gamesGridContainer" class="games-grid"><div class="loader"><i class="fas fa-spinner fa-pulse"></i> Loading cosmic games...</div></div>
+  <div class="footer">🌙 Games with embed codes play inside | Others open in new tab 💫</div>
+</div>
+
+<!-- Game Player Overlay (plays inside same page) -->
+<div id="gamePlayer" class="game-player-overlay">
+  <div class="game-player-header">
+    <span class="game-player-title" id="gamePlayerTitle">Loading...</span>
+    <button class="close-game-btn" id="closeGameBtn"><i class="fas fa-times"></i> Close Game</button>
+  </div>
+  <div id="gameIframeContainer" class="game-iframe-container">
+    <!-- iframe or embed content goes here -->
+  </div>
+</div>
+
+<script>
+  // ========= CONFIG =========
+  const CSV_URL = 'https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv';
   
-  try {
-    const ctx = getAudioContext();
-    const scale = [220, 246.94, 261.63, 293.66, 329.63, 392.00, 440, 493.88, 523.25, 587.33, 659.25, 783.99, 880];
-    let step = 0;
-    
-    bgSequenceInterval = window.setInterval(() => {
-      const now = ctx.currentTime;
-      
-      // Bass sound synthesizer on interval
-      if (step % 4 === 0) {
-        const bassNote = scale[step % 3];
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(bassNote / 2, now);
-        gain.gain.setValueAtTime(0.06, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        osc.start(now);
-        osc.stop(now + 1.3);
-      }
-      
-      // Melody arpeggio synthesizer
-      if (Math.random() < 0.75) {
-        const randomNoteIdx = Math.floor(Math.random() * scale.length);
-        const pitch = scale[randomNoteIdx];
-        const osc = ctx.createOscillator();
-        const gain = ctx.createGain();
-        
-        osc.type = Math.random() > 0.6 ? "triangle" : "sine";
-        osc.frequency.setValueAtTime(pitch, now);
-        
-        if (Math.random() > 0.5) {
-          osc.frequency.exponentialRampToValueAtTime(pitch * 1.5, now + 0.15);
-        }
-        
-        gain.gain.setValueAtTime(Math.random() * 0.015 + 0.005, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-        
-        osc.connect(gain);
-        gain.connect(ctx.destination);
-        
-        osc.start(now);
-        osc.stop(now + 0.45);
-        
-        if (onTick) onTick(randomNoteIdx);
-      }
-      
-      step = (step + 1) % 16;
-    }, 450);
-    
-    return true;
-  } catch (e) {
-    console.error("Audio synthesiser initialization offline error:", e);
-    return false;
-  }
-}
-
-// ==========================================
-// 4. CSV STREAM PARSING UTILITY
-// ==========================================
-export function parseCSV(csvText: string): Game[] {
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let buffer = "";
-  let inQuotes = false;
-
-  for (let i = 0; i < csvText.length; i++) {
-    const ch = csvText[i];
-    if (ch === '"') {
-      if (inQuotes && csvText[i + 1] === '"') {
-        buffer += '"';
-        i++;
-      } else {
-        inQuotes = !inQuotes;
-      }
-    } else if (ch === "," && !inQuotes) {
-      row.push(buffer.trim());
-      buffer = "";
-    } else if ((ch === "\r" || ch === "\n") && !inQuotes) {
-      row.push(buffer.trim());
-      if (ch === "\r" && csvText[i + 1] === "\n") {
-        i++;
-      }
-      if (row.length > 0 && row.some(cell => cell !== "")) {
-        rows.push(row);
-      }
-      row = [];
-      buffer = "";
-    } else {
-      buffer += ch;
-    }
-  }
-  
-  if (buffer.trim() || row.length > 0) {
-    row.push(buffer.trim());
-    if (row.length > 0 && row.some(cell => cell !== "")) {
-      rows.push(row);
-    }
-  }
-
-  if (rows.length === 0) return [];
-
-  const headers = rows[0].map(h => 
-    h.replace(/^"|"$/g, "").trim().toLowerCase()
-  );
-
-  const data: Game[] = [];
-
-  for (let i = 1; i < rows.length; i++) {
-    const currentRow = rows[i];
-    const obj: any = {};
-    for (let j = 0; j < headers.length; j++) {
-      let val = currentRow[j] || "";
-      val = val.replace(/^"|"$/g, "").replace(/""/g, '"').trim();
-      obj[headers[j]] = val;
-    }
-
-    const name = obj.name || obj.title || obj.game || obj["game name"] || "";
-    const icon = obj.icon || obj.image || obj.logo || obj["game icon"] || obj.img || "";
-    const link = obj.link || obj.url || obj["play link"] || "#";
-    const embed = obj.embed || obj.embedded || obj.iframe || obj["embed code"] || "";
-    
-    const affiliateLink = obj.affiliate_link || obj.affiliatelink || obj["affiliate link"] || obj.promo_link || obj.buy_link || "";
-    const affiliateImage = obj.affiliate_image || obj.affiliateimage || obj["affiliate image"] || obj.affiliate_img || obj.promo_image || "";
-
-    if (name) {
-      data.push({
-        name,
-        icon,
-        link,
-        embed,
-        affiliateLink,
-        affiliateImage
-      });
-    }
-  }
-
-  return data;
-}
-
-// ==========================================
-// 5. SECURE SAFE ENVIRONMENT EMBED FORMATTER
-// ==========================================
-function getEmbedUrl(embed: string, fallbackLink: string): string {
-  if (!embed) return fallbackLink;
-  const trimmed = embed.trim();
-  if (!trimmed.startsWith("<")) return trimmed;
-  
-  const match = trimmed.match(/src=["']([^"']+)["']/i);
-  if (match && match[1]) {
-    return match[1];
-  }
-  return fallbackLink;
-}
-
-// ==========================================
-// 6. MAIN REACT COMPONENT
-// ==========================================
-const CSV_URL = "https://docs.google.com/spreadsheets/d/1d3dQIastMEGZzeWtnnVrQ6e86jsexVV1RAHcydP-lOU/export?format=csv";
-
-export default function App() {
-  // State variables
-  const [games, setGames] = useState<Game[]>([]);
-  const [filteredGames, setFilteredGames] = useState<Game[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [errorString, setErrorString] = useState<string | null>(null);
-
-  // Search & Filters
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState<"all" | "favorites" | "recent">("all");
-  const [activeGenre, setActiveGenre] = useState<string>("All");
-
-  // User States (Persisted in localStorage)
-  const [favorites, setFavorites] = useState<string[]>(() => {
-    return JSON.parse(localStorage.getItem("arcade_favorites") || "[]");
-  });
-  const [recentGames, setRecentGames] = useState<string[]>(() => {
-    return JSON.parse(localStorage.getItem("arcade_recent") || "[]");
-  });
-  const [gameRatings, setGameRatings] = useState<Record<string, number>>(() => {
-    return JSON.parse(localStorage.getItem("arcade_ratings") || "{}");
-  });
-  const [playCounts, setPlayCounts] = useState<Record<string, number>>(() => {
-    return JSON.parse(localStorage.getItem("arcade_play_counts") || "{}");
-  });
-  const [notes, setNotes] = useState<Record<string, string>>(() => {
-    return JSON.parse(localStorage.getItem("arcade_notes") || "{}");
-  });
-
-  // Active playing modal
-  const [activeGame, setActiveGame] = useState<Game | null>(null);
-  const [theaterMode, setTheaterMode] = useState(false);
-  const [currentNote, setCurrentNote] = useState("");
-
-  // Music state
-  const [audioEnabled, setAudioEnabled] = useState(false);
-  const [activeNotePulse, setActiveNotePulse] = useState<number | null>(null);
-
-  // Earnings guide state
-  const [showEarningsGuide, setShowEarningsGuide] = useState(true);
-
-  // Fetch Games from Google Sheet
-  useEffect(() => {
-    async function loadGames() {
-      try {
-        setIsLoading(true);
-        const resp = await fetch(CSV_URL);
-        if (!resp.ok) throw new Error(`HTTP fetching error: ${resp.status}`);
-        const csvText = await resp.text();
-        const parsed = parseCSV(csvText);
-
-        if (parsed.length === 0) {
-          // Beautiful fallback demos if sheet is empty
-          setGames([
-            {
-              name: "Tetris Nebula Blast",
-              icon: "https://images.unsplash.com/photo-1612287230202-1bf1d85d1bdf?auto=format&fit=crop&w=150&q=80",
-              link: "https://tetris.com",
-              embed: `<div style="padding:40px; background:linear-gradient(135deg, #1e1b4b, #311042); text-align:center; color:white; border-radius:24px; min-height:400px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-                <h3 style="font-size:1.8em; color:#facc15; margin-bottom:12px;">🎮 Tetris Cosmic Demo</h3>
-                <p style="margin-bottom:20px; font-size:1.1em; max-width:400px;">To play directly, customize your Google spreadsheet with embed codes!</p>
-                <a href="https://tetris.com" target="_blank" style="background:#818cf8; color:#0e1227; font-weight:bold; padding:12px 24px; border-radius:50px; text-decoration:none; display:inline-block;">Launch Tetris.com website</a>
-              </div>`,
-              affiliateLink: "https://amazon.com/s?k=gaming+controller+retro",
-              affiliateImage: "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=400&q=80",
-            },
-            {
-              name: "Asteroid Starfield Escape",
-              icon: "https://images.unsplash.com/photo-1627856013091-fed6e4e30025?auto=format&fit=crop&w=150&q=80",
-              link: "https://playclassic.games",
-              embed: `<div style="padding:40px; background:linear-gradient(135deg, #0f172a, #1e293b); text-align:center; color:white; border-radius:24px; min-height:400px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
-                <h3 style="font-size:1.8em; color:#60a5fa; margin-bottom:12px;">🚀 Space Asteroids</h3>
-                <p style="color:#cbd5e1; margin-bottom:20px; max-width:450px;">Classic vector engine. Column embed has iframe or HTML.</p>
-                <a href="https://google.com" target="_blank" style="background:#38bdf8; color:#0f172a; font-weight:bold; padding:12px 24px; border-radius:50px; text-decoration:none;">Explore Classic Emulators</a>
-              </div>`
-            }
-          ]);
+  // Robust CSV parser
+  function parseCSV(csvText) {
+    const rows = [];
+    let row = [];
+    let buffer = '';
+    let inQuotes = false;
+    for (let i = 0; i < csvText.length; i++) {
+      let ch = csvText[i];
+      if (ch === '"') {
+        if (inQuotes && csvText[i+1] === '"') {
+          buffer += '"';
+          i++;
         } else {
-          setGames(parsed);
+          inQuotes = !inQuotes;
         }
-      } catch (e: any) {
-        console.error("CSV loading error: ", e);
-        setErrorString(e?.message || "Failed to parse Google Spreadsheet.");
-        setGames([
-          {
-            name: "Demo Game Alpha",
-            icon: "",
-            link: "#",
-            embed: `<div style="padding:60px 20px; background:#1e1436; border-radius:20px; text-align:center; color:white;">
-              <h2 style="font-size:1.8rem; color:#facc15; margin-bottom:8px;">💫 Custom Game Server Running</h2>
-              <p style="color:#a5b4fc; max-width:400px; margin: 0 auto 12px;">Spreadsheet was inaccessible. Add games to your Google Sheet to play real interactive experiences!</p>
-            </div>`
-          }
-        ]);
-      } finally {
-        setIsLoading(false);
+      } else if (ch === ',' && !inQuotes) {
+        row.push(buffer.trim());
+        buffer = '';
+      } else if (ch === '\n' && !inQuotes) {
+        row.push(buffer.trim());
+        if (row.length > 0) rows.push(row);
+        row = [];
+        buffer = '';
+      } else {
+        buffer += ch;
       }
     }
-
-    loadGames();
-  }, []);
-
-  // Update Game filtering
-  useEffect(() => {
-    let result = [...games];
-
-    if (searchQuery.trim() !== "") {
-      const q = searchQuery.toLowerCase();
-      result = result.filter(g => g.name.toLowerCase().includes(q));
+    row.push(buffer.trim());
+    if (row.length > 0 && row[0] !== '') rows.push(row);
+    if (rows.length === 0) return [];
+    let headers = rows[0].map(h => h.replace(/^"|"$/g, '').toLowerCase());
+    const data = [];
+    for (let i = 1; i < rows.length; i++) {
+      let obj = {};
+      for (let j = 0; j < headers.length; j++) {
+        let val = rows[i][j] || '';
+        val = val.replace(/^"|"$/g, '').replace(/""/g, '"');
+        obj[headers[j]] = val;
+      }
+      data.push(obj);
     }
-
-    if (activeGenre !== "All") {
-      result = result.filter(g => {
-        const title = g.name.toLowerCase();
-        if (activeGenre === "Retro") {
-          return title.includes("retro") || title.includes("classic") || title.includes("escape") || title.includes("alpha");
+    return data;
+  }
+  
+  let allGames = [], filteredGames = [], currentSearchTerm = "";
+  const grid = document.getElementById('gamesGridContainer');
+  const searchInput = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('clearSearchBtn');
+  const countSpan = document.getElementById('countValue');
+  const gamePlayer = document.getElementById('gamePlayer');
+  const gamePlayerTitle = document.getElementById('gamePlayerTitle');
+  const gameIframeContainer = document.getElementById('gameIframeContainer');
+  const closeGameBtn = document.getElementById('closeGameBtn');
+  
+  function escapeHtml(str) { 
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+  
+  // Show game inside the page (no new tab)
+  function playGameInside(game) {
+    gamePlayerTitle.innerText = game.name;
+    gameIframeContainer.innerHTML = '';
+    
+    if (game.embed && game.embed.trim() !== '') {
+      // Sanitize embed: remove scripts
+      let safeEmbed = game.embed.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+      // Create a div to hold the embed content
+      const embedDiv = document.createElement('div');
+      embedDiv.style.width = '100%';
+      embedDiv.style.height = '100%';
+      embedDiv.innerHTML = safeEmbed;
+      
+      // Make iframes responsive
+      const iframes = embedDiv.querySelectorAll('iframe');
+      iframes.forEach(iframe => {
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.minHeight = '400px';
+        if (!iframe.hasAttribute('sandbox')) {
+          iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms allow-modals');
         }
-        if (activeGenre === "Arcade") {
-          return title.includes("arcade") || title.includes("blast") || title.includes("maze") || title.includes("asteroids");
-        }
-        if (activeGenre === "Space") {
-          return title.includes("cosmic") || title.includes("space") || title.includes("nebula") || title.includes("asteroid") || title.includes("star");
-        }
-        if (activeGenre === "Indie") {
-          return !title.includes("classic") && !title.includes("cosmic");
-        }
-        return true;
       });
-    }
-
-    if (activeTab === "favorites") {
-      result = result.filter(g => favorites.includes(g.name));
-    } else if (activeTab === "recent") {
-      result = result.filter(g => recentGames.includes(g.name));
-      result.sort((a, b) => recentGames.indexOf(a.name) - recentGames.indexOf(b.name));
-    }
-
-    setFilteredGames(result);
-  }, [games, searchQuery, activeTab, activeGenre, favorites, recentGames]);
-
-  const toggleFavorite = (name: string, e?: React.MouseEvent) => {
-    if (e) e.stopPropagation();
-    let updated;
-    if (favorites.includes(name)) {
-      updated = favorites.filter(fav => fav !== name);
+      
+      gameIframeContainer.appendChild(embedDiv);
+    } else if (game.link && game.link !== "#" && game.link !== '') {
+      // No embed, but has link — show in iframe (play inside)
+      const iframe = document.createElement('iframe');
+      iframe.src = game.link;
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.border = 'none';
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-top-navigation');
+      gameIframeContainer.appendChild(iframe);
     } else {
-      updated = [...favorites, name];
-      playChime();
+      gameIframeContainer.innerHTML = `<div class="no-embed-message"><i class="fas fa-link" style="font-size:3rem;"></i><p>No game link or embed available.</p><button class="back-to-games" onclick="document.getElementById('gamePlayer').style.display='none'">Back to Arcade</button></div>`;
     }
-    setFavorites(updated);
-    localStorage.setItem("arcade_favorites", JSON.stringify(updated));
-  };
-
-  const playNewGame = (game: Game) => {
-    playCoin();
-    setActiveGame(game);
-
-    setRecentGames(prev => {
-      const filtered = prev.filter(n => n !== game.name);
-      const updated = [game.name, ...filtered].slice(0, 8);
-      localStorage.setItem("arcade_recent", JSON.stringify(updated));
-      return updated;
-    });
-
-    setPlayCounts(prev => {
-      const updated = { ...prev, [game.name]: (prev[game.name] || 0) + 1 };
-      localStorage.setItem("arcade_play_counts", JSON.stringify(updated));
-      return updated;
-    });
-
-    setCurrentNote(notes[game.name] || "");
-  };
-
-  const handleClosePlayer = () => {
-    playPowerDown();
-    setActiveGame(null);
-    setTheaterMode(false);
-  };
-
-  const saveGameNote = (gameName: string, text: string) => {
-    const updatedNotes = { ...notes, [gameName]: text };
-    setNotes(updatedNotes);
-    localStorage.setItem("arcade_notes", JSON.stringify(updatedNotes));
-  };
-
-  const rateGame = (gameName: string, stars: number) => {
-    playChirp();
-    const updated = { ...gameRatings, [gameName]: stars };
-    setGameRatings(updated);
-    localStorage.setItem("arcade_ratings", JSON.stringify(updated));
-  };
-
-  const resetFilters = () => {
-    playChirp();
-    setSearchQuery("");
-    setActiveTab("all");
-    setActiveGenre("All");
-  };
-
-  const handleToggleAmbient = () => {
-    const nextState = !audioEnabled;
-    setAudioEnabled(nextState);
-    toggleChiptuneAmbient(nextState, (noteNum) => {
-      setActiveNotePulse(noteNum);
-      setTimeout(() => setActiveNotePulse(null), 200);
-    });
-  };
-
-  const getDynamicAffiliateProducts = (): AffiliateProduct[] => {
-    const products: AffiliateProduct[] = [...CURATED_AFFILIATES];
-
-    games.forEach((game, index) => {
-      if (game.affiliateLink && game.affiliateLink.trim() !== "") {
-        const alreadyExists = products.some(p => p.link === game.affiliateLink);
-        if (!alreadyExists) {
-          products.unshift({
-            id: `sheet-affiliate-${index}`,
-            name: `${game.name} Recommended Gear`,
-            price: "Special Price",
-            rating: 5.0,
-            image: game.affiliateImage || "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=400&q=80",
-            link: game.affiliateLink,
-            description: `Official gamer gear customized specifically for playing ${game.name}! Fast, robust analog response.`,
-            category: "Gear",
-            badge: "Spreadsheet Pick",
-            isCustom: true,
-            gameAssociation: game.name
-          });
+    
+    gamePlayer.style.display = 'flex';
+  }
+  
+  function closeGamePlayer() {
+    gamePlayer.style.display = 'none';
+    gameIframeContainer.innerHTML = ''; // stop video/game
+  }
+  
+  function renderGrid() {
+    countSpan.innerText = filteredGames.length;
+    if (filteredGames.length === 0) { 
+      grid.innerHTML = `<div class="empty-state"><i class="fas fa-skull-cowboy"></i><p>No games found 🌑</p><div>Try another search ✨</div></div>`; 
+      return; 
+    }
+    
+    let html = '';
+    for (let game of filteredGames) {
+      const iconHtml = game.icon ? `<img class="game-icon" src="${escapeHtml(game.icon)}" alt="${escapeHtml(game.name)}" onerror="this.onerror=null; this.src=''; this.outerHTML='<div class=\\'game-icon fallback\\'><i class=\\'fas fa-meteor\\' style=\\'font-size:2.5rem;\\'></i></div>';">` : `<div class="game-icon fallback"><i class="fas fa-gamepad" style="font-size:2.5rem;"></i></div>`;
+      
+      html += `
+        <div class="game-card" data-game-name="${escapeHtml(game.name)}" data-game-link="${escapeHtml(game.link)}" data-game-embed="${escapeHtml(game.embed || '')}" data-game-icon="${escapeHtml(game.icon || '')}" role="button" tabindex="0">
+          ${iconHtml}
+          <div class="game-name">${escapeHtml(game.name)}</div>
+          <div class="play-badge"><i class="fas fa-play-circle"></i> Play Inside!</div>
+        </div>
+      `;
+    }
+    grid.innerHTML = html;
+    
+    // Attach click handlers - ALL games play INSIDE now (no new tab!)
+    document.querySelectorAll('.game-card').forEach(card => {
+      const gameName = card.getAttribute('data-game-name');
+      const gameLink = card.getAttribute('data-game-link');
+      const gameEmbed = card.getAttribute('data-game-embed');
+      const gameIcon = card.getAttribute('data-game-icon');
+      
+      card.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playGameInside({
+          name: gameName,
+          link: gameLink,
+          embed: gameEmbed,
+          icon: gameIcon
+        });
+      });
+      card.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
         }
-      }
+      });
     });
-
-    return products;
-  };
-
-  const affiliateCatalog = getDynamicAffiliateProducts();
-
-  const getActiveGameAffiliates = () => {
-    if (!activeGame) return [];
-    return affiliateCatalog.filter(p => p.gameAssociation === activeGame.name || p.id === "cosmic-gamepad" || p.id === "neon-keyboard");
-  };
-
-  return (
-    <div className="min-h-screen bg-slate-950 font-sans text-slate-100 flex flex-col relative overflow-x-hidden selection:bg-purple-600 selection:text-white">
-      {/* Decorative background visual elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(15,23,42,0.85),rgba(2,6,23,0.95))] pointer-events-none z-0" />
-      <div className="fixed top-12 left-1/4 w-96 h-96 bg-indigo-500/10 blur-3xl pointer-events-none rounded-full" />
-      <div className="fixed bottom-1/4 right-1/4 w-96 h-96 bg-fuchsia-600/10 blur-3xl pointer-events-none rounded-full" />
-
-      {/* Primary Header */}
-      <header className="relative z-10 w-full border-b border-indigo-950 bg-slate-950/80 backdrop-blur pb-4 pt-5 px-6">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h1 className="text-3xl lg:text-4xl font-extrabold flex items-center justify-center lg:justify-start gap-3 bg-gradient-to-r from-purple-400 via-indigo-400 to-pink-400 bg-clip-text text-transparent pulsing-glow">
-              <Moon className="w-9 h-9 text-purple-400 fill-purple-950/40" />
-              Nightfall Arcade
-              <span className="hidden xl:inline-block px-2.5 py-0.5 text-xs text-indigo-300 font-bold tracking-widest uppercase bg-indigo-950/70 border border-indigo-900 rounded-full select-none cursor-default shadow-sm shadow-indigo-950 animate-pulse">
-                v2.0 LIVE
-              </span>
-            </h1>
-            <p className="text-indigo-300/80 text-sm font-medium mt-1 uppercase tracking-wide flex items-center gap-1.5 justify-center md:justify-start">
-              <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-spin" /> Click any game — plays right inside!
-            </p>
-          </div>
-
-          {/* Interactive Synthesizer Widget */}
-          <div className="flex items-center flex-wrap justify-center gap-3">
-            <button
-              onClick={handleToggleAmbient}
-              className={`rounded-2xl px-4 py-1.5 border flex items-center gap-2 text-xs font-bold transition-all duration-300 shadow-md cursor-pointer ${
-                audioEnabled
-                  ? "bg-purple-900/30 border-purple-500 text-purple-300 shadow-purple-500/10"
-                  : "bg-slate-900/90 border-slate-800 text-slate-400 hover:text-slate-200"
-              }`}
-              title="Procedural ambient chiptune track synthesiser - No external files needed!"
-            >
-              {audioEnabled ? (
-                <>
-                  <Volume2 className="w-4 h-4 text-purple-400 animate-bounce" />
-                  <span>Ambient Active</span>
-                  <div className="flex items-center gap-0.5 ml-1">
-                    {[...Array(5)].map((_, i) => (
-                      <div
-                        key={i}
-                        className={`w-1 bg-purple-400 rounded-full transition-all duration-200 ${
-                          activeNotePulse !== null && activeNotePulse % 5 === i ? "h-3" : "h-1"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <VolumeX className="w-4 h-4 text-slate-500" />
-                  <span>Ambient Synth Off</span>
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Container Layout */}
-      <main className="relative z-10 flex-1 w-full max-w-[1400px] mx-auto px-4 lg:px-6 py-6 flex flex-col lg:flex-row gap-6">
-        
-        {/* Left Core Section (Console & Games) */}
-        <div className="flex-1 flex flex-col gap-5">
-          <section className="bg-slate-950/50 backdrop-blur-md p-4 lg:p-5 border border-slate-900 rounded-3xl flex flex-col gap-4 shadow-lg">
-            
-            {/* Search inputs */}
-            <div className="flex flex-col md:flex-row items-center gap-3">
-              <div className="relative w-full">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-indigo-400" />
-                <input
-                  type="text"
-                  placeholder="🔎 Search games by name..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-slate-900/90 border border-slate-800 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 text-slate-100 rounded-2xl outline-none font-medium placeholder-slate-500 transition-all text-sm shadow-inner"
-                />
-              </div>
-
-              {(searchQuery || activeTab !== "all" || activeGenre !== "All") && (
-                <button
-                  onClick={resetFilters}
-                  className="w-full md:w-auto px-5 py-3 rounded-2xl bg-purple-900/30 border border-purple-800 text-purple-300 font-bold text-sm tracking-wide flex items-center justify-center gap-2 hover:bg-purple-950/50 hover:text-purple-200 active:scale-95 transition-all outline-none cursor-pointer"
-                >
-                  <Brush className="w-4 h-4" />
-                  Clear Search
-                </button>
-              )}
-            </div>
-
-            {/* Quick Filter tabs & segments */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 border-t border-slate-900 pt-3">
-              <div className="flex bg-slate-900/90 p-1.5 border border-slate-800/80 rounded-2xl gap-1 w-full md:w-auto">
-                <button
-                  onClick={() => { playChirp(); setActiveTab("all"); }}
-                  className={`flex-1 md:flex-none px-4 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-all ${
-                    activeTab === "all"
-                      ? "bg-purple-600 text-white shadow-md shadow-purple-900/20"
-                      : "text-slate-400 hover:text-slate-200"
-                  }`}
-                >
-                  All Games
-                </button>
-                <button
-                  onClick={() => { playChirp(); setActiveTab("favorites"); }}
-                  className={`flex-1 md:flex-none px-4 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all ${
-                    activeTab === "favorites"
-                      ? "bg-purple-600 text-white shadow-md shadow-purple-900/20"
-                      : "text-slate-400 hover:text-slate-200"
-                  }`}
-                >
-                  <Heart className="w-3.5 h-3.5 text-pink-400 fill-pink-400" />
-                  Favorites ({favorites.length})
-                </button>
-                <button
-                  onClick={() => { playChirp(); setActiveTab("recent"); }}
-                  className={`flex-1 md:flex-none px-4 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all ${
-                    activeTab === "recent"
-                      ? "bg-purple-600 text-white shadow-md shadow-purple-900/20"
-                      : "text-slate-400 hover:text-slate-200"
-                  }`}
-                >
-                  <History className="w-3.5 h-3.5" />
-                  Recent
-                </button>
-              </div>
-
-              {/* Genre Pills */}
-              <div className="flex flex-wrap gap-1.5 justify-start w-full md:w-auto">
-                {["All", "Retro", "Arcade", "Space", "Indie"].map(genre => (
-                  <button
-                    key={genre}
-                    onClick={() => { playChirp(); setActiveGenre(genre); }}
-                    className={`px-3 py-1 rounded-full text-xs font-bold border transition-all cursor-pointer ${
-                      activeGenre === genre
-                        ? "bg-indigo-600/25 border-indigo-400 text-indigo-200"
-                        : "bg-slate-900/60 border-slate-800/80 text-slate-400 hover:text-slate-300 hover:border-slate-700"
-                    }`}
-                  >
-                    {genre}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Total glowing info items indicator stats */}
-            <div className="flex items-center justify-between text-xs text-indigo-300/70 border-t border-slate-900 pt-3">
-              <span className="flex items-center gap-1.5 font-semibold">
-                <Dice6 className="w-4 h-4 text-purple-400 animate-spin" />
-                Showing <strong className="text-purple-400 font-extrabold">{filteredGames.length}</strong> cosmic emulators
-              </span>
-              <span className="text-slate-500 bg-slate-900/40 px-2 py-0.5 rounded-md border border-slate-900/60 font-mono">
-                Total Loaded: {games.length}
-              </span>
-            </div>
-          </section>
-
-          {/* Grid display layout */}
-          <section className="flex-1 flex flex-col">
-            {isLoading ? (
-              <div className="flex-1 flex flex-col items-center justify-center p-12 text-center">
-                <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mb-4" />
-                <p className="text-indigo-200 font-bold">Connecting to game satellites...</p>
-                <p className="text-xs text-slate-500 mt-1">Downloading public database channels</p>
-              </div>
-            ) : errorString && games.length === 0 ? (
-              <div className="bg-red-950/20 border border-red-900 p-8 rounded-3xl text-center max-w-lg mx-auto my-12">
-                <p className="text-red-400 font-bold text-lg mb-2">⚠️ Database Connection Interrupted</p>
-                <p className="text-sm text-red-300">{errorString}</p>
-                <button
-                  onClick={() => window.location.reload()}
-                  className="mt-4 px-4 py-2 bg-red-900/50 border border-red-700 text-red-200 rounded-xl text-xs font-bold hover:bg-red-900/70 transition-all cursor-pointer"
-                >
-                  Retry Connection
-                </button>
-              </div>
-            ) : filteredGames.length === 0 ? (
-              <div className="flex-1 flex flex-col items-center justify-center p-12 text-center bg-slate-950/30 border border-slate-900 rounded-3xl min-h-[300px]">
-                <Gamepad className="w-12 h-12 text-slate-600 mb-3" />
-                <p className="text-slate-400 font-bold text-lg">No games matches found 🌑</p>
-                <p className="text-xs text-slate-500 max-w-sm mt-1 mb-4">Try clearing active tags or typing simpler keywords</p>
-                <button
-                  onClick={resetFilters}
-                  className="px-4 py-2 bg-slate-900 border border-slate-800 text-indigo-300 font-bold rounded-xl text-xs hover:bg-slate-800 active:scale-95 transition-all cursor-pointer"
-                >
-                  Reset Active Filters
-                </button>
-              </div>
-            ) : (
-              <motion.div
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-5"
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: { opacity: 0 },
-                  visible: {
-                    opacity: 1,
-                    transition: { staggerChildren: 0.05 }
-                  }
-                }}
-              >
-                {filteredGames.map((game, index) => {
-                  const isFav = favorites.includes(game.name);
-                  const isPlayed = recentGames.includes(game.name);
-                  const playCount = playCounts[game.name] || 0;
-                  const currentRating = gameRatings[game.name] || 0;
-                  const hasCustomPromo = game.affiliateLink && game.affiliateLink.trim() !== "";
-
-                  return (
-                    <motion.div
-                      key={`${game.name}-${index}`}
-                      onMouseEnter={playChirp}
-                      onClick={() => playNewGame(game)}
-                      className="group relative bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/40 border border-slate-800/80 rounded-2xl hover:border-purple-500 cursor-pointer overflow-hidden flex flex-col p-4 shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-purple-950/25 active:scale-[0.98]"
-                      variants={{
-                        hidden: { y: 15, opacity: 0 },
-                        visible: { y: 0, opacity: 1 }
-                      }}
-                      whileHover={{ y: -4 }}
-                    >
-                      {hasCustomPromo && (
-                        <div className="absolute top-0 right-0 bg-yellow-400 font-black text-slate-950 text-[10px] tracking-wide px-2.5 py-0.5 rounded-bl-xl shadow-md uppercase">
-                          🔥 Promo Available
-                        </div>
-                      )}
-
-                      <div className="flex gap-4 items-start">
-                        {game.icon ? (
-                          <img
-                            src={game.icon}
-                            alt={game.name}
-                            onError={(e) => {
-                              (e.target as HTMLElement).outerHTML = `<div class="w-16 h-16 rounded-xl bg-slate-950 flex items-center justify-center border border-slate-800 shrink-0 text-purple-400"><i class="fas fa-meteor text-xl"></i></div>`;
-                            }}
-                            className="w-16 h-16 object-cover rounded-xl bg-slate-950 border border-slate-800 shrink-0 shadow-md group-hover:scale-105 transition-transform duration-300"
-                          />
-                        ) : (
-                          <div className="w-16 h-16 rounded-xl bg-slate-950/90 flex items-center justify-center border border-slate-800 shrink-0 text-slate-500 group-hover:text-purple-400 transition-colors">
-                            <Gamepad className="w-8 h-8" />
-                          </div>
-                        )}
-
-                        <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-bold text-slate-100 truncate group-hover:text-yellow-300 transition-colors">
-                            {game.name}
-                          </h3>
-
-                          <div className="flex flex-wrap items-center gap-1.5 mt-2">
-                            {isPlayed && (
-                              <span className="bg-indigo-950 border border-indigo-900 text-indigo-300 text-[10px] uppercase font-bold px-1.5 py-0.5 rounded-sm">
-                                Played
-                              </span>
-                            )}
-                            {playCount > 0 && (
-                              <span className="text-slate-400 font-mono text-[10px] flex items-center gap-0.5">
-                                <Flame className="w-3 h-3 text-orange-400 fill-orange-400" /> {playCount} Play sessions
-                              </span>
-                            )}
-                          </div>
-
-                          {/* Editable ratings */}
-                          <div
-                            className="flex items-center gap-0.5 mt-3 pt-2 border-t border-slate-900"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            {[1, 2, 3, 4, 5].map(st => (
-                              <button
-                                key={st}
-                                onClick={() => rateGame(game.name, st)}
-                                className="group/star p-0.5 text-slate-600 hover:text-yellow-400 transition-colors outline-none cursor-pointer"
-                                title={`Rate game ${st} stars`}
-                              >
-                                <Star
-                                  className={`w-3.5 h-3.5 ${
-                                    st <= currentRating
-                                      ? "text-yellow-400 fill-yellow-400"
-                                      : "text-slate-700/60 hover:text-slate-500"
-                                  }`}
-                                />
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={(e) => toggleFavorite(game.name, e)}
-                          className="text-slate-600 hover:text-pink-500 focus:outline-none cursor-pointer leading-none transition-colors ml-1 p-1 shrink-0"
-                          title={isFav ? "Remove from favorites" : "Add to favorites"}
-                        >
-                          <Heart
-                            className={`w-5 h-5 transition-all ${
-                              isFav ? "text-pink-500 fill-pink-500 scale-110" : "text-slate-500 hover:scale-105"
-                            }`}
-                          />
-                        </button>
-                      </div>
-
-                      <div className="mt-4 pt-2.5 border-t border-slate-900/60 flex items-center justify-between text-xs font-semibold text-purple-400 group-hover:text-purple-300">
-                        <span className="flex items-center gap-1">
-                          <PlayCircle className="w-4 h-4 text-emerald-400" />
-                          <span>Play inside Arcade</span>
-                        </span>
-                        <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            )}
-          </section>
-        </div>
-
-        {/* Right Side Sticky Sidebar Gear Shop */}
-        <div className="w-full lg:w-[360px] shrink-0 flex flex-col gap-5">
-          <section className="bg-slate-950/40 backdrop-blur-md border border-slate-900 rounded-3xl p-5 flex flex-col gap-4 shadow-xl lg:sticky lg:top-6 select-none">
-            <div className="flex items-center justify-between gap-2 pb-3 border-b border-indigo-950">
-              <h2 className="text-md font-extrabold uppercase tracking-widest text-indigo-200 flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-purple-400" />
-                Gamer Accessory Shop
-              </h2>
-              <Sparkles className="w-4 h-4 text-yellow-300 animate-spin" />
-            </div>
-
-            <p className="text-xs text-slate-400 leading-relaxed font-medium">
-              Setup your dream gaming station. Buy recommended products through our curated referral links and support this digital retro arcade catalog!
-            </p>
-
-            {/* List affiliate products */}
-            <div className="flex flex-col gap-3.5 max-h-[580px] overflow-y-auto pr-1">
-              {affiliateCatalog.map((product) => (
-                <div
-                  key={product.id}
-                  className={`bg-slate-900/80 border rounded-2xl p-3 flex gap-3 transition-colors duration-200 relative ${
-                    product.isCustom
-                      ? "border-yellow-500/60 bg-gradient-to-br from-slate-900 via-slate-900 to-yellow-950/10 hover:border-yellow-400"
-                      : "border-slate-800/80 hover:border-indigo-500"
-                  }`}
-                >
-                  {product.badge && (
-                    <span className="absolute -top-1.5 -left-1.5 bg-indigo-600 text-white text-[9px] pointer-events-none font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shadow">
-                      {product.badge}
-                    </span>
-                  )}
-                  {product.isCustom && (
-                    <span className="absolute -top-1.5 -right-1.5 bg-yellow-400 text-slate-950 text-[9px] pointer-events-none font-black uppercase tracking-wider px-2 py-0.5 rounded-full shadow">
-                      Live Offer
-                    </span>
-                  )}
-
-                  {product.image ? (
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      onError={(e) => {
-                        (e.target as HTMLElement).outerHTML = `<div class="w-16 h-16 rounded-xl bg-slate-950 border border-slate-800 shrink-0 flex items-center justify-center text-indigo-400"><span class="text-[10px]">Gear</span></div>`;
-                      }}
-                      className="w-16 h-16 object-cover rounded-xl bg-slate-950 border border-slate-800 shrink-0 shadow-inner"
-                    />
-                  ) : (
-                    <div className="w-16 h-16 rounded-xl bg-slate-950 flex items-center justify-center border border-slate-800 shrink-0 text-slate-500 font-mono">
-                      <Gamepad className="w-6 h-6" />
-                    </div>
-                  )}
-
-                  <div className="flex-1 min-w-0 flex flex-col justify-between">
-                    <div>
-                      <h4 className={`text-xs font-bold truncate leading-tight ${product.isCustom ? "text-yellow-300" : "text-slate-100"}`}>
-                        {product.name}
-                      </h4>
-                      <p className="text-[10px] text-slate-400 leading-tight mt-1 line-clamp-2">
-                        {product.description}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-between gap-1.5 mt-2.5">
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="text-xs font-black text-rose-400 font-mono">{product.price}</span>
-                        <span className="text-[9px] text-emerald-400 flex items-center gap-0.5">
-                          <Star className="w-2.5 h-2.5 fill-emerald-500 text-emerald-400" /> {product.rating}
-                        </span>
-                      </div>
-
-                      <a
-                        href={product.link && product.link !== "#" ? product.link : "https://amazon.com"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-purple-600 hover:bg-purple-500 text-white font-black text-[10px] tracking-widest uppercase px-3 py-1.5 rounded-xl transition-all shadow-sm shadow-purple-950 flex items-center gap-0.5 shrink-0"
-                      >
-                        Buy 
-                        <ExternalLink className="w-2.5 h-2.5 shrink-0" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="border-t border-slate-900 pt-3 flex items-center justify-center gap-1.5 text-[10px] text-slate-500 font-mono text-center">
-              <span>* Custom Spreadsheet items populate in real-time</span>
-            </div>
-
-            {/* Interactive earning guide */}
-            {showEarningsGuide ? (
-              <div className="bg-gradient-to-br from-indigo-950/60 via-slate-900 to-slate-950 p-4 border border-indigo-500/20 rounded-2xl shadow-lg relative overflow-hidden">
-                <div className="absolute top-2 right-2">
-                  <button 
-                    onClick={() => setShowEarningsGuide(false)}
-                    className="p-1 text-slate-500 hover:text-white hover:bg-slate-800/50 rounded-lg transition-colors cursor-pointer"
-                    title="Dismiss guide"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="p-1.5 bg-yellow-500/10 rounded-lg border border-yellow-500/20 text-yellow-400">
-                    <Coins className="w-4 h-4" />
-                  </div>
-                  <h4 className="text-xs font-black uppercase text-yellow-300 tracking-wider">Affiliate Cash Guide</h4>
-                </div>
-                <p className="text-[11px] text-slate-300 leading-normal mb-2.5">
-                  You can monetize your arcade traffic using <strong className="text-indigo-400">Affiliate Referral Cuts</strong>! Here is how:
-                </p>
-                <ul className="space-y-2 text-[10px] text-slate-400">
-                  <li className="flex items-start gap-1.5">
-                    <span className="text-yellow-400 font-bold font-mono">1.</span>
-                    <span>Sign up for the <strong>Amazon Associates</strong>, <strong>Epic Creator</strong>, or <strong>Humble Partner</strong> networks.</span>
-                  </li>
-                  <li className="flex items-start gap-1.5">
-                    <span className="text-yellow-400 font-bold font-mono">2.</span>
-                    <span>Put your custom referral links and promo images under columns <code className="text-purple-300 bg-slate-950 px-1 py-0.5 rounded font-mono">affiliate_link</code> and <code className="text-purple-300 bg-slate-950 px-1 py-0.5 rounded font-mono">affiliate_image</code> inside your Google Sheet.</span>
-                  </li>
-                  <li className="flex items-start gap-1.5">
-                    <span className="text-yellow-400 font-bold font-mono">3.</span>
-                    <span>Whenever a visitor clicks those custom deals to shop consoles or accessories, you score a <strong>3% to 12% cash commission</strong> straight to your bank!</span>
-                  </li>
-                </ul>
-              </div>
-            ) : (
-              <button 
-                onClick={() => setShowEarningsGuide(true)}
-                className="w-full py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 hover:text-slate-200 text-[10px] font-mono rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow"
-              >
-                <Coins className="w-3.5 h-3.5 text-yellow-500" />
-                Show Affiliate Cash Setup Steps
-              </button>
-            )}
-          </section>
-        </div>
-      </main>
-
-      {/* Footer information bar */}
-      <footer className="relative z-10 w-full max-w-[1400px] mx-auto px-6 py-6 border-t border-indigo-950/40 text-center text-xs text-slate-500 font-semibold flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-950/80 backdrop-blur">
-        <span>🌙 Nightfall Arcade Studio | instant play digital emulators</span>
-        <span className="flex items-center gap-2">
-          <span>Spreadsheet feed: <strong className="text-purple-400">Connected</strong></span>
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-        </span>
-      </footer>
-
-      {/* FULLSTAGE GAME PLAYER OVERLAY */}
-      <AnimatePresence>
-        {activeGame && (
-          <motion.div
-            className="fixed inset-0 bg-slate-950/98 z-50 flex flex-col justify-stretch p-3 lg:p-4 min-h-screen w-screen"
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ type: "spring", damping: 25, stiffness: 180 }}
-          >
-            <header className="bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 flex items-center justify-between gap-4 mb-3 shrink-0 shadow-lg">
-              <div className="flex items-center gap-3">
-                <Gamepad className="w-6 h-6 text-purple-400 fill-purple-950/20" />
-                <span className="text-yellow-400 font-extrabold text-xs sm:text-sm md:text-base tracking-wide uppercase flex items-center gap-2">
-                  {activeGame.name}
-                  <span className="hidden sm:inline-block bg-emerald-950 text-emerald-300 font-mono text-[9px] px-2 py-0.5 rounded border border-emerald-900 uppercase">
-                    Running Inside Arcade
-                  </span>
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                {activeGame.link && activeGame.link !== "#" && (
-                  <a
-                    href={activeGame.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-indigo-950 border border-indigo-800 hover:border-indigo-600 rounded-xl text-[11px] font-bold text-indigo-300 hover:text-white flex items-center gap-1 transition-all select-none cursor-pointer"
-                    title="Open game in a new browser tab/window if iframe loading fails"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5" />
-                    <span className="hidden md:inline">Open in New Tab</span>
-                  </a>
-                )}
-
-                <button
-                  onClick={() => setTheaterMode(!theaterMode)}
-                  className="p-2 border border-slate-800 hover:border-slate-700 bg-slate-950 rounded-xl text-slate-400 hover:text-slate-100 transition-all select-none cursor-pointer"
-                  title={theaterMode ? "Normal Mode" : "Widescreen Theater Mode"}
-                >
-                  {theaterMode ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-                </button>
-
-                <button
-                  onClick={handleClosePlayer}
-                  className="px-4 py-2 bg-rose-600 hover:bg-rose-500 active:scale-95 text-white text-xs font-black tracking-widest uppercase rounded-xl transition-all cursor-pointer flex items-center gap-1 shadow shadow-rose-950"
-                >
-                  <X className="w-3.5 h-3.5" />
-                  Close
-                </button>
-              </div>
-            </header>
-
-            <div className="flex-1 flex flex-col lg:flex-row gap-4 min-h-0 min-w-0 w-full mb-2">
-              <div className={`transition-all duration-300 flex flex-col bg-black rounded-2xl overflow-hidden border border-slate-900 game-emulator-container min-h-[450px] lg:min-h-0 ${
-                theaterMode ? "w-full lg:w-4/5" : "w-full lg:w-2/3"
-              }`}>
-                {(() => {
-                  const embedUrl = getEmbedUrl(activeGame.embed, activeGame.link);
-                  if (embedUrl && embedUrl !== "#") {
-                    return (
-                      <iframe
-                        src={embedUrl}
-                        title={activeGame.name}
-                        className="w-full h-full border-none bg-black flex-1"
-                        allowFullScreen
-                        allow="autoplay; keyboard; gamepad"
-                        sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-top-navigation"
-                      />
-                    );
-                  }
-                  
-                  return (
-                    <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-500">
-                      <Laptop className="w-16 h-16 text-slate-700 mb-2 animate-bounce" />
-                      <p className="text-slate-400 font-bold font-mono">No emulator embed codes loaded</p>
-                      <p className="text-xs text-slate-500 max-w-sm mt-1">Make sure column 'Embed' contains frame iframe elements in Google Sheet.</p>
-                    </div>
-                  );
-                })()}
-
-                <div className="bg-slate-950 px-4 py-2 border-t border-slate-900 flex items-center justify-between text-[10px] text-slate-400 font-mono select-none shrink-0">
-                  <span className="flex items-center gap-1.5 text-slate-500">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
-                    Secure Iframe Sandbox Active
-                  </span>
-                  {activeGame.link && activeGame.link !== "#" && (
-                    <a
-                      href={activeGame.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-purple-400 hover:text-purple-300 hover:underline font-bold flex items-center gap-1.5 transition-all"
-                      title="Open game inside regular new window if secure sandbox prevents embed loading"
-                    >
-                      <ExternalLink className="w-3 h-3" />
-                      Blocked? Launch Fullscreen
-                    </a>
-                  )}
-                </div>
-              </div>
-
-              {/* Sidebar Companion: Notes & custom specific affiliate */}
-              <div className={`transition-all duration-300 flex flex-col gap-4 overflow-y-auto ${
-                theaterMode ? "w-full lg:w-1/5" : "w-full lg:w-1/3"
-              }`}>
-                
-                {/* Note area */}
-                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col gap-3 shrink-0 shadow-lg">
-                  <h3 className="text-xs font-black uppercase text-indigo-300 flex items-center gap-2 tracking-widest pb-2 border-b border-slate-800">
-                    <NotebookPen className="w-4 h-4 text-purple-400" />
-                    Offline Cheat Notebook
-                  </h3>
-                  <p className="text-[10px] text-slate-400 leading-tight">
-                    Record walkthrough blueprints, high scores, passcodes, or tricks. Stores dynamically to local storage for this specific game.
-                  </p>
-                  <textarea
-                    rows={4}
-                    value={currentNote}
-                    onChange={(e) => {
-                      setCurrentNote(e.target.value);
-                      saveGameNote(activeGame.name, e.target.value);
-                    }}
-                    placeholder="Write details... E.g: Level 5 code is L1R2X"
-                    className="w-full p-3 bg-slate-950 border border-slate-800 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 text-slate-200 text-xs font-mono rounded-xl outline-none placeholder-slate-600 transition-all resize-none shadow-inner"
-                  />
-                  <div className="text-[9px] text-slate-500/80 font-mono text-right">
-                    * Automatically saved locally
-                  </div>
-                </div>
-
-                {/* Specific custom recommended promo banner */}
-                <div className="bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 p-4 border border-slate-800 rounded-2xl flex flex-col gap-3 shadow-lg">
-                  <h3 className="text-xs font-extrabold uppercase text-yellow-400 flex items-center gap-1.5 tracking-wider pb-2 border-b border-slate-800 select-none">
-                    <Flame className="w-3.5 h-3.5 text-yellow-400 animate-pulse" />
-                    Recommended Gear for you
-                  </h3>
-                  
-                  {getActiveGameAffiliates().slice(0, 1).map((promoItem) => (
-                    <div key={promoItem.id} className="flex flex-col gap-2.5">
-                      <div className="flex gap-2 items-center bg-slate-950/80 border border-slate-800/60 p-2.5 rounded-xl">
-                        {promoItem.image ? (
-                          <img
-                            src={promoItem.image}
-                            alt={promoItem.name}
-                            onError={(e) => { e.currentTarget.src = "https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=400&q=80"; }}
-                            className="w-12 h-12 rounded-lg object-cover bg-slate-900 border border-slate-800 shrink-0"
-                          />
-                        ) : (
-                          <div className="w-12 h-12 bg-slate-900 border border-slate-800 rounded-lg flex items-center justify-center shrink-0">
-                            <Gamepad className="w-5 h-5 text-indigo-400" />
-                          </div>
-                        )}
-                        <div className="min-w-0">
-                          <h4 className="text-xs font-black text-slate-100 truncate leading-snug">
-                            {promoItem.name}
-                          </h4>
-                          <span className="text-[10px] text-rose-400 font-bold font-mono">{promoItem.price}</span>
-                        </div>
-                      </div>
-
-                      <a
-                        href={promoItem.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-full py-2 bg-yellow-400 hover:bg-yellow-300 text-slate-950 font-black text-[10px] tracking-widest uppercase rounded-xl transition-all shadow text-center flex items-center justify-center gap-1.5"
-                      >
-                        Equip Deal Now
-                        <ExternalLink className="w-3 h-3 shrink-0" />
-                      </a>
-                    </div>
-                  ))}
-
-                  {getActiveGameAffiliates().length === 0 && (
-                    <p className="text-[10px] text-slate-400 leading-normal">
-                      Configure custom affiliate links under columns <strong className="text-indigo-400 font-mono">affiliate_link</strong> and <strong className="text-indigo-400 font-mono">affiliate_image</strong> inside your Google Sheet to highlight recommended products!
-                    </p>
-                  )}
-                </div>
-
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
+  }
+  
+  function applyFilter() { 
+    let term = currentSearchTerm.trim().toLowerCase(); 
+    filteredGames = term === "" ? [...allGames] : allGames.filter(g => g.name && g.name.toLowerCase().includes(term)); 
+    renderGrid(); 
+  }
+  
+  async function loadGames() {
+    try {
+      grid.innerHTML = `<div class="loader"><i class="fas fa-spinner fa-pulse"></i> Fetching games...</div>`;
+      const resp = await fetch(CSV_URL);
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const csv = await resp.text();
+      let gamesData = parseCSV(csv);
+      
+      allGames = gamesData.map(row => ({
+        name: row.name || row.title || "✨ Mystery Game",
+        icon: row.icon || row.image || "",
+        link: row.link || row.url || "#",
+        embed: row.embed || row.embedded || row.iframe || ""
+      })).filter(g => g.name);
+      
+      if (allGames.length === 0) {
+        allGames = [{ name: "Demo Game", icon: "", link: "https://example.com", embed: "<div style='padding:40px; background:#4c1d95; border-radius:20px; color:white; text-align:center;'><h2>✨ Add games to your CSV!</h2><p>Column 'Embed' can contain iframe or HTML</p></div>" }];
+      }
+      filteredGames = [...allGames];
+      renderGrid();
+    } catch(e) { 
+      console.error(e);
+      grid.innerHTML = `<div class="empty-state"><i class="fas fa-cloud-moon"></i><p>⚠️ Couldn't load games!</p><div>Make sure CSV is public</div></div>`; 
+      allGames = []; 
+      filteredGames = []; 
+      countSpan.innerText = "0"; 
+    }
+  }
+  
+  // Close button event
+  closeGameBtn.addEventListener('click', closeGamePlayer);
+  
+  // Press ESC to close game
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && gamePlayer.style.display === 'flex') {
+      closeGamePlayer();
+    }
+  });
+  
+  loadGames();
+  searchInput.addEventListener('input', (e) => { currentSearchTerm = e.target.value; applyFilter(); });
+  clearBtn.addEventListener('click', () => { searchInput.value = ""; currentSearchTerm = ""; applyFilter(); searchInput.focus(); });
+</script>
+</body>
+</html>
